@@ -198,7 +198,8 @@
     }, 1000)
 
 
-    const params = new URLSearchParams(location.search)
+    <!--const params = new URLSearchParams(location.search)-->
+    const params = new URLSearchParams('isJx=true')
 
     let qrColor
     if (params.get('isJx')) {
