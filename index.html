@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>服务大厅</title>
+	
+	<meta name="renderer" content="webkit">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="cache-control" content="max-age=0">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="expires" content="Tue, 01 Jan 1970 1:00:00 GMT">
+	<meta http-equiv="pragma" content="no-cache">
+	
+
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/jquery.gritter.css">
+	<link rel="stylesheet" href="css/jstarbox.css">
+	<link rel="stylesheet" href="css/rateit.css">
+	
+	
+	
+		<link rel="stylesheet" href="css/wechat.css">
+	
+	<!-- basic scripts -->
+	<script src="js/json2.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.timestamp.js"></script>
+	<script src="js/layer.js"></script><link rel="stylesheet" href="css/layer.css" id="layuicss-skinlayercss">
+	<script src="js/jquery.noty.packaged.min.js"></script>
+	<script src="js/jquery.fly.js"></script>
+	<script src="js/jquery-migrate-1.2.0.min.js"></script>
+	<script src="js/jquery.placeholder.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootbox.min.js"></script>
+	
+	<script src="js/jquery.gritter.min.js"></script>
+		
+	<script src="js/underscore-min.js"></script>
+	<script src="js/backbone-min.js"></script>
+	<script src="js/backbone.fetch-cache.min.js"></script>
+	<script src="js/jstarbox.js"></script>
+
+	<script src="js/jquery.rateit.js"></script>
+	<script src="js/jquery.scrollLoading.min.js"></script>
+	<script src="js/TouchSlide.1.1.js"></script>
+	<script src="js/jquery.tinycarousel.js"></script>
+	<script src="js/jquery.paging.js"></script>
+	<script src="js/jquery.easy-paging.js"></script>
+	<script src="js/jquery.easy-pie-chart.min.js"></script>
+	<script src="js/jquery.SuperSlide.2.1.js"></script>
+	
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lte IE 8]>
+	<script src="/taskcenter/resources/common/js/html5shiv.js?_v=20210415-212848"></script>
+	<script src="/taskcenter/resources/common/js/respond.min.js?_v=20210415-212848"></script>
+	<![endif]-->
+	<script src="js/jquery-textoverflow.js"></script>
+
+	<script src="js/public.js"></script>
+	
+	
+	<script>
+		Global = {
+			contentpath : "/taskcenter/",
+			bodyHeight : $('body').height(),
+			cacheTime : 6000,
+			debugModal: false,
+			CSRFToken: "",
+			resourceUrl: "",
+			resSys: "",
+			userId:"",
+			loginName: "昝新羽",
+			membership: "",
+			deviceName: "",
+			tag:"",
+			pathName:"apps",
+			supportFrame: "include",
+			loginStatus: "",
+			imageUrl: "",
+			contentSelector : ".contents",
+			templateSelector : "#contentsTemplate",
+			scrollTop : true,
+			titleMap : {},
+			hash : "",
+			dataName : "apps",
+			isLoading : true,
+			loginUrl : "",
+			version : "20210415-212848",
+			isDebug : "false",
+			locale: "zh",
+			positionTag: "",
+			isTeacher: "false",
+			homeAccessTimes : "",
+			hrbeuCmsUrl: "",
+			locationHost : "",
+			order:"auto"
+		};
+
+		Global._parameter = {};
+		Global.apps = [];
+		Global.todos = [];
+		Global.doings = [];
+		Global.dones = [];
+		Global.unrates = [];
+		Global.completeds = [];
+		Global.ccs = [];
+		Global.merges = [];
+		Global.selectorMap = {".btn-favorite" : "click",".btn-favorite-remove" : "click" 
+							, ".tag-select" : "change" , ".search-input":"keydown" , ".btn-search-input":"click" };
+		Global.hashMap = { "apps" : "contentsTemplate" , "audit" : "contentsAuditTemplate" ,"todo" : "contentsTodoTemplate"
+							 ,"doing" : "contentsDoingTemplate" ,"done" : "contentsDoneTemplate" , "unrate" : "contentsUnrateTemplate"
+						, "todohistory" : "contentsTodoHistoryTemplate" , "audithistory" : "contentsAuditHistoryTemplate"};
+		Global.apiMap = {"api/me/apps":"apps" , "api/me/tasks/todo":"todos","api/me/processes/doing?limit=%s&start=%s&keyword=%s":"doings" 
+						, "api/me/processes/done?limit=%s&start=%s&keyword=%s":"dones","api/me/processes/completed?limit=%s&start=%s&keyword=%s":"completeds" ,
+						 "api/process/%s":"processes" , "api/me/processes/merge" : "merges" , "api/me/processes/todo" : "mergeTodos" , 
+						 "api/me/processes/unrated" :"unrates" , "api/me/processes/cc?limit=%s&start=%s&keyword=%s":"ccs" };
+		Global.sepMap = {  "audit" : "true" , "audithistory" : "false" , "completed" : "true" , "merge" : "false" , "approval" : "true" };
+		Global.defaultTags = {"ALL":"全部","COLLECT":"收藏"};
+		Global.query = { limit : 10 , start : 0 ,pageSize : 10 , data : {}};
+		Global.rapidHandle = { checked : {} , names : {} , actions : {}};
+		Global.rapidCc={chooseAll:false,checked:{}};
+		Global.app = {palette:"green"};
+		Global.dataLength = {};
+		Global.rate = {};
+		if(Global.deviceName != 'mobile'){
+			Global.scrollTop = false;
+		}
+		$.cookie.json=true;
+		
+	</script>
+	<script src="js/flow.js"></script>
+	
+	
+<style>hcfy-result.__hcfy__result__loaded__.__hcfy__result__both__{border: 1px dotted}
+	#title_icon {
+      display: inline-block;
+      float: left;
+      width: 36px;
+      font-size: 24px;
+      color: white;
+      text-align: center;
+      cursor: pointer
+    }
+</style></head>
+
+<body class="no-skin" data-new-gr-c-s-check-loaded="14.1017.0" data-gr-ext-installed="">
+	<div class="sysu-contents">
+
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <!--<div class="weui_cell_ft"><a href="http://e-office.nuist.edu.cn/taskcenter/wechat/appall"><i class="iconfont"></i>全部事项</a></div>-->
+			<div class="weui_cell_ft"><a href="allmatters.html"><img src="images/icon_menu_1.png" width="20px">全部事项</a></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	          <!-- <p><i class="logo"></i>USC</p>-->
+				 <p class="logo1" style="margin-right:40px;">大学服务中心</p>
+	        </div>
+	        <div class="weui_cell_ft">
+	        	<!--<a href="http://e-office.nuist.edu.cn/taskcenter/wechat/search" class="weui_cell_ft_search" title="搜索">
+	        		<i class="iconfont"></i>
+	        	</a>-->
+				<img src="images/icon_search_1.png" width="20px">
+				<!--收藏图标 暂时 去掉 
+	        	<a href="#"  title=" "><i class="iconfont" style="padding-left: 20px;">&#xe602;</i></a>
+				-->
+	        </div>
+	    </div>
+		<div class="weui_tabbar">
+	        <a href="" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">待办理</p>
+	            <div class="weui_tabbar_icon"><i class="icon_msg ">2</i><img src="images/icon_nav_1.png" alt=""></div>
+	        </a>
+	        <a href="" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">待审核</p>
+	            <div class="weui_tabbar_icon"><img src="images/icon_nav_2.png" alt=""></div>
+	        </a>
+	        <a href="" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">进行中</p>
+	            <div class="weui_tabbar_icon"><img src="images/icon_nav_3.png" alt=""></div>
+	        </a>
+	        <a href="" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">已完成</p>
+	            <div class="weui_tabbar_icon"><img src="images/icon_nav_4.png" alt=""></div>
+	        </a>
+	        <a href="" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">抄送</p>
+	            <div class="weui_tabbar_icon"><img src="images/icon_nav_5.png" alt=""></div>
+	        </a>
+	    </div>
+	</div>
+	
+	<div class="bd">
+		<!--
+		<div class="weui_panel none_before">
+			<div class="weui_cells_title orange"><b>紧急事项 !</b></div>
+			<div class="weui_cells list_cells none_before none_after">
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		                <h3><i class="iconfont">&#xe603;</i>民兵组织整顿审批流程</h3>
+		                <p>距离办理截止还有：<span class="orange">00:30:00</span><br>截止时间：2016/05/05<br>状态：待办理</p>
+		            </div>
+		            <div class="weui_cell_ft"><a href="#" class="weui_btn green_btn"><b>马上办理</b></a></div>
+		        </div>
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		                <h3><i class="iconfont">&#xe603;</i>民兵组织整顿审批流程</h3>
+		                <p>距离办理截止还有：<span class="orange">00:30:00</span><br>截止时间：2016/05/05<br>状态：待办理</p>
+		            </div>
+		            <div class="weui_cell_ft"><a href="#" class="weui_btn green_btn"><b>马上办理</b></a></div>
+		        </div>
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		                <h3><i class="iconfont">&#xe603;</i>民兵组织整顿审批流程</h3>
+		                <p>距离办理截止还有：<span class="orange">00:30:00</span><br>截止时间：2016/05/05<br>状态：待办理</p>
+		            </div>
+		            <div class="weui_cell_ft"><a href="#" class="weui_btn green_btn"><b>马上办理</b></a></div>
+		        </div>
+	        </div>
+	        <a href="#" class="weui_btn gray_btn">查看所有紧急事项</a>
+	    </div>
+	-->
+		<div class="weui_panel none_before weui_panel_recommend">
+			<div class="weui_cells_title yellow"><b>推荐事项</b></div>
+			<div class="weui_cells list_cells none_before none_after">
+	    		
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+						<!--<a target="_blank" href="" title="复学申请表"><img src="images/icon_greenpoint.png" width="1%"> 复学申请表 
+		                	<i class="icon_text icon_text_1">-->
+		               		<a target="_blank" href="" title="复学申请表"> <h3><i class="iconfont" title=".">•</i>
+		                	复学申请表
+		                	<i class="icon_text icon_text_1">
+		                	<img src="images/icon_text_1.png" alt="推荐"></i></h3>
+		                 
+			                <p>
+			                	
+			                </p>       
+		               </a>
+		            </div>
+					<!--
+		            <div class="weui_cell_ft"><a href="#" title=" "><i class="iconfont like">&#xe602;</i></a></div>
+					-->
+		        </div>
+		        
+	        </div>
+	    </div>
+	
+		<div class="weui_panel none_before">
+			<div class="weui_cells_title green"><b>我的常办事项</b></div>
+			<div class="weui_cells list_cells none_before none_after">
+	    		
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		               <a target="_blank" href="" class="widget-elli" title="学生在外住宿申请">
+		                <h3><i class="iconfont" title=".">•</i> 学生在外住宿申请 </h3>
+		                <p>办理次数：<span app-stat-id="c24fd9fe-a0ac-4d4d-a164-9be5cbab721e">0</span>次</p>
+		                </a>
+		            </div>
+		        </div>
+		        
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		               <a target="_blank" href="" class="widget-elli" title="复学申请表">
+		                <h3><i class="iconfont" title=".">•</i> 复学申请表 </h3>
+		                <p>办理次数：<span app-stat-id="39ff117b-b719-4122-808d-80b5b200687c">0</span>次</p>
+		                </a>
+		            </div>
+		        </div>
+		        
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		               <a target="_blank" href="" class="widget-elli" title="宣传标语等展示申请表（学生）">
+		                <h3><i class="iconfont" title=".">•</i> 宣传标语等展示申请表（学生） </h3>
+		                <p>办理次数：<span app-stat-id="05701ce6-ebd5-4b55-b80e-85439139d323">0</span>次</p>
+		                </a>
+		            </div>
+		        </div>
+		        
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		               <a target="_blank" href="" class="widget-elli" title="宣传标语等展示申请表（研究生）">
+		                <h3><i class="iconfont" title=".">•</i> 宣传标语等展示申请表（研究生） </h3>
+		                <p>办理次数：<span app-stat-id="e230f691-4ffd-40f9-b7f7-d4492c46a6ad">0</span>次</p>
+		                </a>
+		            </div>
+		        </div>
+		        
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		               <a target="_blank" href="" class="widget-elli" title="研究生在外住宿申请">
+		                <h3><i class="iconfont" title=".">•</i> 研究生在外住宿申请 </h3>
+		                <p>办理次数：<span app-stat-id="e7a88c82-3520-4a12-8a15-7ef14a479cd3">0</span>次</p>
+		                </a>
+		            </div>
+		        </div>
+		        
+	    		
+	        </div>
+	        <!--<div class="spacing"><a href="" class="weui_btn green_btn2"><i class="iconfont"></i>全部事项</a></div>-->
+			<div class="spacing"><a href="" class="weui_btn green_btn2"><i class="leftpointer"></i>全部事项</a></div>
+			<!--<div class="spacing"><a href="" class="weui_btn green_btn2"><image src="images/icon_menu_1.png" width="20px"></image>全部事项</a></div>-->
+	    </div>
+	
+	</div>
+</div>
+<div class="right-bar">
+	<a href="">
+	
+		<img class="weui_cell_ft_me" src="images/personal-1.png">
+	
+	</a>
+	<a href="javascript:scroll(0,0)"><img class="goto-up" src="images/up-1.png"></a>
+</div>
+</div>
+<script id="contentsTemplate" type="text/template">
+<% var __meTodos = $.grep(globalMap._todos , function( todo ){
+   return (todo.process.owner && todo.process.owner.id == Global.userId) ;
+});
+var __auditingTodos = $.grep(globalMap._todos , function( todo ){
+   return !(todo.process.owner && todo.process.owner.id == Global.userId) ;
+}); 
+
+var ccs_num=0;
+var ccsUnread=[];
+if(globalMap.ccs&&globalMap.ccs.length>0){
+	ccsUnread=$.grep(globalMap.ccs,function(item){
+		if(!(item.read&&item.read>item.ccCreate)){
+			return true;
+		}
+		return false;
+	})
+}
+ccs_num=ccsUnread.length;
+%>
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft"><a href="/taskcenter/wechat/appall"><i class="iconfont">&#xe600;</i>全部事项</a></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	          <!-- <p><i class="logo"></i>USC</p>-->
+				 <p class="logo1" style="margin-right:40px;">大学服务中心</p>
+	        </div>
+	        <div class="weui_cell_ft">
+	        	<a href="/taskcenter/wechat/search" class="weui_cell_ft_search" title="搜索">
+	        		<i class="iconfont">&#xe601;</i>
+	        	</a>
+				<!--收藏图标 暂时 去掉 
+	        	<a href="#"  title=" "><i class="iconfont" style="padding-left: 20px;">&#xe602;</i></a>
+				-->
+	        </div>
+	    </div>
+		<div class="weui_tabbar">
+	        <a href="/taskcenter/wechat/todo" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">待办理</p>
+	            <div class="weui_tabbar_icon"><%if(__meTodos.length){%><i class="icon_msg "><%-__meTodos.length%></i><%}%><img src="images/icon_nav_1.png" alt=""></div>
+	        </a>
+	        <a href="/taskcenter/wechat/toaudit" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">待审核</p>
+	            <div class="weui_tabbar_icon"><%if(__auditingTodos.length){%><i class="icon_msg "><%-__auditingTodos.length%></i><%}%><img src="images/icon_nav_2.png" alt=""></div>
+	        </a>
+	        <a href="/taskcenter/wechat/doing" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">进行中</p>
+	            <div class="weui_tabbar_icon"><img src="images/icon_nav_3.png" alt=""></div>
+	        </a>
+	        <a href="/taskcenter/wechat/done" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">已完成</p>
+	            <div class="weui_tabbar_icon"><img src="images/icon_nav_4.png" alt=""></div>
+	        </a>
+	        <a href="/taskcenter/wechat/flow_cc" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">抄送</p>
+	            <div class="weui_tabbar_icon"><%if(ccs_num&&ccs_num>0){%><i class="icon_msg "><%-ccs_num%></i><%}%><img src="images/icon_nav_5.png" alt=""></div>
+	        </a>
+	    </div>
+	</div>
+	
+	<div class="bd">
+		<!--
+		<div class="weui_panel none_before">
+			<div class="weui_cells_title orange"><b>紧急事项 !</b></div>
+			<div class="weui_cells list_cells none_before none_after">
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		                <h3><i class="iconfont">&#xe603;</i>民兵组织整顿审批流程</h3>
+		                <p>距离办理截止还有：<span class="orange">00:30:00</span><br>截止时间：2016/05/05<br>状态：待办理</p>
+		            </div>
+		            <div class="weui_cell_ft"><a href="#" class="weui_btn green_btn"><b>马上办理</b></a></div>
+		        </div>
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		                <h3><i class="iconfont">&#xe603;</i>民兵组织整顿审批流程</h3>
+		                <p>距离办理截止还有：<span class="orange">00:30:00</span><br>截止时间：2016/05/05<br>状态：待办理</p>
+		            </div>
+		            <div class="weui_cell_ft"><a href="#" class="weui_btn green_btn"><b>马上办理</b></a></div>
+		        </div>
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		                <h3><i class="iconfont">&#xe603;</i>民兵组织整顿审批流程</h3>
+		                <p>距离办理截止还有：<span class="orange">00:30:00</span><br>截止时间：2016/05/05<br>状态：待办理</p>
+		            </div>
+		            <div class="weui_cell_ft"><a href="#" class="weui_btn green_btn"><b>马上办理</b></a></div>
+		        </div>
+	        </div>
+	        <a href="#" class="weui_btn gray_btn">查看所有紧急事项</a>
+	    </div>
+	-->
+		<div class="weui_panel none_before weui_panel_recommend">
+			<div class="weui_cells_title yellow"><b>推荐事项</b></div>
+			<div class="weui_cells list_cells none_before none_after">
+	    		<% 	_.each( globalMap.recommends , function( result , index ) {  if(index < 3){ %>
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		               <a target="_blank" href="<%-getAppUrl(result.uri)%>" title="<%-result.name%>"> <h3><i class="iconfont" title=".">&#xe603;</i>
+		                	<%-result.name%>
+		                	<i class="icon_text icon_text_1">
+		                	<img src="images/icon_text_1.png" alt="推荐"></i></h3>
+		                 <%
+		                		var description=[];
+		                		if(result.description){
+		                			description=result.description.split("$$");
+		                		}
+		                	%>
+			                <p>
+			                	<%if(description.length>0){%>
+			                		<%_.each(description,function(item){%>
+			                			<span><%-item%></span><br />
+			                		<%})%>
+			                	<%}%>
+			                </p>       
+		               </a>
+		            </div>
+					<!--
+		            <div class="weui_cell_ft"><a href="#" title=" "><i class="iconfont like">&#xe602;</i></a></div>
+					-->
+		        </div>
+		        <%}});%>
+	        </div>
+	    </div>
+	
+		<div class="weui_panel none_before">
+			<div class="weui_cells_title green"><b>我的常办事项</b></div>
+			<div class="weui_cells list_cells none_before none_after">
+	    		<%  _.each( globalMap.apps , function( result , index ) {  if(index < 5){  %>
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		               <a target="_blank" href="<%-getAppUrl(result.uri)%>"  class="widget-elli" title="<%-result.name%>">
+		                <h3><i class="iconfont" title=".">&#xe603;</i> <%-result.name%> </h3>
+		                <p>办理次数：<span app-stat-id="<%-result.id%>" >0</span>次</p>
+		                </a>
+		            </div>
+		        </div>
+		        <%}});%>
+	    		
+	        </div>
+	        <div class="spacing"><a href="/taskcenter/wechat/appall" class="weui_btn green_btn2"><i class="iconfont">&#xe600;</i>全部事项</a></div>
+	    </div>
+	
+	</div>
+</div>
+<div class="right-bar">
+	<a href="/taskcenter/wechat/me">
+	<%if(globalMap.todos && globalMap.todos.length>0){%>
+		<img class="weui_cell_ft_me" src="images/personal-1.png" />
+	<%}else{%>
+		<img class="weui_cell_ft_me" src="images/personal-2.png" />
+	<%}%>
+	</a>
+	<a href="javascript:scroll(0,0)"><img class="goto-up" src="images/up-1.png" /></a>
+</div>
+</script>
+
+
+
+<script id="contentsMeTemplate" type="text/template">
+<% var __meTodos = $.grep(globalMap._todos , function( todo ){
+   return (todo.process.owner && todo.process.owner.id == Global.userId) ;
+});
+var __auditingTodos = $.grep(globalMap._todos , function( todo ){
+   return !(todo.process.owner && todo.process.owner.id == Global.userId) ;
+}); 
+
+var ccs_num=0;
+var ccsUnread=[];
+if(globalMap.ccs&&globalMap.ccs.length>0){
+	ccsUnread=$.grep(globalMap.ccs,function(item){
+		if(!(item.read&&item.read>item.ccCreate)){
+			return true;
+		}
+		return false;
+	})
+}
+ccs_num=ccsUnread.length;
+%>
+<div class="container" style="background-color: rgb(235, 241, 239);" >
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft weui_cell_ft_back">
+	        	<a href="/taskcenter/wechat/index" >
+	        		<i class="iconfont">&#xe604;</i>
+	        	</a>
+	        </div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <p>我</p>
+	        </div>
+	    </div>
+	
+		<div class="weui_msg">
+		    <div class="weui_icon_area"><img src="images/icon_user.png"></div>
+		    <div class="weui_text_area"><h2><%-(Global.loginName || '')%>,您好</h2></div>
+		</div>
+	</div>
+	
+	<div class="bd">
+		<div class="weui_panel"></div>
+	
+		<div class="weui_panel">
+			<div class="weui_panel_hd">
+				<div class="weui_cell">
+					<div class="weui_cell_ft"><i class="iconfont">&#xe609;</i></div>
+		            <div class="weui_cell_bd weui_cell_primary"><p>我的事项</p></div>
+		            <div class="weui_cell_ft"></div>
+		        </div>
+		    </div>
+			<div class="weui_tabbar">
+		        <a href="/taskcenter/wechat/todo" class="weui_tabbar_item">
+		            <p class="weui_tabbar_label">待办理</p>
+		            <div class="weui_tabbar_icon"><img src="images/icon_nav_1.png" alt="">
+		            	<%if(__meTodos.length){%><i class="icon_msg "><%-__meTodos.length%></i><%}%>
+		            </div>
+		        </a>
+		        <a href="/taskcenter/wechat/toaudit" class="weui_tabbar_item">
+		            <p class="weui_tabbar_label">待审核</p>
+		            <div class="weui_tabbar_icon"><img src="images/icon_nav_2.png" alt="">
+		            	<%if(__auditingTodos.length){%><i class="icon_msg "><%-__auditingTodos.length%></i><%}%>
+		            </div>
+		        </a>
+		        <a href="/taskcenter/wechat/doing" class="weui_tabbar_item">
+		            <p class="weui_tabbar_label">进行中</p>
+		            <div class="weui_tabbar_icon"><img src="images/icon_nav_3.png" alt=""></div>
+		        </a>
+		        <a href="/taskcenter/wechat/done" class="weui_tabbar_item">
+		            <p class="weui_tabbar_label">已完成</p>
+		            <div class="weui_tabbar_icon"><img src="images/icon_nav_4.png" alt=""></div>
+		        </a>
+		    </div>
+	    </div>
+		<div class="weui_panel">
+			<!--
+			<div class="weui_panel_hd">
+				<div class="weui_cell">
+					<div class="weui_cell_ft"><i class="iconfont">&#xe60a;</i></div>
+		            <div class="weui_cell_bd weui_cell_primary"><p>夜间模式</p></div>
+		            <div class="weui_cell_ft"></div>
+		        </div>
+		    </div>
+			<div class="weui_panel_hd">
+				<div class="weui_cell">
+					<div class="weui_cell_ft"><i class="iconfont">&#xe607;</i></div>
+		            <div class="weui_cell_bd weui_cell_primary"><p>分享</p></div>
+		            <div class="weui_cell_ft"></div>
+		        </div>
+		    </div>
+			-->
+			<div class="weui_panel_hd">
+				<div class="weui_cell">
+					<div class="weui_cell_ft"><i class="iconfont">&#xe608;</i></div>
+		            <div class="weui_cell_bd weui_cell_primary"><p>服务电话</p></div>
+		            <!--<div class="weui_cell_ft"><span class="orange">020-86346234</span></div>-->
+		        </div>
+				
+		    </div>
+			<div class="my_address weui_panel_hd">
+					<dl class="address_item">
+						<dt>南京市宁六路219号</dt>
+						<dd>邮编：210044</dd>
+						<dt>电话：<a href="tel://86-25-58731101" class="phone_num">86-25-58731101</a></dt>
+					</dl>
+				</div>
+	    </div>
+	
+	    <div class="spacing2"><a href="/taskcenter/logout" class="weui_btn white_btn2 none_after">注销</a></div>
+	</div>
+</div>
+</script>
+
+
+<script id="contentsSearchTemplate" type="text/template">
+<% var __meTodos = $.grep(globalMap._todos , function( todo ){
+   return (todo.process.owner && todo.process.owner.id == Global.userId) ;
+});
+var __auditingTodos = $.grep(globalMap._todos , function( todo ){
+   return !(todo.process.owner && todo.process.owner.id == Global.userId) ;
+}); 
+
+var ccs_num=0;
+var ccsUnread=[];
+if(globalMap.ccs&&globalMap.ccs.length>0){
+	ccsUnread=$.grep(globalMap.ccs,function(item){
+		if(!(item.read&&item.read>item.ccCreate)){
+			return true;
+		}
+		return false;
+	})
+}
+ccs_num=ccsUnread.length;
+%>
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	    	<div class="weui_cell_ft weui_cell_ft_back">
+	    	<a href="/taskcenter/wechat/index"  >
+        		<i class="iconfont">&#xe604;</i>
+        	</a>
+	    	</div>
+	    	<div class="search_panel">
+	    		<div class="search_inner">
+	    			<i class="iconfont">&#xe601;</i>
+	        		<div class="input_inner"><input class="weui_input search-input" type="text"  placeholder="搜索事项名"></div>
+	        		<div class="search_icon btn-search-input">搜索</div>
+	    		</div>
+	    	</div>
+		</div>
+	</div>
+	
+	<div class="bd">
+		<div class="weui_panel history_panel">
+			
+		  <% if(globalMap.apps.length>0){%>
+			<% _.each( globalMap.searchHistories , function( item ) { %>
+			<div class="weui_panel_hd">
+				<div class="weui_cell">
+					<div class="weui_cell_ft"><i class="iconfont">&#xe60c;</i></div>
+		            <div class="weui_cell_bd weui_cell_primary"><p class="quicksearch"><%-item%></p></div>
+		            <div class="weui_cell_ft"><i class="iconfont iconremove">&#xe60b;</i></div>
+		        </div>
+		    </div>
+		    <%});%>
+			
+			
+			<div class="weui_cells list_cells none_before none_after">
+				<div class="weui_cell" style="background-color: #e8e8e8;">
+		            <div class="weui_cell_bd weui_cell_primary">
+						 您是不是要找：
+		            </div>
+		        </div>
+	    		<% _.each( globalMap.apps , function( result ) { %>
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		                <h3><i class="iconfont">&#xe603;</i>
+		                	<a target="_blank" href="<%-getAppUrl(result.uri)%>"  class="widget-elli" title="<%-result.name%>">
+								<%-result.name%>
+							</a>
+		                </h3>
+		            </div>
+		        </div>
+		        <%});%>
+	        </div>
+		 <%}else if(Global.isLoading==false && globalMap.apps.length == 0){%>
+			<div class="weui_panel_hd">
+				很抱歉，没有找到“<%-Global.query.searchText%>”相关事项。 </br>
+				请修改或尝试其它关键词。
+			</div>
+		 <%}%>
+		</div>
+	</div>	
+</div>
+<div class="right-bar">
+	<a href="javascript:scroll(0,0)"><img class="goto-up" src="images/up-1.png" /></a>
+</div>
+</script>
+
+
+
+<script id="contentsAppAllTemplate" type="text/template">
+<% var __meTodos = $.grep(globalMap._todos , function( todo ){
+   return (todo.process.owner && todo.process.owner.id == Global.userId) ;
+});
+var __auditingTodos = $.grep(globalMap._todos , function( todo ){
+   return !(todo.process.owner && todo.process.owner.id == Global.userId) ;
+}); 
+
+var ccs_num=0;
+var ccsUnread=[];
+if(globalMap.ccs&&globalMap.ccs.length>0){
+	ccsUnread=$.grep(globalMap.ccs,function(item){
+		if(!(item.read&&item.read>item.ccCreate)){
+			return true;
+		}
+		return false;
+	})
+}
+ccs_num=ccsUnread.length;
+%>
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft"><a href="/taskcenter/wechat/index"><i class="iconfont">&#xe604;</i></a></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <p>全部事项</p>
+	        </div>
+	        <div class="weui_cell_ft">
+	        	<a href="/taskcenter/wechat/search" class="weui_cell_ft_search" title="搜索"><i class="iconfont ">&#xe601;</i></a>
+	        </div>
+	    </div>
+		<div class="menu_cell">
+			<% var __tags = $.grep(globalMap.tags , function( tag ){
+				   return tag != Global.defaultTags.ALL && tag != Global.defaultTags.COLLECT && tag.indexOf("-")!=-1;
+			   });
+			   __tags.sort(
+					function(tag1,tag2){
+						var index1 = tag1.indexOf("-");
+						var index2 = tag2.indexOf("-");
+						var v1 = tag1;
+						var v2 = tag2;
+						if(index1 == -1 && index2 >-1){
+							return -1;
+						}
+						if(index1 > -1 && index2 == -1){
+							return 1;
+						}
+						if(index1 == -1 && index2 == -1){
+							return 0;
+						}
+						if(index1 > -1){
+							 v1 = tag1.slice(0,index1);
+						}
+						if(index2 > -1){
+							 v2 = tag2.slice(0,index2);
+						}
+						//console.log("v1:"+v1);
+						//console.log("v2:"+v2);
+						return v1 - v2;
+			 		}
+			);
+			%>
+			<ul>
+				<li><a href="#" class="menu_item_on">全部</a></li>
+				<% _.each( __tags , function( item , index ) { %>
+				<li><i class="line"></i><a href="#<%-Base64.encode(item)%>"><span class="widget-elli" title="<%-item%>" ><%-item%></span></a></li>
+				<%});%>
+			</ul>
+	    </div>
+	</div>
+	
+	<div class="bd">
+		<%
+			var newTagApps={};
+			_.each(globalMap._tagApps,function(item,tag){
+				if(tag.indexOf("-")>-1){
+					newTagApps[tag]=item;
+				}
+			})
+		%>
+		<% var count = 0;%>
+		<% _.each( __tags , function(tag,index) { count++;  %>
+		<%
+			var item=newTagApps[tag];
+		%>
+		<a name="<%-Base64.encode(tag)%>"></a>
+		<div class="weui_panel none_before none_after">
+			<div class="weui_cells_title weui_cells_title2 cyan"><b><%-tag%></b></div>
+			<div class="weui_cells list_cells none_before none_after">
+	    		<% _.each( item.apps , function( result ) { %>
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		                <h3><i class="iconfont">&#xe603;</i>
+		                	<a target="_blank" href="<%-getAppUrl(result.uri)%>"  class="widget-elli" title="<%-result.name%>">
+								<%-result.name%>
+							</a>
+		                </h3>
+		            </div>
+		        </div>
+		        <%});%>
+	        </div>
+	    </div>
+	    <%});%>
+	</div>
+</div>
+<div class="right-bar">
+	<a href="javascript:scroll(0,0)"><img class="goto-up" src="images/up-1.png" /></a>
+</div>
+</script>
+
+<script id="contentsAuditTemplate" type="text/template">
+<% var __meTodos = $.grep(globalMap._todos , function( todo ){
+   return (todo.process.owner && todo.process.owner.id == Global.userId) ;
+});
+var __auditingTodos = $.grep(globalMap._todos , function( todo ){
+   return !(todo.process.owner && todo.process.owner.id == Global.userId) ;
+}); 
+
+var ccs_num=0;
+var ccsUnread=[];
+if(globalMap.ccs&&globalMap.ccs.length>0){
+	ccsUnread=$.grep(globalMap.ccs,function(item){
+		if(!(item.read&&item.read>item.ccCreate)){
+			return true;
+		}
+		return false;
+	})
+}
+ccs_num=ccsUnread.length;
+%>
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft"><a href="/taskcenter/wechat/index"><i class="iconfont">&#xe604;</i></a></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <p>我的事项</p>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="bd">
+		<div class="weui_tab work_tab">
+	        <div class="weui_navbar">
+	            <div navtap="todo" class="weui_navbar_item"><a href="/taskcenter/wechat/todo">待办理</a><%if(__meTodos.length){%><i class="icon_msg red"><%-__meTodos.length%></i><%}%></div>
+	            <div navtap="audit" class="weui_navbar_item"><a href="/taskcenter/wechat/toaudit">待审核</a><%if(__auditingTodos.length){%><i class="icon_msg red"><%-__auditingTodos.length%></i><%}%></div>
+	            <div navtap="doing" class="weui_navbar_item"><a href="/taskcenter/wechat/doing">进行中</a></div>
+	            <div navtap="done" class="weui_navbar_item"><a href="/taskcenter/wechat/done">已完成</a></div>
+	            <div navtap="cc" class="weui_navbar_item"><a href="/taskcenter/wechat/flow_cc">抄送</a><%if(ccs_num&&ccs_num>0){%><i class="icon_msg red"><%-ccs_num%></i><%}%></div>
+	        </div>
+	        <div class="weui_tab_bd">
+	        	<!-- 
+	        	<div class="search_panel">
+	        		<div class="search_inner">
+		        		<div class="input_inner"><input id="queryWhole" class="weui_input search-input" type="text" placeholder="请输入待办事项关键字进行搜索"></div>
+		        		<div class="search_icon is-button btn-search-input" ><i class="iconfont">&#xe601;</i></div>
+	        		</div>
+	        	</div>
+				 
+	    		<div class="content-result">-->
+<div class="weui_tab_bd">
+	        	<div class="search_panel">
+	        		<div class="search_inner">
+		        		<div class="input_inner"><input id="queryWhole" class="weui_input search-input" type="text" placeholder="请输入待审核事项名称"></div>
+		        		<div class="search_icon is-button btn-search-input" ><i class="iconfont">&#xe601;</i></div>
+	        		</div>
+	        	</div>
+	    		<div class="content-result">
+<div class="weui_cells list_cells list_cells2 list_bg none_before none_after mTop_0">
+	<% _.each( __auditingTodos , function( item , index ) {%>
+	<div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <a href="<%-item.uri%>" target="_blank" queryAble=true>
+            <%if(item.stick){%>
+            <h3 class="red"><i class="icon_text icon_text_2">
+            	<img src="images/icon_text_2.png" alt="置顶"></i><%-item.process.name%></h3>
+            <%}else{%>
+            	<h3><i class="iconfont">&#xe603;</i><%-item.process.name%></h3>
+            <%}%>
+            <p>流水号：<%-item.process.entry%><br>步骤：<%-item.name%></p>
+            </a>
+        </div>
+        <div class="weui_cell_ft">
+        	<div class="ft_RT"><span class="time"><%-prettyDate(item.assignTime*1000)%></span></div>
+        	<%if(item.stick){%>
+        	<div class="ft_RB"><a href="#"  todo-identity="<%-item.id%>" class="t_underline gray4 stick-toggle">取消置顶</a></div>
+        	<%}else{%>
+			<div class="ft_RB"><a href="#"  todo-identity="<%-item.id%>" class="t_underline gray4 stick-toggle">置顶</a></div>
+			<%}%>
+        </div>
+    </div>
+	<%});%>
+</div>
+</div>
+	    		<!--  </div>-->
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="right-bar">
+	<a href="javascript:scroll(0,0)"><img class="goto-up" src="images/up-1.png" /></a>
+</div>
+</script>
+
+
+<script id="contentsTodoTemplate" type="text/template">
+<% var __meTodos = $.grep(globalMap._todos , function( todo ){
+   return (todo.process.owner && todo.process.owner.id == Global.userId) ;
+});
+var __auditingTodos = $.grep(globalMap._todos , function( todo ){
+   return !(todo.process.owner && todo.process.owner.id == Global.userId) ;
+}); 
+
+var ccs_num=0;
+var ccsUnread=[];
+if(globalMap.ccs&&globalMap.ccs.length>0){
+	ccsUnread=$.grep(globalMap.ccs,function(item){
+		if(!(item.read&&item.read>item.ccCreate)){
+			return true;
+		}
+		return false;
+	})
+}
+ccs_num=ccsUnread.length;
+%>
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft"><a href="/taskcenter/wechat/index"><i class="iconfont">&#xe604;</i></a></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <p>我的事项</p>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="bd">
+		<div class="weui_tab work_tab">
+	        <div class="weui_navbar">
+	            <div navtap="todo" class="weui_navbar_item"><a href="/taskcenter/wechat/todo">待办理</a><%if(__meTodos.length){%><i class="icon_msg red"><%-__meTodos.length%></i><%}%></div>
+	            <div navtap="audit" class="weui_navbar_item"><a href="/taskcenter/wechat/toaudit">待审核</a><%if(__auditingTodos.length){%><i class="icon_msg red"><%-__auditingTodos.length%></i><%}%></div>
+	            <div navtap="doing" class="weui_navbar_item"><a href="/taskcenter/wechat/doing">进行中</a></div>
+	            <div navtap="done" class="weui_navbar_item"><a href="/taskcenter/wechat/done">已完成</a></div>
+	            <div navtap="cc" class="weui_navbar_item"><a href="/taskcenter/wechat/flow_cc">抄送</a><%if(ccs_num&&ccs_num>0){%><i class="icon_msg red"><%-ccs_num%></i><%}%></div>
+	        </div>
+	        <div class="weui_tab_bd">
+	        	<!-- 
+	        	<div class="search_panel">
+	        		<div class="search_inner">
+		        		<div class="input_inner"><input id="queryWhole" class="weui_input search-input" type="text" placeholder="请输入待办事项关键字进行搜索"></div>
+		        		<div class="search_icon is-button btn-search-input" ><i class="iconfont">&#xe601;</i></div>
+	        		</div>
+	        	</div>
+				 
+	    		<div class="content-result">-->
+<div class="weui_tab_bd">
+	        	<div class="search_panel">
+	        		<div class="search_inner">
+		        		<div class="input_inner"><input id="queryWhole" class="weui_input search-input" type="text" placeholder="请输入待办理事项名称"></div>
+		        		<div class="search_icon is-button btn-search-input" ><i class="iconfont">&#xe601;</i></div>
+	        		</div>
+	        	</div>
+	    		<div class="content-result">
+<div class="weui_cells list_cells list_cells2 list_bg none_before none_after mTop_0">
+	<% _.each( __meTodos , function( item , index ) {%>
+	<div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <a href="<%-item.uri%>" target="_blank" queryAble=true>
+            <%if(item.stick){%>
+            <h3 class="red"><i class="icon_text icon_text_2">
+            	<img src="images/icon_text_2.png" alt="置顶"></i>
+            	<%-item.process.name%>
+            </h3>
+            <%}else{%>
+            	<h3><i class="iconfont">&#xe603;</i><%-item.process.name%></h3>
+            <%}%>
+            <p>流水号：<%-item.process.entry%><br>步骤：<%-item.name%></p>
+            </a>
+        </div>
+        <div class="weui_cell_ft">
+        	<div class="ft_RT"><span class="time"><%-prettyDate(item.assignTime*1000)%></span></div>
+        	<%if(item.stick){%>
+        	<div class="ft_RB"><a href="#"  todo-identity="<%-item.id%>" class="t_underline gray4 stick-toggle">取消置顶</a></div>
+        	<%}else{%>
+			<div class="ft_RB"><a href="#"  todo-identity="<%-item.id%>" class="t_underline gray4 stick-toggle">置顶</a></div>
+			<%}%>
+        </div>
+    </div>
+	<%});%>
+</div>
+</div>
+	    		<!--  </div>-->
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="right-bar">
+	<a href="javascript:scroll(0,0)"><img class="goto-up" src="images/up-1.png" /></a>
+</div>
+</script>
+
+<script id="contentsCcTemplate" type="text/template">
+<% 
+var process;
+_.each( globalMap.ccs , function( item ){
+   if(item.tasks && item.tasks.length > 0){
+   	 process = item;
+   }
+});
+if( process && process.tasks.length > 0){ 
+%>
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft weui_cell_ft_back">
+		    	<a href="/taskcenter/wechat/done"><i class="iconfont">&#xe604;</i></a>
+	        </div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <p>查看明细</p>
+	        </div>
+	    </div>
+	</div>
+	<%  var title = process.pendingTasks;
+		var mpercent = 0;
+		if(process.milestone && process.milestone.percent){
+			mpercent = process.milestone.percent;
+		}
+	%>
+	<div class="bd">
+		<div class="weui_media_box weui_media_text">
+			<div class="ft_RT"><span class="progress">已完成<%-mpercent%>%</span></div>
+	        <h4 class="weui_media_title"><%-process.name%></h4>
+	        <p class="p_panel"><span>申请时间：<%-prettyDate(process.update*1000)%></span>
+	        	<span>流水号：<%-process.entry%></span><span> 步骤：<%-title%></span></p>
+	    </div>
+		<div class="weui_tabbar step_tabbar" data="3">
+	        <div class="step_line"><i></i></div>
+			<% _.each( process.milestones , function(item , index) {%>
+			<%if(item.done){%>
+			 <div class="weui_tabbar_item step_past">
+	            <div class="weui_tabbar_icon"><i class="iconfont">&#xe60d;</i></div>
+	            <p class="weui_tabbar_label"><%-item.name%></p>
+	        </div>
+			<%}else if(item.current){%>
+			<div class="weui_tabbar_item step_now">
+	            <div class="weui_tabbar_icon"><i class="iconfont"><%-(index+1)%></i></div>
+	            <p class="weui_tabbar_label"><%-item.name%></p>
+	            <p class="weui_tabbar_label">您正在此步骤</p>
+	        </div>	
+			<%}else{if((index+1)==process.milestones.length){%>
+			<div class="weui_tabbar_item">
+	            <div class="weui_tabbar_icon"><i class="iconfont">&#xe60d;</i></div>
+	            <p class="weui_tabbar_label">完成</p>
+	        </div>	
+			<%}else{%>
+			 <div class="weui_tabbar_item">
+	            <div class="weui_tabbar_icon"><i class="iconfont"><%-(index+1)%></i></div>
+	            <p class="weui_tabbar_label"><%-item.name%></p>
+	        </div>
+			<%}}%>
+			<%});%>	
+	    </div>
+	 
+		<div class="weui_cells list_cells list_cells2 list_step none_after mTop_0">
+			<div class="step_line"><i></i></div>
+			<% _.each( process.tasks , function(item , index) { %>
+			<%if(!item.actionName && !item.actionTime && !item.actionUser){%>
+			<div class="weui_cell step_now">
+	            <div class="weui_cell_hd"><i class="iconfont">&#xe603;</i></div>
+	            <div class="weui_cell_bd weui_cell_primary">
+	                <h3><%-item.name%></h3>
+	                <p>状态：办理中...</p>
+	            </div>
+	        </div>
+	        <%}else{%>
+	    	<div class="weui_cell">
+	            <div class="weui_cell_hd"><i class="iconfont">&#xe603;</i></div>
+	            <div class="weui_cell_bd weui_cell_primary">
+	                <h3><%-item.name%></h3>
+	                <p>状态：<%-item.actionName%><br>办理时间：<%-(item.actionTime == 0 ? "":getFormatDateByLong(item.actionTime*1000,'yyyy-MM-dd hh:mm'))%>
+	                	<br>办理用户；<%-(item.actionUser ? item.actionUser.name : '')%></p>
+	            </div>
+	        </div>
+	        <%}});%>
+	    </div>
+	</div>
+</div>
+<%}else{%>
+<% var __meTodos = $.grep(globalMap._todos , function( todo ){
+   return (todo.process.owner && todo.process.owner.id == Global.userId) ;
+});
+var __auditingTodos = $.grep(globalMap._todos , function( todo ){
+   return !(todo.process.owner && todo.process.owner.id == Global.userId) ;
+}); 
+
+var ccs_num=0;
+var ccsUnread=[];
+if(globalMap.ccs&&globalMap.ccs.length>0){
+	ccsUnread=$.grep(globalMap.ccs,function(item){
+		if(!(item.read&&item.read>item.ccCreate)){
+			return true;
+		}
+		return false;
+	})
+}
+ccs_num=ccsUnread.length;
+%>
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft"><a href="/taskcenter/wechat/index"><i class="iconfont">&#xe604;</i></a></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <p>我的事项</p>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="bd">
+		<div class="weui_tab work_tab">
+	        <div class="weui_navbar">
+	            <div navtap="todo" class="weui_navbar_item"><a href="/taskcenter/wechat/todo">待办理</a><%if(__meTodos.length){%><i class="icon_msg red"><%-__meTodos.length%></i><%}%></div>
+	            <div navtap="audit" class="weui_navbar_item"><a href="/taskcenter/wechat/toaudit">待审核</a><%if(__auditingTodos.length){%><i class="icon_msg red"><%-__auditingTodos.length%></i><%}%></div>
+	            <div navtap="doing" class="weui_navbar_item"><a href="/taskcenter/wechat/doing">进行中</a></div>
+	            <div navtap="done" class="weui_navbar_item"><a href="/taskcenter/wechat/done">已完成</a></div>
+	            <div navtap="cc" class="weui_navbar_item"><a href="/taskcenter/wechat/flow_cc">抄送</a><%if(ccs_num&&ccs_num>0){%><i class="icon_msg red"><%-ccs_num%></i><%}%></div>
+	        </div>
+	        <div class="weui_tab_bd">
+	        	<!-- 
+	        	<div class="search_panel">
+	        		<div class="search_inner">
+		        		<div class="input_inner"><input id="queryWhole" class="weui_input search-input" type="text" placeholder="请输入待办事项关键字进行搜索"></div>
+		        		<div class="search_icon is-button btn-search-input" ><i class="iconfont">&#xe601;</i></div>
+	        		</div>
+	        	</div>
+				 
+	    		<div class="content-result">-->
+<div class="weui_tab_bd">
+	<div class="search_panel" style="padding: 20px 100px 20px 10px; position: relative;">
+		<div class="search_inner">
+    		<div class="input_inner"><input id="queryWhole" class="weui_input search-input" type="text" placeholder="请输入抄送事项名称"></div>
+    		<div class="search_icon is-button btn-search-input" ><i class="iconfont">&#xe601;</i></div>
+		</div>
+		<div class="btn_read" rapid-cc>标记为已读</div>
+	</div>
+	<div class="content-result">
+		<div class="weui_cells list_cells list_cells2 list_bg none_before none_after mTop_0">
+		<% _.each( globalMap.ccs , function( item , index ) {%>
+		<%  
+			var title = item.pendingTasks;
+			var mpercent = 0;
+			if(item.milestone && item.milestone.percent){
+				mpercent = item.milestone.percent;
+			}
+		%>
+		<div class="weui_cell" style="padding-left: 30px;">
+		
+        <div class="weui_cell_bd weui_cell_primary">
+        	<%if(item.read&&item.read>item.ccUpdate){%>
+				<div class="sx_check">
+				</div>
+				<a href="<%-item.uri%>" target="_blank" queryAble=true>
+					<h3 class="cc_read" ><%-item.name%></h3>
+		            <p>流水号：<%-item.entry%><br>步骤：<%-title%></p>
+		            <div class="progress"><i class="inner" data="<%-mpercent%>"></i><span class="text">已完成<%-mpercent%>%</span></div>
+		        </a>
+			<%}else{%>
+				<div class="sx_check">
+					<%if(Global.rapidCc&&Global.rapidCc.checked[item.id]){%>
+						<img class="pr-select-cc" cc-identity="<%-item.id%>" src="<%-Global.resourceUrl%>/images/check_yes.gif" />
+					<%}else{%>
+						<img class="pr-select-cc" cc-identity="<%-item.id%>" src="<%-Global.resourceUrl%>/images/check_no.gif" />
+					<%}%>
+				</div>
+				<a href="<%-item.uri%>" target="_blank" queryAble=true>
+					<h3 class="cc_unread" ><%-item.name%></h3>
+		            <p>流水号：<%-item.entry%><br>步骤：<%-title%></p>
+		            <div class="progress"><i class="inner" data="<%-mpercent%>"></i><span class="text">已完成<%-mpercent%>%</span></div>
+	            </a>
+			<%}%>
+            
+           
+        </div>
+        <div class="weui_cell_ft">
+        	<div class="ft_RT"><span class="time"><%-prettyDate(item.update*1000)%></span></div>
+        	<div class="ft_RB"><a href="#" process-identity="<%-item.id%>" class="t_underline gray4">查看明细</a></div>
+        </div>
+    </div>
+	<%});%>
+</div>
+</div>
+	    		<!--  </div>-->
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="right-bar">
+	<a href="javascript:scroll(0,0)"><img class="goto-up" src="images/up-1.png" /></a>
+</div>
+<%}%>
+</script>
+
+<script id="contentsDoingTemplate" type="text/template">
+<% 
+var process;
+_.each( globalMap.doings , function( item ){
+   if(item.tasks && item.tasks.length > 0){
+   	 process = item;
+   }
+});
+if( process && process.tasks.length > 0){ 
+%>
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft weui_cell_ft_back">
+		    	<a href="/taskcenter/wechat/doing"><i class="iconfont">&#xe604;</i></a>
+	        </div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <p>查看明细</p>
+	        </div>
+	    </div>
+	</div>
+	<%  var title = process.pendingTasks;
+		var mpercent = 0;
+		if(process.milestone && process.milestone.percent){
+			mpercent = process.milestone.percent;
+		}
+	%>
+	<div class="bd">
+		<div class="weui_media_box weui_media_text">
+			<div class="ft_RT"><span class="progress">已完成<%-mpercent%>%</span></div>
+	        <h4 class="weui_media_title"><%-process.name%></h4>
+	        <p class="p_panel"><span>申请时间：<%-prettyDate(process.update*1000)%></span>
+	        	<span>流水号：<%-process.entry%></span><span> 步骤：<%-title%></span></p>
+	    </div>
+		<div class="weui_tabbar step_tabbar" data="3">
+	        <div class="step_line"><i></i></div>
+			<% _.each( process.milestones , function(item , index) {%>
+			<%if(item.done){%>
+			 <div class="weui_tabbar_item step_past">
+	            <div class="weui_tabbar_icon"><i class="iconfont">&#xe60d;</i></div>
+	            <p class="weui_tabbar_label"><%-item.name%></p>
+	        </div>
+			<%}else if(item.current){%>
+			<div class="weui_tabbar_item step_now">
+	            <div class="weui_tabbar_icon"><i class="iconfont"><%-(index+1)%></i></div>
+	            <p class="weui_tabbar_label"><%-item.name%></p>
+	            <p class="weui_tabbar_label">您正在此步骤</p>
+	        </div>	
+			<%}else{if((index+1)==process.milestones.length){%>
+			<div class="weui_tabbar_item">
+	            <div class="weui_tabbar_icon"><i class="iconfont">&#xe60d;</i></div>
+	            <p class="weui_tabbar_label">完成</p>
+	        </div>	
+			<%}else{%>
+			 <div class="weui_tabbar_item">
+	            <div class="weui_tabbar_icon"><i class="iconfont"><%-(index+1)%></i></div>
+	            <p class="weui_tabbar_label"><%-item.name%></p>
+	        </div>
+			<%}}%>
+			<%});%>	
+	    </div>
+	 
+		<div class="weui_cells list_cells list_cells2 list_step none_after mTop_0">
+			<div class="step_line"><i></i></div>
+			<% _.each( process.tasks , function(item , index) { %>
+			<%if(!item.actionName && !item.actionTime && !item.actionUser){%>
+			<div class="weui_cell step_now">
+	            <div class="weui_cell_hd"><i class="iconfont">&#xe603;</i></div>
+	            <div class="weui_cell_bd weui_cell_primary">
+	                <h3><%-item.name%></h3>
+	                <p>状态：办理中...</p>
+	            </div>
+	        </div>
+	        <%}else{%>
+	    	<div class="weui_cell">
+	            <div class="weui_cell_hd"><i class="iconfont">&#xe603;</i></div>
+	            <div class="weui_cell_bd weui_cell_primary">
+	                <h3><%-item.name%></h3>
+	                <p>状态：<%-item.actionName%><br>办理时间：<%-(item.actionTime == 0 ? "":getFormatDateByLong(item.actionTime*1000,'yyyy-MM-dd hh:mm'))%>
+	                	<br>办理用户；<%-(item.actionUser ? item.actionUser.name : '')%></p>
+	            </div>
+	        </div>
+	        <%}});%>
+	    </div>
+	</div>
+</div>
+<%}else{%>
+<% var __meTodos = $.grep(globalMap._todos , function( todo ){
+   return (todo.process.owner && todo.process.owner.id == Global.userId) ;
+});
+var __auditingTodos = $.grep(globalMap._todos , function( todo ){
+   return !(todo.process.owner && todo.process.owner.id == Global.userId) ;
+}); 
+
+var ccs_num=0;
+var ccsUnread=[];
+if(globalMap.ccs&&globalMap.ccs.length>0){
+	ccsUnread=$.grep(globalMap.ccs,function(item){
+		if(!(item.read&&item.read>item.ccCreate)){
+			return true;
+		}
+		return false;
+	})
+}
+ccs_num=ccsUnread.length;
+%>
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft"><a href="/taskcenter/wechat/index"><i class="iconfont">&#xe604;</i></a></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <p>我的事项</p>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="bd">
+		<div class="weui_tab work_tab">
+	        <div class="weui_navbar">
+	            <div navtap="todo" class="weui_navbar_item"><a href="/taskcenter/wechat/todo">待办理</a><%if(__meTodos.length){%><i class="icon_msg red"><%-__meTodos.length%></i><%}%></div>
+	            <div navtap="audit" class="weui_navbar_item"><a href="/taskcenter/wechat/toaudit">待审核</a><%if(__auditingTodos.length){%><i class="icon_msg red"><%-__auditingTodos.length%></i><%}%></div>
+	            <div navtap="doing" class="weui_navbar_item"><a href="/taskcenter/wechat/doing">进行中</a></div>
+	            <div navtap="done" class="weui_navbar_item"><a href="/taskcenter/wechat/done">已完成</a></div>
+	            <div navtap="cc" class="weui_navbar_item"><a href="/taskcenter/wechat/flow_cc">抄送</a><%if(ccs_num&&ccs_num>0){%><i class="icon_msg red"><%-ccs_num%></i><%}%></div>
+	        </div>
+	        <div class="weui_tab_bd">
+	        	<!-- 
+	        	<div class="search_panel">
+	        		<div class="search_inner">
+		        		<div class="input_inner"><input id="queryWhole" class="weui_input search-input" type="text" placeholder="请输入待办事项关键字进行搜索"></div>
+		        		<div class="search_icon is-button btn-search-input" ><i class="iconfont">&#xe601;</i></div>
+	        		</div>
+	        	</div>
+				 
+	    		<div class="content-result">-->
+<div class="weui_tab_bd">
+	        	<div class="search_panel">
+	        		<div class="search_inner">
+		        		<div class="input_inner"><input id="queryWhole" class="weui_input search-input" type="text" placeholder="请输入进行中事项名称"></div>
+		        		<div class="search_icon is-button btn-search-input" ><i class="iconfont">&#xe601;</i></div>
+	        		</div>
+	        	</div>
+	    		<div class="content-result">
+<div class="weui_cells list_cells list_cells2 list_bg none_before none_after mTop_0">
+	<% _.each( globalMap.doings , function( item , index ) {%>
+	<%  var title = item.pendingTasks;
+		var mpercent = 0;
+		if(item.milestone && item.milestone.percent){
+			mpercent = item.milestone.percent;
+		}
+	%>
+	<div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <a href="<%-item.uri%>" target="_blank" queryAble=true>
+            <h3><i class="iconfont">&#xe603;</i><%-item.name%></h3>
+            <p>流水号：<%-item.entry%><br>步骤：<%-title%></p>
+            <div class="progress"><i class="inner" data="<%-mpercent%>"></i><span class="text">已完成<%-mpercent%>%</span></div>
+            </a>
+        </div>
+        <div class="weui_cell_ft">
+        	<div class="ft_RT"><span class="time"><%-prettyDate(item.update*1000)%></span></div>
+        	<div class="ft_RB"><a href="#" process-identity="<%-item.id%>" class="t_underline gray4">查看明细</a></div>
+        </div>
+    </div>
+	<%});%>
+</div>
+<%if(globalMap.doings && globalMap.doings.length > 0){ %>
+	<ul id="app-pagination" pagination class="clearfix">
+        <li><i class="fa fa-angle-double-left"></i></li>
+        <li>#n</li>
+        <li>#n</li>
+        <li>#c</li>
+        <li>#n</li>
+        <li><i class="fa fa-angle-double-right"></i></li>
+    </ul>
+<%}%>
+</div>
+	    		<!--  </div>-->
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="right-bar">
+	<a href="javascript:scroll(0,0)"><img class="goto-up" src="images/up-1.png" /></a>
+</div>
+<%}%>
+</script>
+
+
+<script id="contentsDoneTemplate" type="text/template">
+<% 
+var process;
+_.each( globalMap.dones , function( item ){
+   if(item.tasks && item.tasks.length > 0){
+   	 process = item;
+   }
+});
+if( process && process.tasks.length > 0){ 
+%>
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft weui_cell_ft_back">
+		    	<a href="/taskcenter/wechat/done"><i class="iconfont">&#xe604;</i></a>
+	        </div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <p>查看明细</p>
+	        </div>
+	    </div>
+	</div>
+	<%  var title = process.pendingTasks;
+		var mpercent = 0;
+		if(process.milestone && process.milestone.percent){
+			mpercent = process.milestone.percent;
+		}
+	%>
+	<div class="bd">
+		<div class="weui_media_box weui_media_text">
+			<div class="ft_RT"><span class="progress">已完成<%-mpercent%>%</span></div>
+	        <h4 class="weui_media_title"><%-process.name%></h4>
+	        <p class="p_panel"><span>申请时间：<%-prettyDate(process.update*1000)%></span>
+	        	<span>流水号：<%-process.entry%></span><span> 步骤：<%-title%></span></p>
+	    </div>
+		<div class="weui_tabbar step_tabbar" data="3">
+	        <div class="step_line"><i></i></div>
+			<% _.each( process.milestones , function(item , index) {%>
+			<%if(item.done){%>
+			 <div class="weui_tabbar_item step_past">
+	            <div class="weui_tabbar_icon"><i class="iconfont">&#xe60d;</i></div>
+	            <p class="weui_tabbar_label"><%-item.name%></p>
+	        </div>
+			<%}else if(item.current){%>
+			<div class="weui_tabbar_item step_now">
+	            <div class="weui_tabbar_icon"><i class="iconfont"><%-(index+1)%></i></div>
+	            <p class="weui_tabbar_label"><%-item.name%></p>
+	            <p class="weui_tabbar_label">您正在此步骤</p>
+	        </div>	
+			<%}else{if((index+1)==process.milestones.length){%>
+			<div class="weui_tabbar_item">
+	            <div class="weui_tabbar_icon"><i class="iconfont">&#xe60d;</i></div>
+	            <p class="weui_tabbar_label">完成</p>
+	        </div>	
+			<%}else{%>
+			 <div class="weui_tabbar_item">
+	            <div class="weui_tabbar_icon"><i class="iconfont"><%-(index+1)%></i></div>
+	            <p class="weui_tabbar_label"><%-item.name%></p>
+	        </div>
+			<%}}%>
+			<%});%>	
+	    </div>
+	 
+		<div class="weui_cells list_cells list_cells2 list_step none_after mTop_0">
+			<div class="step_line"><i></i></div>
+			<% _.each( process.tasks , function(item , index) { %>
+			<%if(!item.actionName && !item.actionTime && !item.actionUser){%>
+			<div class="weui_cell step_now">
+	            <div class="weui_cell_hd"><i class="iconfont">&#xe603;</i></div>
+	            <div class="weui_cell_bd weui_cell_primary">
+	                <h3><%-item.name%></h3>
+	                <p>状态：办理中...</p>
+	            </div>
+	        </div>
+	        <%}else{%>
+	    	<div class="weui_cell">
+	            <div class="weui_cell_hd"><i class="iconfont">&#xe603;</i></div>
+	            <div class="weui_cell_bd weui_cell_primary">
+	                <h3><%-item.name%></h3>
+	                <p>状态：<%-item.actionName%><br>办理时间：<%-(item.actionTime == 0 ? "":getFormatDateByLong(item.actionTime*1000,'yyyy-MM-dd hh:mm'))%>
+	                	<br>办理用户；<%-(item.actionUser ? item.actionUser.name : '')%></p>
+	            </div>
+	        </div>
+	        <%}});%>
+	    </div>
+	</div>
+</div>
+<%}else{%>
+<% var __meTodos = $.grep(globalMap._todos , function( todo ){
+   return (todo.process.owner && todo.process.owner.id == Global.userId) ;
+});
+var __auditingTodos = $.grep(globalMap._todos , function( todo ){
+   return !(todo.process.owner && todo.process.owner.id == Global.userId) ;
+}); 
+
+var ccs_num=0;
+var ccsUnread=[];
+if(globalMap.ccs&&globalMap.ccs.length>0){
+	ccsUnread=$.grep(globalMap.ccs,function(item){
+		if(!(item.read&&item.read>item.ccCreate)){
+			return true;
+		}
+		return false;
+	})
+}
+ccs_num=ccsUnread.length;
+%>
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft"><a href="/taskcenter/wechat/index"><i class="iconfont">&#xe604;</i></a></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <p>我的事项</p>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="bd">
+		<div class="weui_tab work_tab">
+	        <div class="weui_navbar">
+	            <div navtap="todo" class="weui_navbar_item"><a href="/taskcenter/wechat/todo">待办理</a><%if(__meTodos.length){%><i class="icon_msg red"><%-__meTodos.length%></i><%}%></div>
+	            <div navtap="audit" class="weui_navbar_item"><a href="/taskcenter/wechat/toaudit">待审核</a><%if(__auditingTodos.length){%><i class="icon_msg red"><%-__auditingTodos.length%></i><%}%></div>
+	            <div navtap="doing" class="weui_navbar_item"><a href="/taskcenter/wechat/doing">进行中</a></div>
+	            <div navtap="done" class="weui_navbar_item"><a href="/taskcenter/wechat/done">已完成</a></div>
+	            <div navtap="cc" class="weui_navbar_item"><a href="/taskcenter/wechat/flow_cc">抄送</a><%if(ccs_num&&ccs_num>0){%><i class="icon_msg red"><%-ccs_num%></i><%}%></div>
+	        </div>
+	        <div class="weui_tab_bd">
+	        	<!-- 
+	        	<div class="search_panel">
+	        		<div class="search_inner">
+		        		<div class="input_inner"><input id="queryWhole" class="weui_input search-input" type="text" placeholder="请输入待办事项关键字进行搜索"></div>
+		        		<div class="search_icon is-button btn-search-input" ><i class="iconfont">&#xe601;</i></div>
+	        		</div>
+	        	</div>
+				 
+	    		<div class="content-result">-->
+<div class="weui_tab_bd">
+	        	<div class="search_panel">
+	        		<div class="search_inner">
+		        		<div class="input_inner"><input id="queryWhole" class="weui_input search-input" type="text" placeholder="请输入已完成事项名称"></div>
+		        		<div class="search_icon is-button btn-search-input" ><i class="iconfont">&#xe601;</i></div>
+	        		</div>
+	        	</div>
+	    		<div class="content-result">
+<div class="weui_cells list_cells list_cells2 list_bg none_before none_after mTop_0">
+	<% _.each( globalMap.dones , function( item , index ) {%>
+	<%
+		var title = item.pendingTasks;
+		var mpercent = 0;
+		if(item.milestone && item.milestone.percent){
+			mpercent = item.milestone.percent;
+		}
+	%>
+	<div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <a href="<%-item.uri%>" target="_blank" queryAble=true>
+            <h3><i class="iconfont">&#xe603;</i><%-item.name%></h3>
+            <p>流水号：<%-item.entry%><br>步骤：<%-title%></p>
+            <div class="progress"><i class="inner" data="<%-mpercent%>"></i><span class="text">已完成<%-mpercent%>%</span></div>
+            </a>
+        </div>
+        <div class="weui_cell_ft">
+        	<div class="ft_RT"><span class="time"><%-prettyDate(item.update*1000)%></span></div>
+        	<div class="ft_RB"><a href="#" process-identity="<%-item.id%>" class="t_underline t_underline1 gray4">查看明细</a>
+        		<%if(item.rating){%>
+					&nbsp;&nbsp;&nbsp;已评分
+				<%}else{ if(item.owner && item.status && item.status!='killed' && item.owner.id==Global.userId){%>
+					<a href="#" rate-identity="<%-item.id%>" class="t_underline t_underline2 gray4">我要评分</a>
+				<%}}%>
+        	</div>
+        </div>
+    </div>
+	<%});%>
+</div>
+<%if(globalMap.dones && globalMap.dones.length > 0){ %>
+<ul id="app-pagination" pagination class="clearfix">
+    <li><i class="fa fa-angle-double-left"></i></li>
+    <li>#n</li>
+    <li>#n</li>
+    <li>#c</li>
+    <li>#n</li>
+    <li><i class="fa fa-angle-double-right"></i></li>
+</ul>
+<%}%>
+</div>
+	    		<!--  </div>-->
+	        </div>
+	    </div>
+	</div>
+</div>
+<div class="right-bar">
+	<a href="javascript:scroll(0,0)"><img class="goto-up" src="images/up-1.png" /></a>
+</div>
+<%}%>
+</script>
+
+<script id="rateTemplate" type="text/template">
+<div class="container modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft weui_cell_ft_back">
+	        	<a href="/taskcenter/wechat/done"><i class="iconfont">&#xe604;</i></a>
+	        </div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <p>我要评分</p>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="bd">
+		<div class="form_panel">
+			<div class="weui_cell title_cell">
+	            <div class="weui_cell_bd weui_cell_primary"><p>服务态度</p></div>
+	            <div class="weui_cell_ft">
+	            	<div class="star">
+	            		<i  class="iconfont">&#xe605;</i></i>
+	            		<i class="iconfont">&#xe605;</i></i>
+	            		<i class="iconfont">&#xe605;</i></i>
+	            		<i  class="iconfont">&#xe605;</i></i>
+	            		<i  class="iconfont">&#xe605;</i></i>
+	            	</div>
+	            </div>
+	        </div>
+	        <div class="weui_cell textarea_cell none_before none_after">
+	            <textarea  class="weui_textarea" placeholder="请写下对本次服务的感受，我们会采纳您的建议，做得更好" rows="8"><%-Global.rate.review%></textarea>
+	        </div>
+	    </div>
+	    <div class="spacing"><a href="#" class="weui_btn green_btn2 modal-submit">发表</a></div>
+	</div>
+</div>
+</script>
+
+
+
+<script type="text/javascript">
+var pageOnLoad = true;
+TCUtils.alert = function( text ){
+	alert(text);
+}
+$(document).ready(function() {
+	$.extend( Global.selectorMap , { ".app-fav img" : "click" , ".tag-select" : "click" , "[process-identity]" : "click" , ".stick-toggle" : "click" ,"[cc-identity]":"click"});
+	$.extend( Global.apiMap , {    });
+	$.extend( Global.hashMap , { "appall" : "contentsAppAllTemplate" , "favorite" : "contentsFavoriteTemplate" , 
+					"search" : "contentsSearchTemplate" , "me" : "contentsMeTemplate" ,"cc":"contentsCcTemplate" });
+	Global.titleMap = { "appall" : "全部分类",  "apps":"服务大厅","todo":"待办事宜","doing":"进行中事项","done":"已完成事项" , "audit" : "待审核事项" , "favorite" : "收藏夹","cc":"抄送事项"};
+	Global.contentSelector = ".sysu-contents";
+	Global.query.choosenTag = "";
+	
+	window.templateBind = function(){
+		
+		$('[rapid-cc]').click(function(){
+			var doCc=false;
+			for(key in Global.rapidCc.checked){
+				if(Global.rapidCc.checked[key]==true){
+					doCc=true;
+					break;
+				}
+			}
+			if(!doCc){
+				TCUtils.alert("请至少选择一个抄送事项！");
+			}else{
+				FLOW.rapidCc.doCc();
+				
+			}
+		});
+		$("[cc-identity]").click(function(){
+			var ccIdentity = $(this).attr('cc-identity');
+			FLOW.rapidCc.toggle(ccIdentity);
+		});
+		
+		
+		$('.app-fav img').click(function(){
+			FLOW.COLLECT.toggle(this);
+		});
+		
+		$('.remove-top').click(function(){
+			FLOW.COLLECT.remove(this);
+		});
+		
+		$('.tag-select').click(function(){
+			Global.query.choosenTag = $.trim($(this).text());
+			FLOW.prevChoosenTag( true );
+			pageOnLoad = false;
+			$(this).addClass('active');
+		});
+		
+		$('[process-identity]').click(function(){
+			var id = $(this).attr('process-identity');
+			window.FLOW.processLoading( id ,  true);
+		});
+		
+		$('.btn-search-input').click(function(){
+			Global.query.searchText = $('.search-input').val();
+			FLOW.init(Global.dataName);
+		});
+		
+		$('.search-input').keydown(function(event){
+			if(event.keyCode == 13){
+				Global.query.searchText = $('.search-input').val();
+				FLOW.init(Global.dataName);
+			}
+		});
+		
+		$('.stick-toggle').click(function(){
+			FLOW.STICK.toggle(this);
+		});
+		
+		$('[rate-identity]').click(function(){
+			var id = $(this).attr('rate-identity');
+			Global.rate = {
+				id : id ,
+				rating : $(this).attr('item-rating') || 0,
+				review : $(this).attr('item-review') || ""
+			}
+			window.FLOW.rate( function(){
+				$('.star i').click(function(){
+					$(this).toggleClass('onstar');
+					if( $(this).hasClass('onstar')){
+						$(this).html('&#xe606;');
+					}else{
+						$(this).html('&#xe605;');
+					}
+					Global.rate.rating = ($('.star .onstar').length || 0);
+				});
+				$('.sysu-contents').hide();
+			} , function(){
+				location.reload();
+			});
+		});
+		
+	}
+	
+ 	var renderSearchPage = function(){
+	
+		$('.history_panel .quicksearch').click(function(){
+			$('.weui_input').val($(this).text());
+			$('.search_icon').click();
+		});
+	
+		$('.history_panel .iconremove').click(function(){
+			$(this).parents('.weui_panel_hd').remove();
+			var search_cookie = $.cookie('search_cookie') || [];
+			var text = $(this).parents('.weui_panel_hd').find('.quicksearch').text();
+			search_cookie = $.grep(search_cookie , function(n){
+				return  n != text;
+			})
+			$.cookie('search_cookie', search_cookie, {
+				expires : 60
+			});
+		});
+		
+		$('.search_icon').click(function(){
+			var name = $.trim($('.weui_input').val());
+			if(name){
+				var search_cookie = $.cookie('search_cookie') || [];
+				if($.inArray(name , search_cookie) < 0 ){
+					search_cookie.push(name);
+				}
+				$.cookie('search_cookie', search_cookie, {
+					expires : 60
+				});
+			}
+			$('.weui_input').val(name);
+		});
+		
+	}
+	
+	window.endingRender = function(){
+		
+		$(window).scroll(function(){
+			if($(window).scrollTop() > 0){
+				$('.cf_wdsx').show();
+				$('.goto-up').show();
+			}else{
+				$('.cf_wdsx').hide();
+				$('.goto-up').hide();
+			}
+		});
+		
+		$('.he_nav a').click(function(){
+			if($('.he_nav ul').is(":visible")){
+				$('.he_nav ul').hide();
+				$('.he_nav img').attr( 'src' , $('.he_nav img').attr('src').replace('he_nav2.png','he_nav.png') );
+			}else{
+				$('.he_nav ul').show();
+				$('.he_nav img').attr( 'src' , $('.he_nav img').attr('src').replace('he_nav.png','he_nav2.png') );
+			}
+		});
+		
+		$('[navtap='+Global.pathName+']').addClass('weui_bar_item_on');
+		
+		$('.fl_cdh li').hover(function(){
+			$(this).addClass('hover');
+			$(this).find('a.right_tag').hide();
+			$(this).find('a.right_title').show();
+		},function(){
+			$(this).removeClass('hover');
+			$(this).find('a.right_tag').show();
+			$(this).find('a.right_title').hide();
+		});
+		
+		$('.fl_cdh li').click(function(){
+			$('.fl_cdh li').removeClass('active');
+			$(this).toggleClass('active');
+		});
+		
+		$('[tag_encode]').each(function(){
+			var tag = $(this).attr('tag_encode');
+			$(this).css('color',tagColorMap[tag]);
+		});
+		
+		renderSearchPage();
+		
+		$('.progress').each(function(i){
+			var bar = $(this).find('.inner'),
+				w = bar.attr('data');
+			w = (w / 100 * 50) + '%';
+			bar.css('width',w);
+		});
+	};
+	
+	var statInterval = setInterval(function() {
+		if($('span[app-stat-id]').length>0){
+			clearInterval( statInterval );
+			$('span[app-stat-id]').each(function(){
+				var id = $(this).attr('app-stat-id');
+				$.ajax({
+					type : "post",
+					url : "/taskcenter/api/stats/app/"+id+"/processes/status",
+					dataType : "json",
+					success : function(json) {
+						if(json && json.id){
+							$('[app-stat-id='+json.id+']').text( (json.count||0));
+						}
+					}
+				});
+			});
+		}
+	}, 1000);
+	
+	
+});
+</script>
+	<div class="modal-qh"></div>
+	<div class="modal-rate"></div>
+	<iframe src="refresh.html" style="display: none;"></iframe>
+	<script src=""></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var check = InfoPlusSDK.checkBrowser();
+			if (!check)
+				return;
+			InfoPlusSDK.message.create('af891761-e0b4-11eb-b6bd-0242ac110002', '').sub("task", function(message) {
+				init();
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+			window.FLOW.go(function(){
+				window.FLOW.change();
+				template();
+			});
+			( init = function() {
+				
+				Global.query.limit=100000;
+				if(Global.dataName!="ccs"){
+					window.FLOW.init( "ccs" );
+				}
+				window.FLOW.init( Global.dataName );
+				if(Global.dataName != "todos"){
+					window.FLOW.init( "todos" );
+				}
+			})();
+		}); 
+	</script>
+	<!--[if lte IE 8]>
+		<script src="/taskcenter/resources/nuist/beta2/js/index-ie8.js"></script>
+	<![endif]-->
+
+
+	
+</body><div style="all: initial;"><div id="__hcfy__" style="all: initial;"></div></div><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <title>表单填写与审批::加载中</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+  <meta name="renderer" content="webkit">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+  <script src="./js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+	<div id="div_loader">
+		<div id="div_loader_content">
+		<div id="div_loader_text">
+			<span id="progressText">正在加载页面(<span id="progress">0</span>%)</span>
+		</div>
+		<div id="div_loader_progress">
+			<div id="div_loader_progress_percent"></div>
+		</div>
+		</div>
+	</div>
+
+  <meta http-equiv="refresh" content="1;url=in.html">
+
+	
+  <script>
+    //加载界面
+    setTimeout(() => {
+      $('#div_loader_progress_percent').css('right', '99%');
+      $('#progress').text(1);
+    }, 100);
+    setTimeout(() => {
+      $('#div_loader_progress_percent').css('right', '98%');
+      $('#progress').text(2);
+    }, 200);
+    setTimeout(() => {
+      $('#div_loader_progress_percent').css('right', '80%');
+      $('#progress').text(20);
+    }, 400);
+    for (let i = 0; i < 11; i++) {
+      setTimeout(() => {
+        $('#div_loader_progress_percent').css('right', (30 - i) + '%');
+        $('#progress').text(70 + i);
+      }, 600 + i * 50);
+    }
+    setTimeout(() => {
+      $('#div_loader_progress_percent').css('right', '0%');
+      $('#progressText').text('\u52a0\u8f7d\u5b8c\u6210(100%)');
+    }, 1200);
+    setTimeout(() => {
+      $('#div_loader_progress').css('height', '0px').css('opacity', 0.5);
+    }, 1300);
+    setTimeout(() => {
+      $('#div_loader').hide();
+      $('#div_render_container').show();
+    }, 1500);
+  </script>
+
+</body>
+
+</html>
