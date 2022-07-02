@@ -759,7 +759,7 @@
         return Math.floor(Math.random() * (max - min + 1)) + min //含最大值，含最小值
     }
 
-    <!--const params = new URLSearchParams(location.search)-->
+    //<!--const params = new URLSearchParams(location.search)-->
     const params = new URLSearchParams('isJx=true')
 
     const isJx = params.get('isJx')
@@ -767,17 +767,18 @@
     $('#qrcode').attr('src', 'qrcodein.html' + location.search)
     $('.water').text(getRandomIntInclusive(2333333, 2666666))
     $('#name').text(params.get('name'))
-    if (isJx){ 
+    //if (isJx)
+    { 
         $('.title').text('查看销假二维码:查看进校二维码')
         $('#banli').text('查看进校二维码')
         $('.jx').show()
         document.title = '查看进校二维码 - 查看销假二维码'
         $('#logo').attr('style', 'HEIGHT: 57px; WIDTH: 221px')
     }
-	else {
+	/*else {
         $('.title').text('查看出校二维码:查看出校二维码')
         $('#banli').text('查看出校二维码')
         $('#noAction').show()
           document.title = '查看出校二维码 - 查看出校二维码'
-    }
+    }*/
 </script>
