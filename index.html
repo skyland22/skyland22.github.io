@@ -71,7 +71,7 @@
 			resourceUrl: "",
 			resSys: "",
 			userId:"",
-			loginName: "昝新羽",
+			loginName: "",
 			membership: "",
 			deviceName: "",
 			tag:"",
@@ -143,6 +143,28 @@
       text-align: center;
       cursor: pointer
     }
+
+	@font-face {
+      font-family: "icomoon";
+      src: url(icon.ttf) format("truetype");
+      font-weight: normal;
+      font-style: normal
+    }
+
+    i {
+      font-family: "icomoon" !important;
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale
+    }
+
+	.i-icon-menu:before {
+      content: ""
+    }
 </style></head>
 
 <body class="no-skin" data-new-gr-c-s-check-loaded="14.1017.0" data-gr-ext-installed="">
@@ -152,7 +174,8 @@
 	<div class="hd">
 		<div class="weui_cell base_cell">
 	        <!--<div class="weui_cell_ft"><a href="http://e-office.nuist.edu.cn/taskcenter/wechat/appall"><i class="iconfont"></i>全部事项</a></div>-->
-			<div class="weui_cell_ft"><a href="allmatters.html"><img src="images/icon_menu_1.png" width="20px">全部事项</a></div>
+			<!--<div class="weui_cell_ft"><a href="allmatters.html"><img src="images/icon_menu_1.png" width="20px">全部事项</a></div>-->
+			<div class="weui_cell_ft"><a href="allmatters.html"><i class="i-icon-menu"></i>全部事项</a></div>
 	        <div class="weui_cell_bd weui_cell_primary">
 	          <!-- <p><i class="logo"></i>USC</p>-->
 				 <p class="logo1" style="margin-right:40px;">大学服务中心</p>
@@ -161,6 +184,7 @@
 	        	<!--<a href="http://e-office.nuist.edu.cn/taskcenter/wechat/search" class="weui_cell_ft_search" title="搜索">
 	        		<i class="iconfont"></i>
 	        	</a>-->
+				<!--<a href=""><i class="icon_search_1"></i></a>-->
 				<img src="images/icon_search_1.png" width="20px">
 				<!--收藏图标 暂时 去掉 
 	        	<a href="#"  title=" "><i class="iconfont" style="padding-left: 20px;">&#xe602;</i></a>
@@ -170,7 +194,7 @@
 		<div class="weui_tabbar">
 	        <a href="" class="weui_tabbar_item">
 	            <p class="weui_tabbar_label">待办理</p>
-	            <div class="weui_tabbar_icon"><i class="icon_msg ">2</i><img src="images/icon_nav_1.png" alt=""></div>
+	            <div class="weui_tabbar_icon"><i class="icon_msg">1</i><img src="images/icon_nav_1.png" alt=""></div>
 	        </a>
 	        <a href="" class="weui_tabbar_item">
 	            <p class="weui_tabbar_label">待审核</p>
@@ -299,7 +323,7 @@
 	    		
 	        </div>
 	        <!--<div class="spacing"><a href="" class="weui_btn green_btn2"><i class="iconfont"></i>全部事项</a></div>-->
-			<div class="spacing"><a href="" class="weui_btn green_btn2"><i class="leftpointer"></i>全部事项</a></div>
+			<div class="spacing"><a href="" class="weui_btn green_btn2"><i class="i-icon-menu"></i>全部事项</a></div>
 			<!--<div class="spacing"><a href="" class="weui_btn green_btn2"><image src="images/icon_menu_1.png" width="20px"></image>全部事项</a></div>-->
 	    </div>
 	

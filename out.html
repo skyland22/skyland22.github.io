@@ -764,7 +764,7 @@
 
     const isJx = params.get('isJx')
 
-    $('#qrcode').attr('src', 'qrcode.html' + location.search)
+    $('#qrcode').attr('src', 'qrcodeout.html' + location.search)
     $('.water').text(getRandomIntInclusive(2333333, 2666666))
     $('#name').text(params.get('name'))
     if (isJx) {
