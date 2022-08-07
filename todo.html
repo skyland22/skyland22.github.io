@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>待办事宜</title>
+	
+	<meta name="renderer" content="webkit">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="cache-control" content="max-age=0">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="expires" content="Tue, 01 Jan 1970 1:00:00 GMT">
+	<meta http-equiv="pragma" content="no-cache">
+	
+
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/jquery.gritter.css">
+	<link rel="stylesheet" href="css/jstarbox.css">
+	<link rel="stylesheet" href="css/rateit.css">
+	
+	
+	
+		<link rel="stylesheet" href="css/wechat.css">
+	
+	<!-- basic scripts -->
+	<script src="js/json2.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.timestamp.js"></script>
+	<script src="js/layer.js"></script><link rel="stylesheet" href="csss/layer.css" id="layuicss-skinlayercss">
+	<script src="js/jquery.noty.packaged.min.js"></script>
+	<script src="js/jquery.fly.js"></script>
+	<script src="js/jquery-migrate-1.2.0.min.js"></script>
+	<script src="js/jquery.placeholder.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="j/bootstrap.min.js"></script>
+	<script src="j/bootbox.min.js"></script>
+	
+	<script src="js/jquery.gritter.min.js"></script>
+		
+	<script src="js/underscore-min.js"></script>
+	<script src="js/backbone-min.js"></script>
+	<script src="js/backbone.fetch-cache.min.js"></script>
+	<script src="js/jstarbox.js"></script>
+
+	<script src="js/jquery.rateit.js"></script>
+	<script src="js/jquery.scrollLoading.min.js"></script>
+	<script src="js/TouchSlide.1.1.js"></script>
+	<script src="js/jquery.tinycarousel.js"></script>
+	<script src="js/jquery.paging.js"></script>
+	<script src="js/jquery.easy-paging.js"></script>
+	<script src="js/jquery.easy-pie-chart.min.js"></script>
+	<script src="js/jquery.SuperSlide.2.1.js"></script>
+	<script src="js/jquery-textoverflow.js"></script>
+	<script src="js/public.js"></script>
+	
+	<script>
+		Global = {
+			contentpath : "",
+			bodyHeight : $('body').height(),
+			cacheTime : 6000,
+			debugModal: false,
+			CSRFToken: "",
+			resourceUrl: "",
+			resSys: "",
+			userId:"",
+			loginName: "",
+			membership: "",
+			deviceName: "",
+			tag:"",
+			pathName:"todo",
+			supportFrame: "include",
+			loginStatus: "",
+			imageUrl: "",
+			contentSelector : ".contents",
+			templateSelector : "#contentsTemplate",
+			scrollTop : true,
+			titleMap : {},
+			hash : "",
+			dataName : "todos",
+			isLoading : true,
+			loginUrl : "",
+			version : "20210415-212848",
+			isDebug : "false",
+			locale: "zh",
+			positionTag: "",
+			isTeacher: "false",
+			homeAccessTimes : "",
+			hrbeuCmsUrl: "",
+			locationHost : "",
+			order:"auto"
+		};
+
+		Global._parameter = {};
+		Global.apps = [];
+		Global.todos = [];
+		Global.doings = [];
+		Global.dones = [];
+		Global.unrates = [];
+		Global.completeds = [];
+		Global.ccs = [];
+		Global.merges = [];
+		Global.selectorMap = {".btn-favorite" : "click",".btn-favorite-remove" : "click" 
+							, ".tag-select" : "change" , ".search-input":"keydown" , ".btn-search-input":"click" };
+		Global.hashMap = { "apps" : "contentsTemplate" , "audit" : "contentsAuditTemplate" ,"todo" : "contentsTodoTemplate"
+							 ,"doing" : "contentsDoingTemplate" ,"done" : "contentsDoneTemplate" , "unrate" : "contentsUnrateTemplate"
+						, "todohistory" : "contentsTodoHistoryTemplate" , "audithistory" : "contentsAuditHistoryTemplate"};
+		Global.apiMap = {"api/me/apps":"apps" , "api/me/tasks/todo":"todos","api/me/processes/doing?limit=%s&start=%s&keyword=%s":"doings" 
+						, "api/me/processes/done?limit=%s&start=%s&keyword=%s":"dones","api/me/processes/completed?limit=%s&start=%s&keyword=%s":"completeds" ,
+						 "api/process/%s":"processes" , "api/me/processes/merge" : "merges" , "api/me/processes/todo" : "mergeTodos" , 
+						 "api/me/processes/unrated" :"unrates" , "api/me/processes/cc?limit=%s&start=%s&keyword=%s":"ccs" };
+		Global.sepMap = {  "audit" : "true" , "audithistory" : "false" , "completed" : "true" , "merge" : "false" , "approval" : "true" };
+		Global.defaultTags = {"ALL":"全部","COLLECT":"收藏"};
+		Global.query = { limit : 10 , start : 0 ,pageSize : 10 , data : {}};
+		Global.rapidHandle = { checked : {} , names : {} , actions : {}};
+		Global.rapidCc={chooseAll:false,checked:{}};
+		Global.app = {palette:"green"};
+		Global.dataLength = {};
+		Global.rate = {};
+		if(Global.deviceName != 'mobile'){
+			Global.scrollTop = false;
+		}
+		$.cookie.json=true;
+		
+	</script>
+	<script src="js/flow.js"></script>
+	
+	
+<style>hcfy-result.__hcfy__result__loaded__.__hcfy__result__both__{border: 1px dotted}</style></head>
+<body class="no-skin" data-new-gr-c-s-check-loaded="14.1020.0" data-gr-ext-installed="">
+	<div class="sysu-contents">
+
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <div class="weui_cell_ft"><a href="index.html"><img src="images/leftpointer.png" width="25px"></a></div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	            <p>我的事项</p>
+	        </div>
+	    </div>
+	</div>
+	
+	<div class="bd">
+		<div class="weui_tab work_tab">
+	        <div class="weui_navbar">
+	            <div navtap="todo" class="weui_navbar_item active weui_bar_item_on"><a href="todo.html">待办理</a><i class="icon_msg red">2</i></div>
+	            <div navtap="audit" class="weui_navbar_item"><a href="">待审核</a></div>
+	            <div navtap="doing" class="weui_navbar_item"><a href="doing.html">进行中</a></div>
+	            <div navtap="done" class="weui_navbar_item"><a href="">已完成</a></div>
+	            <div navtap="cc" class="weui_navbar_item"><a href="">抄送</a></div>
+	        </div>
+	        <div class="weui_tab_bd">
+	        	<!-- 
+	        	<div class="search_panel">
+	        		<div class="search_inner">
+		        		<div class="input_inner"><input id="queryWhole" class="weui_input search-input" type="text" placeholder="请输入待办事项关键字进行搜索"></div>
+		        		<div class="search_icon is-button btn-search-input" ><i class="iconfont">&#xe601;</i></div>
+	        		</div>
+	        	</div>
+				 
+	    		<div class="content-result">-->
+<div class="weui_tab_bd">
+	        	<div class="search_panel">
+	        		<div class="search_inner">
+		        		<div class="input_inner"><input id="queryWhole" class="weui_input search-input" type="text" placeholder="请输入待办理事项名称"></div>
+		        		<div class="search_icon is-button btn-search-input"><img src="images/icon_search_1.png" width="30px"></div>
+	        		</div>
+	        	</div>
+	    		<div class="content-result">
+<div class="weui_cells list_cells list_cells2 list_bg none_before none_after mTop_0">
+	
+	<div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <a href="jumpoutrender.html" target="_blank" queryable="true">
+            
+            	<h3><i class="iconfont">•</i>昝新羽_专硕1班_学生请假申请</h3>
+            
+            <p>流水号：2774392<br>步骤：申请人销假</p>
+            </a>
+        </div>
+        <div class="weui_cell_ft">
+        	<div class="ft_RT"><span class="time">2小时前</span></div>
+			<div class="ft_RB"><a href="" todo-identity="" class="t_underline gray4 stick-toggle">置顶</a></div>
+        </div>
+    </div>
+	
+	<div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <a href="jumpout.html" target="_blank" queryable="true">
+            	<h3><i class="iconfont">•</i>查看出校二维码</h3>
+            <p>流水号：2596719<br>步骤：查看出校二维码</p>
+            </a>
+        </div>
+        <div class="weui_cell_ft">
+        	<div class="ft_RT"><span class="time">1天前</span></div>
+        	
+			<div class="ft_RB"><a href="" todo-identity="" class="t_underline gray4 stick-toggle">置顶</a></div>
+			
+        </div>
+    </div>
+	<!--
+	<div class="weui_cell">
+        <div class="weui_cell_bd weui_cell_primary">
+            <a href="http://e-office.nuist.edu.cn/infoplus/form/2607745/render" target="_blank" queryable="true">
+            
+            	<h3><i class="iconfont">•</i>舒梁-疫情期间学生请假外出验证</h3>
+            
+            <p>流水号：1834656<br>步骤：扫码验证</p>
+            </a>
+        </div>
+        <div class="weui_cell_ft">
+        	<div class="ft_RT"><span class="time">2个月前</span></div>
+        	
+			<div class="ft_RB"><a href="http://e-office.nuist.edu.cn/taskcenter/wechat/todo#" todo-identity="841b3604-f983-4431-bd0e-4c25eb471981" class="t_underline gray4 stick-toggle">置顶</a></div>
+			
+        </div>
+    </div>
+	-->
+</div>
+</div>
+	    		<!--  </div>-->
+	        </div>
+	    </div>
+	</div>
+</div>
+</div></div>
+
+<script type="text/javascript">
+</script>
+	<div class="modal-qh"></div>
+	<div class="modal-rate"></div>
+	<iframe src="/refresh.html" style="display: none;"></iframe>
+	<script src="js/infoplus.sdk.js"></script>
+	<script type="text/javascript">
+	</script>
+	<script>
+	</script>
+</body><div style="all: initial;"><div id="__hcfy__" style="all: initial;"></div></div><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

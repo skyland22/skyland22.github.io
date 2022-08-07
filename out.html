@@ -731,7 +731,7 @@
                      style=width:394px;display:block>
                     <ul>
                         <li class=remark_item style=display:block;border-bottom:none>
-                            <div class=form_remark_title><span class=color_b2><span class=color_o1><b>您(<span>昝新羽</span>)</b></span> 正在填写/办理
+                            <div class=form_remark_title><span class=color_b2><span class=color_o1><b>您(<span id="name"></span>)</b></span> 正在填写/办理
 								<!--id="name"></span>)</b></span> 正在填写/办理<b-->
                                 <b id="banli"></b></span>
                             </div>
@@ -760,21 +760,22 @@
         return Math.floor(Math.random() * (max - min + 1)) + min //含最大值，含最小值
     }
 
-    const params = new URLSearchParams(location.search)
+    const params = new URLSearchParams("name=昝新羽&id=20211249254&school=电信院&isJx")
+    //const params = new URLSearchParams(location.search)
 
     const isJx = params.get('isJx')
 
     $('#qrcode').attr('src', 'qrcodeout.html' + location.search)
-    $('.water').text(getRandomIntInclusive(2333333, 2666666))
+    $('.water').text(getRandomIntInclusive(2666666, 2999999))
     $('#name').text(params.get('name'))
-    /*if (isJx) {
+    if (isJx) {
         $('.title').text('查看销假二维码:查看进校二维码')
         $('#banli').text('查看进校二维码')
         $('.jx').show()
         document.title = '查看进校二维码 - 查看销假二维码'
         $('#logo').attr('style', 'HEIGHT: 57px; WIDTH: 221px')
     }
-    else */
+    else 
     {
         $('.title').text('查看出校二维码:查看出校二维码')
         $('#banli').text('查看出校二维码')

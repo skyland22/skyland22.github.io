@@ -1,0 +1,321 @@
+td.xdTableMiddleCell {
+	padding: 4px 5px;
+}
+.xdTextBox {
+	margin: 1px; padding: 1px; border: 1pt solid rgb(220, 220, 220); border-image: none; text-align: left; color: windowtext; overflow: hidden; display: inline-block; white-space: nowrap; -ms-text-overflow: ellipsis; background-color: window; overflow-wrap: normal;
+}
+.accent2 {
+	background-color: rgb(187, 82, 61);
+}
+.xdInlinePicture {
+	margin: 1px;
+}
+table.xdLayout td {
+	
+}
+h3 {
+	color: rgb(53, 77, 63); text-transform: uppercase; font-size: 12pt; font-weight: normal; margin-top: 0px; margin-bottom: 0px;
+}
+body {
+	background-position: 21px 0px; margin-left: 21px;
+}
+td.xdTableOffsetCellComponent {
+	padding: 4px 22px 4px 5px; background-color: rgb(196, 214, 203);
+}
+body {
+	margin-right: 21px;
+}
+.light2 {
+	background-color: rgb(247, 248, 244);
+}
+td.xdTableStyleOneCol {
+	padding: 4px 22px;
+}
+td.xdSubheadingCell {
+	padding: 4px 22px; text-align: center; border-bottom-color: rgb(166, 194, 178); border-bottom-width: 1pt; border-bottom-style: solid;
+}
+td.xdTableLabelControlStackedCellComponent {
+	padding: 4px 22px 4px 5px;
+}
+.xdBehavior_Boolean {
+	
+}
+.xdMaster {
+	
+}
+td.xdHeadingCellEmphasis {
+	padding: 2px 22px; text-align: center; border-top-color: rgb(166, 194, 178); border-bottom-color: rgb(166, 194, 178); border-top-width: 1pt; border-bottom-width: 1pt; border-top-style: solid; border-bottom-style: solid; background-color: rgb(225, 234, 229);
+}
+td.xdHeadingCell {
+	padding: 2px 22px; text-align: center; border-top-color: rgb(166, 194, 178); border-bottom-color: rgb(166, 194, 178); border-top-width: 1pt; border-bottom-width: 1pt; border-top-style: solid; border-bottom-style: solid; background-color: rgb(225, 234, 229);
+}
+.xdRepeatingTable {
+	border-collapse: collapse; overflow-wrap: break-word;
+}
+.xdPageBreak {
+	display: none;
+}
+.xdTableHeader {
+	color: black; background-color: rgb(242, 242, 242);
+}
+h2 {
+	color: rgb(53, 77, 63); font-size: 16pt; font-weight: bold; margin-top: 0px; margin-bottom: 0px;
+}
+.dark1 {
+	background-color: rgb(0, 0, 0);
+}
+.optionalPlaceholder {
+	color: rgb(51, 51, 51); padding-left: 20px; font-family: "Microsoft YaHei"; font-size: 9pt; font-style: normal; font-weight: normal; text-decoration: none;
+}
+.xdRichTextBoxRTL {
+	margin: 1px; padding: 1px; border: 1pt solid rgb(220, 220, 220); border-image: none; text-align: right; color: windowtext; font-style: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; display: inline-block; -ms-overflow-x: hidden; -ms-text-overflow: ellipsis; background-color: window; overflow-wrap: break-word;
+}
+td {
+	border-color: rgb(216, 216, 216);
+}
+td.xdTableEmphasisCellLabel {
+	padding: 4px 5px 4px 22px; background-color: rgb(196, 214, 203);
+}
+.xdBehavior_FormattingNoBUI {
+	
+}
+.xdRepeatingSection {
+	margin: 0px; padding: 0px; border: 1pt solid transparent; border-image: none;
+}
+.xdBehavior_ComboBox {
+	
+}
+.xdBehavior_ComboBoxTextField {
+	
+}
+.xdDTButtonRTL {
+	width: 20px; height: 17px; margin-right: -21px;
+}
+.xdDTButton {
+	width: 20px; height: 17px; margin-left: -21px;
+}
+.xdSharePointFileAttachment {
+	margin: 2px; display: inline-block;
+}
+.xdScrollableRegion {
+	
+}
+.xdListItem {
+	width: 100%; vertical-align: text-top; display: inline-block;
+}
+p {
+	color: rgb(53, 77, 63); font-size: 11pt; margin-top: 0px;
+}
+table {
+	
+}
+td.xdTitleHeadingCell {
+	padding: 0px 22px 14px; text-align: center; border-right-color: rgb(191, 191, 191); border-left-color: rgb(191, 191, 191); border-right-width: 1pt; border-left-width: 1pt; border-right-style: solid; border-left-style: solid; background-color: rgb(255, 255, 255);
+}
+td.xdVerticalFill {
+	border-top-color: rgb(191, 191, 191); border-bottom-color: rgb(191, 191, 191); border-left-color: rgb(191, 191, 191); border-top-width: 1pt; border-bottom-width: 1pt; border-left-width: 1pt; border-top-style: solid; border-bottom-style: solid; border-left-style: solid; background-color: rgb(53, 77, 63);
+}
+td.xdTableEmphasisCellComponent {
+	padding: 4px 22px 4px 5px; background-color: rgb(196, 214, 203);
+}
+td.xdTableMiddleCellEmphasis {
+	padding: 4px 5px; background-color: rgb(196, 214, 203);
+}
+td.xdTitleCellWithHeading {
+	padding: 32px 22px 0px; text-align: center; border-top-color: rgb(191, 191, 191); border-right-color: rgb(191, 191, 191); border-left-color: rgb(191, 191, 191); border-top-width: 1pt; border-right-width: 1pt; border-left-width: 1pt; border-top-style: solid; border-right-style: solid; border-left-style: solid; background-color: rgb(255, 255, 255);
+}
+td.xdTitleSubheadingCell {
+	padding: 8px 22px 16px; border-right-color: rgb(191, 191, 191); border-left-color: rgb(191, 191, 191); border-right-width: 1pt; border-left-width: 1pt; border-right-style: solid; border-left-style: solid; background-color: rgb(255, 255, 255);
+}
+td.xdSubheadingCellEmphasis {
+	padding: 4px 22px; text-align: center; border-bottom-color: rgb(166, 194, 178); border-bottom-width: 1pt; border-bottom-style: solid;
+}
+h1 {
+	color: rgb(53, 77, 63); font-size: 24pt; font-weight: normal; margin-top: 0px; margin-bottom: 0px;
+}
+.xdRepeatingTable td {
+	vertical-align: top;
+}
+th {
+	border-color: rgb(0, 0, 0); color: black; background-color: rgb(242, 242, 242);
+}
+td.xdTableOffsetCellLabel {
+	padding: 4px 5px 4px 22px; background-color: rgb(196, 214, 203);
+}
+.xdBehavior_Select {
+	
+}
+.xdDTTextRTL {
+	padding: 0px; width: 100%; height: 100%; overflow: hidden; margin-left: 22px; white-space: nowrap;
+}
+.accent3 {
+	background-color: rgb(200, 157, 17);
+}
+td.xdTableContentCellWithVerticalFill {
+	padding: 0px 1px; border-right-color: rgb(191, 191, 191); border-bottom-color: rgb(191, 191, 191); border-left-color: rgb(191, 191, 191); border-right-width: 1pt; border-bottom-width: 1pt; border-left-width: 1pt; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; background-color: rgb(255, 255, 255);
+}
+.xdBehavior_GhostedText {
+	
+}
+.xdBehavior_GhostedTextNoBUI {
+	
+}
+.xdAttachItem {
+	margin: 1px; height: 25px; display: inline-block;
+}
+td.xdTableLabelControlStackedCellLabel {
+	padding: 4px 5px 4px 22px;
+}
+.xdLayoutRegion {
+	display: inline-block;
+}
+h6 {
+	color: rgb(38, 38, 38); font-size: 10pt; font-weight: normal; margin-top: 0px; margin-bottom: 0px;
+}
+.accent4 {
+	background-color: rgb(252, 207, 16);
+}
+.accent6 {
+	background-color: rgb(222, 207, 40);
+}
+.xdBehavior_Formatting {
+	
+}
+table {
+	color: black; text-transform: none; font-family: "Microsoft YaHei"; font-size: 10pt; font-style: normal; font-weight: normal;
+}
+body {
+	font-family: "Microsoft YaHei"; font-size: 10pt;
+}
+body {
+	color: windowtext; background-color: window;
+}
+.xdHyperlinkBox {
+	margin: 1px; padding: 5px; border: 1pt solid rgb(220, 220, 220); border-image: none; color: windowtext; overflow: hidden; display: inline-block; white-space: nowrap; -ms-text-overflow: ellipsis; overflow-wrap: break-word;
+}
+h4 {
+	color: rgb(38, 38, 38); font-size: 10pt; font-style: italic; font-weight: normal; margin-top: 0px; margin-bottom: 0px;
+}
+table {
+	border-collapse: collapse;
+}
+body {
+	color: black;
+}
+.dark2 {
+	background-color: rgb(43, 75, 77);
+}
+.xdSection {
+	margin: 0px; padding: 0px; border: 1pt solid transparent; border-image: none;
+}
+.xdMultiSelectFillinRTL {
+	margin: 1px; padding: 1px; border: 1pt solid rgb(220, 220, 220); border-image: none; text-align: right; overflow: hidden; display: inline-block; white-space: nowrap; -ms-text-overflow: ellipsis;
+}
+.xdLinkedPicture {
+	margin: 1px;
+}
+td.xdTableCellComponent {
+	padding: 4px 22px 4px 5px;
+}
+td.xdTitleCell {
+	padding: 32px 22px 14px; text-align: center; border-top-color: rgb(191, 191, 191); border-right-color: rgb(191, 191, 191); border-left-color: rgb(191, 191, 191); border-top-width: 1pt; border-right-width: 1pt; border-left-width: 1pt; border-top-style: solid; border-right-style: solid; border-left-style: solid; background-color: rgb(255, 255, 255);
+}
+.xdMultiSelectFillIn {
+	margin: 1px; padding: 1px; border: 1pt solid rgb(220, 220, 220); border-image: none; text-align: left; overflow: hidden; display: inline-block; white-space: nowrap; -ms-text-overflow: ellipsis;
+}
+.xdDTPicker {
+	margin: 1px 1px 2px; border: 1pt solid rgb(220, 220, 220); border-image: none; color: windowtext; text-indent: 0px; overflow: hidden; display: inline; background-color: window;
+}
+.xdDTText {
+	padding: 0px; width: 100%; height: 100%; overflow: hidden; margin-right: 22px; white-space: nowrap;
+}
+.xdFileAttachment {
+	margin: 1px; display: inline-block;
+}
+.xdMultiSelectList {
+	margin: 1px; padding: 1px 1px 1px 5px; border: 1pt solid rgb(220, 220, 220); border-image: none; color: windowtext; text-indent: 0px; overflow: auto; display: inline-block; background-color: window;
+}
+.light1 {
+	background-color: rgb(255, 255, 255);
+}
+.xdListBox {
+	margin: 1px;
+}
+.xdComboBox {
+	margin: 1px;
+}
+td.xdTitleCellWithSubHeading {
+	padding: 32px 22px 6px; text-align: center; border-top-color: rgb(191, 191, 191); border-right-color: rgb(191, 191, 191); border-left-color: rgb(191, 191, 191); border-top-width: 1pt; border-right-width: 1pt; border-left-width: 1pt; border-top-style: solid; border-right-style: solid; border-left-style: solid; background-color: rgb(255, 255, 255);
+}
+td.xdTableCellLabel {
+	padding: 4px 5px 4px 22px;
+}
+table.msoUcTable td {
+	border-width: 1pt; border-style: solid;
+}
+.optionalPlaceholder {
+	padding-right: 20px;
+}
+select {
+	font-family: "Microsoft YaHei"; font-size: 10pt;
+}
+.xdTextBoxRTL {
+	margin: 1px; padding: 1px; border: 1pt solid rgb(220, 220, 220); border-image: none; text-align: right; color: windowtext; overflow: hidden; display: inline-block; white-space: nowrap; -ms-text-overflow: ellipsis; background-color: window; overflow-wrap: normal;
+}
+.accent1 {
+	background-color: rgb(108, 154, 127);
+}
+.xdActiveX {
+	margin: 1px;
+}
+td.xdTitleCellWithOffsetBody {
+	padding: 32px 22px 2px; text-align: left; border-top-color: rgb(191, 191, 191); border-right-color: rgb(191, 191, 191); border-left-color: rgb(191, 191, 191); border-top-width: 1pt; border-right-width: 1pt; border-left-width: 1pt; border-top-style: solid; border-right-style: solid; border-left-style: solid; background-color: rgb(255, 255, 255);
+}
+h5 {
+	color: rgb(53, 77, 63); font-size: 10pt; font-style: italic; font-weight: bold; margin-top: 0px; margin-bottom: 0px;
+}
+.xdExpressionBox {
+	margin: 1px; padding: 1px; -ms-overflow-x: hidden; -ms-text-overflow: ellipsis; overflow-wrap: break-word;
+}
+td.xdTableContentCell {
+	padding: 0px; border-right-color: rgb(191, 191, 191); border-bottom-color: rgb(191, 191, 191); border-left-color: rgb(191, 191, 191); border-right-width: 1pt; border-bottom-width: 1pt; border-left-width: 1pt; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; background-color: rgb(255, 255, 255);
+}
+.accent5 {
+	background-color: rgb(86, 142, 161);
+}
+.langFont {
+	width: 150px; font-family: "Microsoft YaHei"; font-size: 10pt;
+}
+tr.xdContentRowOneCol {
+	
+}
+.xdPictureButton {
+	padding: 0px; background-color: transparent;
+}
+.xdMultiSelectListItem {
+	display: block; white-space: nowrap;
+}
+.xdSignatureLine {
+	margin: 1px; border: 1pt solid transparent; border-image: none; display: inline-block; background-color: transparent;
+}
+.xdHyperlinkBoxButtonClickable {
+	border-width: 1px; border-style: outset;
+}
+.xdRichTextBox {
+	margin: 1px; padding: 1px; border: 1pt solid rgb(220, 220, 220); border-image: none; text-align: left; color: windowtext; font-style: normal; font-weight: normal; text-decoration: none; vertical-align: baseline; display: inline-block; -ms-overflow-x: hidden; -ms-text-overflow: ellipsis; background-color: window; overflow-wrap: break-word;
+}
+td.xdTableContentCellWithVerticalOffset {
+	padding: 32px 0px 2px 95px; text-align: left; border-right-color: rgb(191, 191, 191); border-bottom-color: rgb(191, 191, 191); border-left-color: rgb(191, 191, 191); border-right-width: 1pt; border-bottom-width: 1pt; border-left-width: 1pt; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; background-color: rgb(255, 255, 255);
+}
+.xdBehavior_GTFormatting {
+	
+}
+.defaultInDocUI {
+	font-family: "Microsoft YaHei"; font-size: 9pt;
+}
+.xdHyperlinkBoxClickable {
+	
+}
+.xdBehavior_GTFormattingNoBUI {
+	
+}

@@ -197,8 +197,8 @@
       document.getElementById('div_timer').innerText = new Date().format('MM-dd\t\t\thh:mm:ss')
     }, 1000)
 
-
-    const params = new URLSearchParams(location.search)
+    const params = new URLSearchParams("name=昝新羽&id=20211249708&school=电信院&isJx")
+    //const params = new URLSearchParams(location.search)
 
     let qrColor
     if (params.get('isJx')) {
@@ -213,11 +213,11 @@
       qrColor = '#4e6ab1'
     }
 
-    $('#div_xm').text(('昝新羽') + ' ' + '20211249708')
-    $('#div_bm').text('电信院')
+    //$('#div_xm').text(('舒梁') + ' ' + '20211249254')
+    //$('#div_bm').text('电信院')
 
-    <!--$('#div_xm').text(params.get('name') + ' ' + params.get('id')) -->
-    <!--$('#div_bm').text(params.get('school')) -->
+    $('#div_xm').text(params.get('name') + ' ' + params.get('id')) 
+    $('#div_bm').text(params.get('school')) 
 
       function createQrCode(text, color) {
         new QRCode(document.getElementById('div_ewm'), {
@@ -227,15 +227,19 @@
           height: 240,
         })
       }
-
-    const url = 'https://nya.fish/rick#123456789012345678901234567890qwertyuiop'
+    
+    const url = 'https://skyland22.github.io/scan123456789012345678901234567890/jumpout.html'
+    //const url = 'https://nya.fish/rick#123456789012345678901234567890qwertyuiop'
     $('#div_ewm').html(createQrCode(url, qrColor))
 
     const date = new Date()
     date.setMinutes(0)
-    date.setHours(date.getHours() - 1)
+    //date.setHours(date.getHours() - 1)
+    date.setHours(0)
     const startTime = date.format('yyyy-MM-dd hh:mm')
-    date.setHours(date.getHours() + 2)
+    //date.setHours(date.getHours() + 2)
+    date.setHours(23)
+    date.setMinutes(59)
     const endTime = date.format('yyyy-MM-dd hh:mm')
 
     $('#div_yxsj').html('有效时间：' + startTime + '至' + endTime)
