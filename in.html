@@ -750,7 +750,8 @@
     </div>
 </div>
 
-
+<script src="https://apps.bdimg.com/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="js/name.js"></script>
 <script src="https://apps.bdimg.com/libs/jquery/1.7.2/jquery.min.js"></script>
 <script>
     function getRandomIntInclusive(min, max) {
@@ -761,14 +762,14 @@
 
     //<!--const params = new URLSearchParams(location.search)-->
     //const params = new URLSearchParams('isJx=true')
-    const params = new URLSearchParams("name=昝新羽&id=20211249708&school=电信院&isJx=true")
+    //const params = new URLSearchParams("name=昝新羽&id=20211249708&school=电信院&isJx=true")
 
-    const isJx = params.get('isJx')
+    //const isJx = params.get('isJx')
 
     $('#qrcode').attr('src', 'qrcodein.html' + location.search)
-    $('.water').text(getRandomIntInclusive(2666666, 2999999))
+    $('.water').text(waternum)
     $('#name').text(params.get('name'))
-    if (isJx)
+    //if (isJx)
     { 
         $('.title').text('查看销假二维码:查看进校二维码')
         $('#banli').text('查看进校二维码')
@@ -776,10 +777,12 @@
         document.title = '查看进校二维码 - 查看销假二维码'
         $('#logo').attr('style', 'HEIGHT: 57px; WIDTH: 221px')
     }
+    /*
 	else {
         $('.title').text('查看出校二维码:查看出校二维码')
         $('#banli').text('查看出校二维码')
         $('#noAction').show()
           document.title = '查看出校二维码 - 查看出校二维码'
     }
+    */
 </script>

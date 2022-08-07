@@ -32,6 +32,8 @@ Date.prototype.format = function (fmt) {
 }
 
 const params = new URLSearchParams("name=昝新羽&id=20211249708&gender=女（female）&number=18565032611&idnum=34022320001211132X&school=电信院&mentor=王浩&counselor=陈玥竹")
+//const params = new URLSearchParams("name=舒梁&id=20211249254&gender=男（male）&number=18651322019&idnum=34252319981005133X&school=电信院&mentor=张敏&counselor=祁雪峰")
+
 
 $('.water').text(waternum)
 $('.name').text(params.get('name'))

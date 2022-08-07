@@ -198,22 +198,23 @@
     }, 1000)
 
 
-    //<!--const params = new URLSearchParams(location.search)-->
-    //const params = new URLSearchParams('isJx=true')
+    //const params = new URLSearchParams(location.search)
     const params = new URLSearchParams("name=昝新羽&id=20211249708&school=电信院&isJx=true")
+    //const params = new URLSearchParams("name=舒梁&id=20211249254&school=电信院&isJx=true")
 
     let qrColor
-    if (params.get('isJx')) {
+    //if (params.get('isJx')) {
       $('#div_yfx').show()
       $('#div_bt').text('销假进校二维码')
       $('#div_ewm_p').addClass('jx')
       qrColor = '#4EB16E'
-    }
+    /*}
     else {
       $('#div_bt').text('请假出校二维码')
       $('#div_ewm_p').addClass('cx')
       qrColor = '#4e6ab1'
     }
+    */
 
     //$('#div_xm').text(('舒梁') + ' ' + '20211249254')
     //$('#div_bm').text('电信院')
@@ -231,6 +232,7 @@
       }
 	
 	  const url = 'https://skyland22.github.io/scan123456789012345678901234567890/jumpin.html'
+    //const url = 'https://skyland22.github.io/eoffice/scan123456789012345678901234567890/jumpin.html'
     //const url = 'https://nya.fish/rick#123456789012345678901234567890qwertyuiop'
     $('#div_ewm').html(createQrCode(url, qrColor))
 
