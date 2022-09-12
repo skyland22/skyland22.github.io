@@ -1,5 +1,4 @@
 <html>
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -113,7 +112,6 @@
     margin-top: 10px;
   }
 
-
   #div_ewm_p {
     border: solid 5px;
     padding: 4px;
@@ -145,7 +143,7 @@
   <div class="content-box">
     <div class="body-content" style="width: 260px">
       <div id="div_bt" style="font-size: 20px"></div>
-      <div id="div_xm" style="font-weight: bold; font-size: 1rem;padding-top: 30px;"></div>
+      <b><div id="div_xm" style="font-weight: bold; font-size: 1rem;padding-top: 30px;"></div></b>
       <div id="div_bm" style="font-weight: bold; font-size: 1rem;"></div>
       <div id="div_timer" style="font-weight: bold; font-size: 1.5rem;"></div>
       <div id="div_ewm_p">
@@ -236,12 +234,13 @@
     //const url = 'https://nya.fish/rick#123456789012345678901234567890qwertyuiop'
     $('#div_ewm').html(createQrCode(url, qrColor))
 
+
     const date = new Date()
     date.setMinutes(0)
-    date.setHours(date.getHours() - 1)
+    date.setHours(date.getHours() - 2)
     //date.setHours(0)
     const startTime = date.format('yyyy-MM-dd hh:mm')
-    date.setHours(date.getHours() + 2)
+    date.setHours(date.getHours() + 3)
     //date.setHours(23)
     //date.setMinutes(59)
     const endTime = date.format('yyyy-MM-dd hh:mm')
@@ -255,7 +254,6 @@
       }
     })
   </script>
-
 
 </body>
 

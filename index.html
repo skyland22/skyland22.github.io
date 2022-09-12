@@ -1,36 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>服务大厅</title>
-
+	
 	<meta name="renderer" content="webkit">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta http-equiv="cache-control" content="max-age=0">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="expires" content="Tue, 01 Jan 1970 1:00:00 GMT">
 	<meta http-equiv="pragma" content="no-cache">
-
+	
 
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/jquery.gritter.css">
 	<link rel="stylesheet" href="css/jstarbox.css">
 	<link rel="stylesheet" href="css/rateit.css">
-
-
-
-	<link rel="stylesheet" href="css/wechat.css">
-
+	
+	
+	
+		<link rel="stylesheet" href="css/wechat.css">
+	
 	<!-- basic scripts -->
 	<script src="js/json2.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.timestamp.js"></script>
-	<script src="js/layer.js"></script>
-	<link rel="stylesheet" href="css/layer.css" id="layuicss-skinlayercss">
+	<script src="js/layer.js"></script><link rel="stylesheet" href="css/layer.css" id="layuicss-skinlayercss">
 	<script src="js/jquery.noty.packaged.min.js"></script>
 	<script src="js/jquery.fly.js"></script>
 	<script src="js/jquery-migrate-1.2.0.min.js"></script>
@@ -38,9 +34,9 @@
 	<script src="js/jquery.cookie.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/bootbox.min.js"></script>
-
+	
 	<script src="js/jquery.gritter.min.js"></script>
-
+		
 	<script src="js/underscore-min.js"></script>
 	<script src="js/backbone-min.js"></script>
 	<script src="js/backbone.fetch-cache.min.js"></script>
@@ -54,7 +50,7 @@
 	<script src="js/jquery.easy-paging.js"></script>
 	<script src="js/jquery.easy-pie-chart.min.js"></script>
 	<script src="js/jquery.SuperSlide.2.1.js"></script>
-
+	
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lte IE 8]>
 	<script src="/taskcenter/resources/common/js/html5shiv.js?_v=20210415-212848"></script>
@@ -63,43 +59,43 @@
 	<script src="js/jquery-textoverflow.js"></script>
 
 	<script src="js/public.js"></script>
-
-
+	
+	
 	<script>
 		Global = {
-			contentpath: "",
-			bodyHeight: $('body').height(),
-			cacheTime: 6000,
+			contentpath : "",
+			bodyHeight : $('body').height(),
+			cacheTime : 6000,
 			debugModal: false,
 			CSRFToken: "",
 			resourceUrl: "",
 			resSys: "",
-			userId: "",
+			userId:"",
 			loginName: "",
 			membership: "",
 			deviceName: "",
-			tag: "",
-			pathName: "apps",
+			tag:"",
+			pathName:"apps",
 			supportFrame: "include",
 			loginStatus: "",
 			imageUrl: "",
-			contentSelector: ".contents",
-			templateSelector: "#contentsTemplate",
-			scrollTop: true,
-			titleMap: {},
-			hash: "",
-			dataName: "apps",
-			isLoading: true,
-			loginUrl: "",
-			version: "20210415-212848",
-			isDebug: "false",
+			contentSelector : ".contents",
+			templateSelector : "#contentsTemplate",
+			scrollTop : true,
+			titleMap : {},
+			hash : "",
+			dataName : "apps",
+			isLoading : true,
+			loginUrl : "",
+			version : "20210415-212848",
+			isDebug : "false",
 			locale: "zh",
 			positionTag: "",
 			isTeacher: "false",
-			homeAccessTimes: "",
+			homeAccessTimes : "",
 			hrbeuCmsUrl: "",
-			locationHost: "",
-			order: "auto"
+			locationHost : "",
+			order:"auto"
 		};
 
 		Global._parameter = {};
@@ -111,128 +107,127 @@
 		Global.completeds = [];
 		Global.ccs = [];
 		Global.merges = [];
-		Global.selectorMap = {
-			".btn-favorite": "click", ".btn-favorite-remove": "click"
-			, ".tag-select": "change", ".search-input": "keydown", ".btn-search-input": "click"
-		};
-		Global.hashMap = {
-			"apps": "contentsTemplate", "audit": "contentsAuditTemplate", "todo": "contentsTodoTemplate"
-			, "doing": "contentsDoingTemplate", "done": "contentsDoneTemplate", "unrate": "contentsUnrateTemplate"
-			, "todohistory": "contentsTodoHistoryTemplate", "audithistory": "contentsAuditHistoryTemplate"
-		};
-		Global.apiMap = {
-			"api/me/apps": "apps", "api/me/tasks/todo": "todos", "api/me/processes/doing?limit=%s&start=%s&keyword=%s": "doings"
-			, "api/me/processes/done?limit=%s&start=%s&keyword=%s": "dones", "api/me/processes/completed?limit=%s&start=%s&keyword=%s": "completeds",
-			"api/process/%s": "processes", "api/me/processes/merge": "merges", "api/me/processes/todo": "mergeTodos",
-			"api/me/processes/unrated": "unrates", "api/me/processes/cc?limit=%s&start=%s&keyword=%s": "ccs"
-		};
-		Global.sepMap = { "audit": "true", "audithistory": "false", "completed": "true", "merge": "false", "approval": "true" };
-		Global.defaultTags = { "ALL": "全部", "COLLECT": "收藏" };
-		Global.query = { limit: 10, start: 0, pageSize: 10, data: {} };
-		Global.rapidHandle = { checked: {}, names: {}, actions: {} };
-		Global.rapidCc = { chooseAll: false, checked: {} };
-		Global.app = { palette: "green" };
+		Global.selectorMap = {".btn-favorite" : "click",".btn-favorite-remove" : "click" 
+							, ".tag-select" : "change" , ".search-input":"keydown" , ".btn-search-input":"click" };
+		Global.hashMap = { "apps" : "contentsTemplate" , "audit" : "contentsAuditTemplate" ,"todo" : "contentsTodoTemplate"
+							 ,"doing" : "contentsDoingTemplate" ,"done" : "contentsDoneTemplate" , "unrate" : "contentsUnrateTemplate"
+						, "todohistory" : "contentsTodoHistoryTemplate" , "audithistory" : "contentsAuditHistoryTemplate"};
+		Global.apiMap = {"api/me/apps":"apps" , "api/me/tasks/todo":"todos","api/me/processes/doing?limit=%s&start=%s&keyword=%s":"doings" 
+						, "api/me/processes/done?limit=%s&start=%s&keyword=%s":"dones","api/me/processes/completed?limit=%s&start=%s&keyword=%s":"completeds" ,
+						 "api/process/%s":"processes" , "api/me/processes/merge" : "merges" , "api/me/processes/todo" : "mergeTodos" , 
+						 "api/me/processes/unrated" :"unrates" , "api/me/processes/cc?limit=%s&start=%s&keyword=%s":"ccs" };
+		Global.sepMap = {  "audit" : "true" , "audithistory" : "false" , "completed" : "true" , "merge" : "false" , "approval" : "true" };
+		Global.defaultTags = {"ALL":"全部","COLLECT":"收藏"};
+		Global.query = { limit : 10 , start : 0 ,pageSize : 10 , data : {}};
+		Global.rapidHandle = { checked : {} , names : {} , actions : {}};
+		Global.rapidCc={chooseAll:false,checked:{}};
+		Global.app = {palette:"green"};
 		Global.dataLength = {};
 		Global.rate = {};
-		if (Global.deviceName != 'mobile') {
+		if(Global.deviceName != 'mobile'){
 			Global.scrollTop = false;
 		}
-		$.cookie.json = true;
-
+		$.cookie.json=true;
+		
 	</script>
 	<script src="js/flow.js"></script>
+	
+	
+<style>hcfy-result.__hcfy__result__loaded__.__hcfy__result__both__{border: 1px dotted}
+	#title_icon {
+      display: inline-block;
+      float: left;
+      width: 36px;
+      font-size: 24px;
+      color: white;
+      text-align: center;
+      cursor: pointer
+    }
 
+	@font-face {
+      font-family: "icomoon";
+      src: url(icon.ttf) format("truetype");
+      font-weight: normal;
+      font-style: normal
+    }
 
-	<style>
-		hcfy-result.__hcfy__result__loaded__.__hcfy__result__both__ {
-			border: 1px dotted
-		}
+    i {
+      font-family: "icomoon" !important;
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale
+    }
 
-		#title_icon {
-			display: inline-block;
-			float: left;
-			width: 36px;
-			font-size: 24px;
-			color: white;
-			text-align: center;
-			cursor: pointer
-		}
+	.i-icon-menu:before {
+      content: ""
+    }
+	
+	/*
+	.i-icon-menu:before {
+      content: ""
+    }
+	*/
 
-		@font-face {
-			font-family: "icomoon";
-			src: url(icon.ttf) format("truetype");
-			font-weight: normal;
-			font-style: normal
-		}
-
-		i {
-			font-family: "icomoon" !important;
-			speak: none;
-			font-style: normal;
-			font-weight: normal;
-			font-variant: normal;
-			text-transform: none;
-			-webkit-font-smoothing: antialiased;
-			-moz-osx-font-smoothing: grayscale
-		}
-
-		.i-icon-menu:before {
-			content: ""
-		}
-	</style>
-</head>
+</style></head>
 
 <body class="no-skin" data-new-gr-c-s-check-loaded="14.1017.0" data-gr-ext-installed="">
 	<div class="sysu-contents">
 
-		<div class="container">
-			<div class="hd">
-				<div class="weui_cell base_cell">
-					<!--<div class="weui_cell_ft"><a href="http://e-office.nuist.edu.cn/taskcenter/wechat/appall"><i class="iconfont"></i>全部事项</a></div>-->
-					<!--<div class="weui_cell_ft"><a href="allmatters.html"><img src="images/icon_menu_1.png" width="20px">全部事项</a></div>-->
-					<div class="weui_cell_ft"><a href="allmatters.html"><i class="i-icon-menu"></i>全部事项</a></div>
-					<div class="weui_cell_bd weui_cell_primary">
-						<!-- <p><i class="logo"></i>USC</p>-->
-						<p class="logo1" style="margin-right:40px;">大学服务中心</p>
-					</div>
-					<div class="weui_cell_ft">
-						<!--<a href="http://e-office.nuist.edu.cn/taskcenter/wechat/search" class="weui_cell_ft_search" title="搜索">
+<div class="container">
+	<div class="hd">
+		<div class="weui_cell base_cell">
+	        <!--<div class="weui_cell_ft"><a href="http://e-office.nuist.edu.cn/taskcenter/wechat/appall"><i class="iconfont"></i>全部事项</a></div>-->
+			<!--<div class="weui_cell_ft"><a href="allmatters.html"><img src="images/icon_menu_1.png" width="20px">全部事项</a></div>-->
+			<!--<div class="weui_cell_ft"><a href="allmatters.html"><i class="i-icon-menu"></i>全部事项</a></div>-->
+			<div class="weui_cell_ft"><a href="allmatters.html"><div id=title_icon class=title_icon><i class=i-icon-menu></i></div></div>
+			<div id=title_content style=max-width:253px>
+				<nobr class="title"></nobr></a>
+			</div>
+	        <div class="weui_cell_bd weui_cell_primary">
+	          <!-- <p><i class="logo"></i>USC</p>-->
+				 <p class="logo1" style="margin-right:40px;">大学服务中心</p>
+	        </div>
+	        <div class="weui_cell_ft">
+	        	<!--<a href="http://e-office.nuist.edu.cn/taskcenter/wechat/search" class="weui_cell_ft_search" title="搜索">
 	        		<i class="iconfont"></i>
 	        	</a>-->
-						<!--<a href=""><i class="icon_search_1"></i></a>-->
-						<img src="images/icon_search_1.png" width="30px">
-						<!--收藏图标 暂时 去掉 
+				<!--<a href=""><i class="icon_search_1"></i></a>-->
+				<img src="images/icon_search_1.png" width="30px">
+				<!--收藏图标 暂时 去掉 
 	        	<a href="#"  title=" "><i class="iconfont" style="padding-left: 20px;">&#xe602;</i></a>
 				-->
-					</div>
-				</div>
-				<div class="weui_tabbar">
-					<a href="todo.html" class="weui_tabbar_item">
-						<p class="weui_tabbar_label">待办理</p>
-						<div class="weui_tabbar_icon"><i class="icon_msg">1</i><img src="images/icon_nav_1.png" alt="">
-						</div>
-					</a>
-					<a href="" class="weui_tabbar_item">
-						<p class="weui_tabbar_label">待审核</p>
-						<div class="weui_tabbar_icon"><img src="images/icon_nav_2.png" alt=""></div>
-					</a>
-					<a href="doing.html" class="weui_tabbar_item">
-						<p class="weui_tabbar_label">进行中</p>
-						<div class="weui_tabbar_icon"><img src="images/icon_nav_3.png" alt=""></div>
-					</a>
-					<a href="" class="weui_tabbar_item">
-						<p class="weui_tabbar_label">已完成</p>
-						<div class="weui_tabbar_icon"><img src="images/icon_nav_4.png" alt=""></div>
-					</a>
-					<a href="" class="weui_tabbar_item">
-						<p class="weui_tabbar_label">抄送</p>
-						<div class="weui_tabbar_icon"><img src="images/icon_nav_5.png" alt=""></div>
-					</a>
-				</div>
-			</div>
-
-			<div class="bd">
-				<!--
+	        </div>
+	    </div>
+		<div class="weui_tabbar">
+	        <a href="todo.html" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">待办理</p>
+	            <div class="weui_tabbar_icon"><i class="icon_msg">1</i><img src="images/icon_nav_1.png" alt=""></div>
+	        </a>
+	        <a href="" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">待审核</p>
+	            <div class="weui_tabbar_icon"><img src="images/icon_nav_2.png" alt=""></div>
+	        </a>
+	        <a href="doing.html" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">进行中</p>
+	            <div class="weui_tabbar_icon"><img src="images/icon_nav_3.png" alt=""></div>
+	        </a>
+	        <a href="" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">已完成</p>
+	            <div class="weui_tabbar_icon"><img src="images/icon_nav_4.png" alt=""></div>
+	        </a>
+	        <a href="" class="weui_tabbar_item">
+	            <p class="weui_tabbar_label">抄送</p>
+	            <div class="weui_tabbar_icon"><img src="images/icon_nav_5.png" alt=""></div>
+	        </a>
+	    </div>
+	</div>
+	
+	<div class="bd">
+		<!--
 		<div class="weui_panel none_before">
 			<div class="weui_cells_title orange"><b>紧急事项 !</b></div>
 			<div class="weui_cells list_cells none_before none_after">
@@ -261,105 +256,103 @@
 	        <a href="#" class="weui_btn gray_btn">查看所有紧急事项</a>
 	    </div>
 	-->
-				<div class="weui_panel none_before weui_panel_recommend">
-					<div class="weui_cells_title yellow"><b>推荐事项</b></div>
-					<div class="weui_cells list_cells none_before none_after">
-
-						<div class="weui_cell">
-							<div class="weui_cell_bd weui_cell_primary">
-								<!--<a target="_blank" href="" title="复学申请表"><img src="images/icon_greenpoint.png" width="1%"> 复学申请表 
+		<div class="weui_panel none_before weui_panel_recommend">
+			<div class="weui_cells_title yellow"><b>推荐事项</b></div>
+			<div class="weui_cells list_cells none_before none_after">
+	    		
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+						<!--<a target="_blank" href="" title="复学申请表"><img src="images/icon_greenpoint.png" width="1%"> 复学申请表 
 		                	<i class="icon_text icon_text_1">-->
-								<a target="_blank" href="" title="复学申请表">
-									<h3><i class="iconfont" title=".">•</i>
-										复学申请表
-										<i class="icon_text icon_text_1">
-											<img src="images/icon_text_1.png" alt="推荐"></i>
-									</h3>
-
-									<p>
-
-									</p>
-								</a>
-							</div>
-							<!--
+		               		<a target="_blank" href="" title="复学申请表"> <h3><i class="iconfont" title=".">•</i>
+		                	复学申请表
+		                	<i class="icon_text icon_text_1">
+		                	<img src="images/icon_text_1.png" alt="推荐"></i></h3>
+		                 
+			                <p>
+			                	
+			                </p>       
+		               </a>
+		            </div>
+					<!--
 		            <div class="weui_cell_ft"><a href="#" title=" "><i class="iconfont like">&#xe602;</i></a></div>
 					-->
-						</div>
-
-					</div>
-				</div>
-
-				<div class="weui_panel none_before">
-					<div class="weui_cells_title green"><b>我的常办事项</b></div>
-					<div class="weui_cells list_cells none_before none_after">
-
-						<div class="weui_cell">
-							<div class="weui_cell_bd weui_cell_primary">
-								<a target="_blank" href="" class="widget-elli" title="学生在外住宿申请">
-									<h3><i class="iconfont" title=".">•</i> 学生在外住宿申请 </h3>
-									<p>办理次数：<span app-stat-id="">0</span>次</p>
-								</a>
-							</div>
-						</div>
-
-						<div class="weui_cell">
-							<div class="weui_cell_bd weui_cell_primary">
-								<a target="_blank" href="" class="widget-elli" title="复学申请表">
-									<h3><i class="iconfont" title=".">•</i> 复学申请表 </h3>
-									<p>办理次数：<span app-stat-id="">0</span>次</p>
-								</a>
-							</div>
-						</div>
-
-						<div class="weui_cell">
-							<div class="weui_cell_bd weui_cell_primary">
-								<a target="_blank" href="" class="widget-elli" title="宣传标语等展示申请表（学生）">
-									<h3><i class="iconfont" title=".">•</i> 宣传标语等展示申请表（学生） </h3>
-									<p>办理次数：<span app-stat-id="">0</span>次</p>
-								</a>
-							</div>
-						</div>
-
-						<div class="weui_cell">
-							<div class="weui_cell_bd weui_cell_primary">
-								<a target="_blank" href="" class="widget-elli" title="宣传标语等展示申请表（研究生）">
-									<h3><i class="iconfont" title=".">•</i> 宣传标语等展示申请表（研究生） </h3>
-									<p>办理次数：<span app-stat-id="">0</span>次</p>
-								</a>
-							</div>
-						</div>
-
-						<div class="weui_cell">
-							<div class="weui_cell_bd weui_cell_primary">
-								<a target="_blank" href="" class="widget-elli" title="研究生在外住宿申请">
-									<h3><i class="iconfont" title=".">•</i> 研究生在外住宿申请 </h3>
-									<p>办理次数：<span app-stat-id="">0</span>次</p>
-								</a>
-							</div>
-						</div>
-
-
-					</div>
-					<!--<div class="spacing"><a href="" class="weui_btn green_btn2"><i class="iconfont"></i>全部事项</a></div>-->
-					<div class="spacing"><a href="" class="weui_btn green_btn2"><i class="i-icon-menu"></i>全部事项</a>
-					</div>
-					<!--<div class="spacing"><a href="" class="weui_btn green_btn2"><image src="images/icon_menu_1.png" width="20px"></image>全部事项</a></div>-->
-				</div>
-
-			</div>
-		</div>
-		<div class="right-bar">
-			<a href="">
-
-				<img class="weui_cell_ft_me" src="images/personal-1.png">
-
-			</a>
-			<a href="javascript:scroll(0,0)"><img class="goto-up" src="images/up-1.png"></a>
-		</div>
+		        </div>
+		        
+	        </div>
+	    </div>
+	
+		<div class="weui_panel none_before">
+			<div class="weui_cells_title green"><b>我的常办事项</b></div>
+			<div class="weui_cells list_cells none_before none_after">
+	    		
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		               <a target="_blank" href="" class="widget-elli" title="学生在外住宿申请">
+		                <h3><i class="iconfont" title=".">•</i> 学生在外住宿申请 </h3>
+		                <p>办理次数：<span app-stat-id="">0</span>次</p>
+		                </a>
+		            </div>
+		        </div>
+		        
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		               <a target="_blank" href="" class="widget-elli" title="复学申请表">
+		                <h3><i class="iconfont" title=".">•</i> 复学申请表 </h3>
+		                <p>办理次数：<span app-stat-id="">0</span>次</p>
+		                </a>
+		            </div>
+		        </div>
+		        
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		               <a target="_blank" href="" class="widget-elli" title="宣传标语等展示申请表（学生）">
+		                <h3><i class="iconfont" title=".">•</i> 宣传标语等展示申请表（学生） </h3>
+		                <p>办理次数：<span app-stat-id="">0</span>次</p>
+		                </a>
+		            </div>
+		        </div>
+		        
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		               <a target="_blank" href="" class="widget-elli" title="宣传标语等展示申请表（研究生）">
+		                <h3><i class="iconfont" title=".">•</i> 宣传标语等展示申请表（研究生） </h3>
+		                <p>办理次数：<span app-stat-id="">0</span>次</p>
+		                </a>
+		            </div>
+		        </div>
+		        
+	    		<div class="weui_cell">
+		            <div class="weui_cell_bd weui_cell_primary">
+		               <a target="_blank" href="" class="widget-elli" title="研究生在外住宿申请">
+		                <h3><i class="iconfont" title=".">•</i> 研究生在外住宿申请 </h3>
+		                <p>办理次数：<span app-stat-id="">0</span>次</p>
+		                </a>
+		            </div>
+		        </div>
+		        
+	    		
+	        </div>
+	        <!--<div class="spacing"><a href="" class="weui_btn green_btn2"><i class="iconfont"></i>全部事项</a></div>-->
+			<div class="spacing"><a href="" class="weui_btn green_btn2"><i class="i-icon-menu"></i>全部事项</a></div>
+			<!--<div class="spacing"><a href="" class="weui_btn green_btn2"><image src="images/icon_menu_1.png" width="20px"></image>全部事项</a></div>-->
+	    </div>
+	
 	</div>
+</div>
+<div class="right-bar">
+	<a href="">
+	
+		<img class="weui_cell_ft_me" src="images/personal-1.png">
+	
+	</a>
+	<a href="javascript:scroll(0,0)"><img class="goto-up" src="images/up-1.png"></a>
+</div>
+</div>
 
-	<script type="text/javascript">
-	</script>
+<script type="text/javascript">
+	$('.title').text('全部事项')
+</script>
 	<div class="modal-qh"></div>
 	<div class="modal-rate"></div>
 	<iframe src="refresh.html" style="display: none;"></iframe>
@@ -368,10 +361,4 @@
 	</script>
 	<script>
 	</script>
-</body>
-<div style="all: initial;">
-	<div id="__hcfy__" style="all: initial;"></div>
-</div>
-<grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
-
-</html>
+</body><div style="all: initial;"><div id="__hcfy__" style="all: initial;"></div></div><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

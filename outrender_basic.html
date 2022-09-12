@@ -57,28 +57,6 @@
     .i-icon-more-vert:before {
         content: ""
     }
-
-    div.form_remark_title {
-      overflow: hidden
-    }
-
-    div.form_remark_title:before {
-      content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAoJJREFUeNosUktrFEEQrq7unp1ZdpcNCTEPIoRs8EH0EEiU4CUGDxLw4JKzOSTiIYIoIv4GEbx5yCEePYwHhYCHSBA8GU8i+EgiicHHbgwmu8nOs7usWa2e6Wm6v6qvvq9H1Ig2tuD5WpDEJCQaY6RFpVSapohoJSVJorV0lZ4agZGTWn3ehOXl5V11BoWTWsNQNCIIgmyBSAqISErRtLS6+kGIi7Lr3O36Ud5gBwknSQUZ6x29GT3V0VsOf++sRXpQoGch14oohOKPA0dFUSSlNAC8ACBrkvv3qgBgAaanT9958NXzkEA4jmNiwxhsGn1oHe4hJ1XS/DlzaaAXbA+YfrD9mFy50GNadQVZk7Eq7Mcsy9owDP+p5OjsBENGgGASKWSplGfR7AQrabcASFHiAIatWhDtSq1evmpYoWNCfhLAldffSGBi9kyyryyYIPrPIISI45jLFItF31/lWmEIS0svhoaO5/P5ZrPJMGZgmKIkgDRM4+BYgRbvTgiEp+8mr95c5LP5+bkboyAuV64/fFv7cyB0IQ0RW60W+91oNObmJkTWOZwfg1wux4XHx4DzOWZnx1k0i2ESlVrNaJd+Vbr4KOW3z6hHtybZ6wG2FrOd4S4F4fYhFVFJxQLYhEKhYAna3gDzVCoD0A7i0b4T13UjgszPVhDw52PNfvoO1KccBEQwNktDwVDNFO83YbvugXNQLpcVU7P9pVJpYeHx2UHd3Vl2ncw6Fs3MgGprp75Rk06pzyrFm2Lx2brv+3VnmIxnjgz/ArumwffIOVwrH0qtdYyx46bd8Xq1WhV7RL7/5cnKehRIF1z2IS1lnKIdXoA8pyrlhGtTlZmZE38FGACxemPwwLwFJQAAAABJRU5ErkJggg==);
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      margin-right: 6px;
-      position: relative;
-      top: 2px
-    }
-
-    li.tool_button {
-      position: relative;
-      text-align: center;
-      list-style: none;
-      float: right
-    }
-
 </style>
 
 <body>
@@ -129,23 +107,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="command_holder">
-                        <div class="clear"></div>
-                        <div id="command_bar_title_icon" class="title_icon doing" style="display: none;"><i class="i-icon-menu"></i></div>
-                        <ul id="form_command_bar">
-                            <li class="command_button kill" style=""><a class="command_button_content kill" name="infoplus_action_1056_kill"
-                                    id="infoplus_action_1056_kill">
-                                    <nobr>终止</nobr>
-                                </a></li>
-                        </ul>
-                    </div>
-                    <!--
-                    <div id="command_holder">
-                        <div class="clear"></div>
-                        <ul id="form_command_bar">
-                            <li class="no_action">此任务已处理,您无需任何操作</li>
-                        </ul>
-                    </div>-->
+
                     <!-- 1.form command bar  
         <div id="command_holder">
             <div class="clear"></div>
@@ -779,7 +741,8 @@
                                                                                             title=""
                                                                                             class="infoplus_control infoplus_labelControl inline"
                                                                                             id="label_d73a4b8e-2f42-478d-8093-5ee3446b8cec">
-                                                                                            <span class="appstarttime"></span>
+                                                                                            <span
+                                                                                                class="appstarttime"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -818,7 +781,8 @@
                                                                                             title=""
                                                                                             class="infoplus_control infoplus_labelControl inline"
                                                                                             id="label_2ddae1f4-3b21-465d-9f5f-226cebfb8085">
-                                                                                            <span class="appendtime"></span>
+                                                                                            <span
+                                                                                                class="appendtime"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -1284,124 +1248,6 @@
                                                                             <td style="border-width: 0px; border-style: none; border-color: rgb(0, 112, 192); vertical-align: middle; padding: 0px; background-color: rgb(242, 242, 242);"
                                                                                 colspan="3"></td>
                                                                         </tr>
-
-                                                                        <tr>
-                                                                            <td style="BORDER-TOP: #0070c0 1pt solid; BORDER-RIGHT: #0070c0 1pt solid; VERTICAL-ALIGN: middle; BORDER-BOTTOM: #0070c0 1pt solid; PADDING-BOTTOM: 5px; PADDING-TOP: 5px; PADDING-LEFT: 5px; BORDER-LEFT: #0070c0 1pt solid; PADDING-RIGHT: 5px; BACKGROUND-COLOR: #f2f2f2"
-                                                                                rowspan="2">
-                                                                                <div align="center">
-                                                                                    <font size="3">
-                                                                                        <div>
-                                                                                            <div>学院分管学生</div>
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <div>工作副书记</div>
-                                                                                        </div>
-                                                                                    </font>
-                                                                                </div>
-                                                                                <div align="center">
-                                                                                    <font size="3">
-                                                                                        <div>
-                                                                                            <div></div>
-                                                                                        </div>
-                                                                                        <div>
-                                                                                            <div>意见</div>
-                                                                                        </div>
-                                                                                    </font>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td style="BORDER-TOP: #0070c0 1pt solid; BORDER-RIGHT: #0070c0 1pt solid; VERTICAL-ALIGN: middle; BORDER-BOTTOM: #0070c0 1pt solid; PADDING-BOTTOM: 5px; PADDING-TOP: 5px; PADDING-LEFT: 5px; BORDER-LEFT: #0070c0 1pt solid; PADDING-RIGHT: 5px; BACKGROUND-COLOR: #f2f2f2"
-                                                                                colspan="3">
-                                                                                <div align="left"><img
-                                                                                        src="images/selected.png"
-                                                                                        width="15px"><label
-                                                                                        for="V0_CTRL231"
-                                                                                        class="infoplus_radioLabel">
-                                                                                        <font size="3">同意</font>
-                                                                                    </label></div>
-                                                                                <div align="left"><img
-                                                                                        src="images/select_none.png"
-                                                                                        width="15px"><label
-                                                                                        for="V0_CTRL232"
-                                                                                        class="infoplus_radioLabel">
-                                                                                        <font size="3">退回</font>
-                                                                                    </label></div>
-                                                                                <div align="left"><img
-                                                                                        src="images/select_none.png"
-                                                                                        width="15px"><label
-                                                                                        for="V0_CTRL233"
-                                                                                        class="infoplus_radioLabel">
-                                                                                        <font size="3">不同意</font>
-                                                                                    </label></div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="BORDER-TOP: #0070c0 1pt solid; BORDER-RIGHT: #0070c0 1pt solid; VERTICAL-ALIGN: middle; BORDER-BOTTOM: #0070c0 1pt solid; PADDING-BOTTOM: 5px; PADDING-TOP: 5px; PADDING-LEFT: 5px; BORDER-LEFT: #0070c0 1pt solid; PADDING-RIGHT: 5px; BACKGROUND-COLOR: #f2f2f2"
-                                                                                colspan="3">
-                                                                                <div align="left">
-                                                                                    <div class="infoplus_labelControlContainer"
-                                                                                        id="label_7d05e0ff-c00c-4431-bae3-682999305cbc_Container">
-                                                                                        <div style="font-size: small; font-family: &quot;PingFang SC&quot;, 微软雅黑; width: 100%; min-height: 50px;"
-                                                                                            title=""
-                                                                                            class="infoplus_control infoplus_labelControl"
-                                                                                            id="label_7d05e0ff-c00c-4431-bae3-682999305cbc">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td
-                                                                                style="BORDER-TOP: #0070c0 1pt solid; BORDER-RIGHT: #0070c0 1pt solid; VERTICAL-ALIGN: middle; BORDER-BOTTOM: #0070c0 1pt solid; PADDING-BOTTOM: 5px; PADDING-TOP: 5px; PADDING-LEFT: 5px; BORDER-LEFT: #0070c0 1pt solid; PADDING-RIGHT: 5px; BACKGROUND-COLOR: #f2f2f2">
-                                                                                <div align="center">
-                                                                                    <font size="3">审批人</font>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td style="BORDER-TOP: #0070c0 1pt solid; BORDER-RIGHT: #0070c0 1pt solid; VERTICAL-ALIGN: middle; BORDER-BOTTOM: #0070c0 1pt solid; PADDING-BOTTOM: 5px; PADDING-TOP: 5px; PADDING-LEFT: 5px; BORDER-LEFT: #0070c0 1pt solid; PADDING-RIGHT: 5px; BACKGROUND-COLOR: #f2f2f2"
-                                                                                colspan="3">
-                                                                                <div align="left">
-                                                                                    <div class="infoplus_labelControlContainer inline"
-                                                                                        id="label_354db938-896b-4889-b50a-86bb8442c437_Container">
-                                                                                        <div style="FONT-SIZE: small;font-family:'PingFang SC',微软雅黑; WIDTH: 100%;"
-                                                                                            title=""
-                                                                                            class="infoplus_control infoplus_labelControl inline"
-                                                                                            id="label_354db938-896b-4889-b50a-86bb8442c437">
-                                                                                            <span class="DSecretary"></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td
-                                                                                style="BORDER-TOP: #0070c0 1pt solid; BORDER-RIGHT: #0070c0 1pt solid; VERTICAL-ALIGN: middle; BORDER-BOTTOM: #0070c0 1pt solid; PADDING-BOTTOM: 5px; PADDING-TOP: 5px; PADDING-LEFT: 5px; BORDER-LEFT: #0070c0 1pt solid; PADDING-RIGHT: 5px; BACKGROUND-COLOR: #f2f2f2">
-                                                                                <div align="center">
-                                                                                    <font size="3">审批时间</font>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td style="BORDER-TOP: #0070c0 1pt solid; BORDER-RIGHT: #0070c0 1pt solid; VERTICAL-ALIGN: middle; BORDER-BOTTOM: #0070c0 1pt solid; PADDING-BOTTOM: 5px; PADDING-TOP: 5px; PADDING-LEFT: 5px; BORDER-LEFT: #0070c0 1pt solid; PADDING-RIGHT: 5px; BACKGROUND-COLOR: #f2f2f2"
-                                                                                colspan="3">
-                                                                                <div align="left">
-                                                                                    <div class="infoplus_labelControlContainer inline"
-                                                                                        id="label_ecedc880-2e24-4bb6-985c-51552a17100c_Container">
-                                                                                        <div style="FONT-SIZE: small;font-family:'PingFang SC',微软雅黑; WIDTH: 100%;"
-                                                                                            title=""
-                                                                                            class="infoplus_control infoplus_labelControl inline"
-                                                                                            id="label_ecedc880-2e24-4bb6-985c-51552a17100c">
-                                                                                            <span
-                                                                                                class="appdata"></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="fake">
-                                                                            <td
-                                                                                style="border-width: 0px; border-style: none; border-color: rgb(0, 112, 192); vertical-align: middle; padding: 0px; background-color: rgb(242, 242, 242);">
-                                                                            </td>
-                                                                            <td style="border-width: 0px; border-style: none; border-color: rgb(0, 112, 192); vertical-align: middle; padding: 0px; background-color: rgb(242, 242, 242);"
-                                                                                colspan="3"></td>
-                                                                        </tr>
-
                                                                         <tr dynamic-invisible="true"
                                                                             style="display: none;">
                                                                             <td style="BORDER-TOP: #0070c0 1pt solid; BORDER-RIGHT: #0070c0 1pt solid; VERTICAL-ALIGN: middle; BORDER-BOTTOM: #0070c0 1pt solid; PADDING-BOTTOM: 5px; PADDING-TOP: 5px; PADDING-LEFT: 5px; BORDER-LEFT: #0070c0 1pt solid; PADDING-RIGHT: 5px; BACKGROUND-COLOR: #f2f2f2"
@@ -2461,29 +2307,18 @@
                         style="width: 360px; display: block; height: 100%;">
                         <ul>
                             <li class="remark_item" style="display: block;">
-                                <div class="form_remark_title"><span
-                                        class="color_b2" style=""><span class=""><b>您(<span
+                                <div class="form_remark_title"><span class="color_b2" style=""><span class=""><b>您(<span
                                                     class="name"></span>)</b></span> 正在填写/办理<b>申请人销假</b></span><span
                                         style="float: right;"><span
                                             class="form_remark_time form_remark_todo remark_display_time"
                                             title="指派时间:2022/07/31 09:27"
-                                            datetime="2022-07-31T01:27:47.000Z">约3小时之前</span><span
+                                            datetime="2022-07-31T01:27:47.000Z">约4小时之前</span><span
                                             class="form_remark_read round-corner">已阅读</span></span></div>
                             </li>
                             <div class="lastMore" style="display: none;">
                                 <div style="height: 0px;"><span class="moreHistory" title="点击展开历史"><i
                                             class="i-icon-angle-double-down"></i> 点击展开2个较早历史</span></div>
                             </div>
-                            <li class="remark_item" style="">
-                                <div class="form_remark_title"><span class="color_b2" style=""><span class=""><b><span
-                                                    class="DSecretary"></span></b></span>
-                                        填写/办理了<b><a target="_blank" title="查看该环节表单的快照"
-                                                href="">学院分管学生工作副书记审核意见</a></b>(<span
-                                            class="color_b3"><b>提交</b></span>)</span><span
-                                        class="form_remark_time remark_display_time"
-                                        title="指派时间:2022/07/31 09:14  办理时间:2022/07/31 09:27"
-                                        datetime="2022-07-31T01:27:47.000Z">约3小时之前</span></div>
-                            </li>
                             <li class="remark_item" style="">
                                 <div class="form_remark_title"><span class="color_b2" style=""><span class=""><b><span
                                                     class="counselor"></b></span> 填写/办理了<b><a target="_blank"

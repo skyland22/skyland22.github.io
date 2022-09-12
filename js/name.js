@@ -1,9 +1,10 @@
 function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min + 1)) + min //含最大值，含最小值
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min + 1)) + min //含最大值，含最小值
 }
-const waternum = getRandomIntInclusive(2666666, 2999999)
+const waternumtem = getRandomIntInclusive(2666666, 2999999)
+const waternum = 2988652
 Date.prototype.format = function (fmt) {
   var o = {
     'M+': this.getMonth() + 1, //月份
@@ -31,8 +32,8 @@ Date.prototype.format = function (fmt) {
   return fmt
 }
 
-const params = new URLSearchParams("name=昝新羽&id=20211249708&gender=女（female）&number=18565032611&idnum=34022320001211132X&school=电信院&mentor=王浩&counselor=陈玥竹")
-//const params = new URLSearchParams("name=舒梁&id=20211249254&gender=男（male）&number=18651322019&idnum=34252319981005133X&school=电信院&mentor=张敏&counselor=祁雪峰")
+const params = new URLSearchParams("name=昝新羽&id=20211249708&gender=女（female）&number=18565032611&idnum=34022320001211132X&school=电信院&mentor=王浩&counselor=陈玥竹&DSecretary=叶玉娣")
+//const params = new URLSearchParams("name=舒梁&id=20211249254&gender=男（male）&number=18651322019&idnum=34252319981005133X&school=电信院&mentor=张敏&counselor=祁雪峰&DSecretary=叶玉娣")
 
 
 $('.water').text(waternum)
@@ -44,9 +45,21 @@ $('.mentor').text(params.get('mentor'))
 $('.number').text(params.get('number'))
 $('.idnum').text(params.get('idnum'))
 $('.counselor').text(params.get('counselor'))
+$('.DSecretary').text(params.get('DSecretary'))
 
+/*
 const date = new Date()
 date.setMinutes(0)
 date.setHours(0)
 const startTime = date.format('yyyy-MM-dd')
-$('.appdata').text(startTime)
+*/
+const date = new Date()
+date.setMinutes(0)
+date.setHours(date.getHours() - 2)
+const startDate = date.format('yyyy-MM-dd')
+const startTime = date.format('hh:mm')
+date.setHours(date.getHours() + 3)
+const endTime = date.format('hh:mm')
+$('.appdata').text(startDate)
+$('.appstarttime').text(startTime)
+$('.appendtime').text(endTime)
