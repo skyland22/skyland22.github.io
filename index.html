@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能硬件装调员理论题库在线答题系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #2d7cf0;
+        }
+        .header h1 {
+            color: #1f2937;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #6b7280;
+        }
+        .control-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
+            align-items: center;
+        }
+        button {
+            padding: 9px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .btn-type {
+            background: #2d7cf0;
+            color: white;
+        }
+        .btn-show-all {
+            background: #059669;
+            color: white;
+        }
+        .btn-reset {
+            background: #dc2626;
+            color: white;
+        }
+        .stat-box {
+            margin-left: auto;
+            padding: 8px 16px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+        }
+        .question-wrap {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .q-title {
+            font-size: 16px;
+            margin-bottom: 14px;
+            line-height: 1.6;
+        }
+        .q-index {
+            font-weight: bold;
+            color: #2d7cf0;
+            margin-right: 6px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .opt-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+        }
+        .opt-item:hover {
+            background: #f3f4f6;
+        }
+        .opt-right {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+        .opt-wrong {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        .answer-tip {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            display: none;
+        }
+        .answer-correct {
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            color: #065f46;
+        }
+        .answer-wrong {
+            background: #fef2f2;
+            border: 1px solid #ef4444;
+            color: #991b1b;
+        }
+        .type-tab {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .tab-item {
+            padding: 8px 16px;
+            border: 1px solid #2d7cf0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .tab-active {
+            background: #2d7cf0;
+            color: white;
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>苏州工业园区第十六届高技能大赛·智能硬件装调员理论题库</h1>
+        <p>在线答题系统 | 选择题目选项后自动判分，支持一键显示全部标准答案</p>
+    </div>
+
+    <div class="type-tab">
+        <div class="tab-item tab-active" data-type="single">单选题</div>
+        <div class="tab-item" data-type="multi">多选题</div>
+        <div class="tab-item" data-type="judge">判断题</div>
+    </div>
+
+    <div class="control-bar">
+        <a class="btn-type" href="理论题库.pdf" target="_blank" rel="noopener">打开题库 PDF</a>
+        <button class="btn-show-all" id="showAllAns">显示全部标准答案</button>
+        <button class="btn-reset" id="resetAll">清空所有作答</button>
+        <div class="stat-box">
+            作答统计：<span id="doneCount">0</span>/<span id="totalCount">0</span> | 正确率：<span id="rate">0%</span>
+        </div>
+    </div>
+
+    <div id="container"></div>
+
+    <script>
+        // 完整题库数据
+        const questionData = {
+            single: [
+                {id:1,title:"什么是开展调研活动的指导性文件,详细描述了获取所需信息的必要的程序｡",opts:["A.数据分析","B.研究假设","C.调查问卷","D.研究设计"],ans:"D"},
+                {id:2,title:"如果要根据百分比抽样误差来计算最小样本量,以下不需要知道的条件是｡",opts:["A.总体的容量","B.比例P","C.置信度水平","D.允许的误差范围"],ans:"A"},
+                {id:3,title:"APP 软件不可以通过以下哪些途径进行下载?",opts:["A.官方网站","B.应用商店","C.第三方下载站点","D.手机短信"],ans:"D"},
+                {id:4,title:"下载APP 软件时,以下哪个步骤不是必须的?",opts:["A.确认设备型号","B.选择下载途径","C.填写个人信息","D.点击下载按钮"],ans:"C"},
+                {id:5,title:"在下载APP 软件时,以下哪种方式可以节省下载时间?",opts:["A.使用高速网络","B.下载较小的应用程序文件","C.从不同的下载站点下载同一应用程序","D.暂停下载并恢复"],ans:"B"},
+                {id:6,title:"在下载APP 软件时,以下哪种方式可以确保下载的软件不会被篡改或感染病毒?",opts:["A.从官方网站下载","B.使用同步下载","C.下载最新版本","D.下载速度较快的版本"],ans:"A"},
+                {id:7,title:"在下载APP 软件后,以下哪个步骤通常是必须的?",opts:["A.注册并登录账户","B.同意软件许可协议","C.安装附加组件","D.运行软件"],ans:"B"},
+                {id:8,title:"对问卷审核后,将存在问题的答案分类进行适当的处理｡不属于问题答案处理方式的是",opts:["A.退回实施现场去获取较好的数据","B.按缺失值处理","C.整个问卷作废","D.问卷直接存档"],ans:"D"},
+                {id:9,title:"市场调研的一般过程中首要的工作是｡",opts:["A.调研对象的确定","B.调查方法选择与设计","C.调研问题确定和目标陈述","D.数据收集"],ans:"C"},
+                {id:10,title:"市场调查工作中,哪个阶段是现场实施阶段｡",opts:["A.搜集资料阶段","B.研究阶段","C.总结阶段","D.可行性评估阶段"],ans:"A"},
+                {id:11,title:"下列调查中,属于消费者市场调查的是",opts:["A.对某种拖拉机市场的调查","B.对化肥市场的调查","C.对钢材市场的调查","D.对服装市场的调查"],ans:"D"},
+                {id:12,title:"市场分析中的消费者购买类型销售分析,主要是为了｡",opts:["A.找出市场变化规律","B.了解产品使用对象","C.分析市场发展趋势","D.提高市场占有率"],ans:"D"},
+                {id:13,title:"在卸载APP 软件时,以下哪个操作可以避免误删重要数据?",opts:["A.先备份重要数据","B.直接删除应用程序","C.只卸载不删除应用程序数据","D.重置设备出厂设置"],ans:"A"},
+                {id:14,title:"在程序中,以下哪个应用系统组件负责管理设备的固件升级?",opts:["A.硬件接口组件","B.数据存储组件","C.用户界面组件","D.安全控制组件"],ans:"B"},
+                {id:15,title:"在程序中,以下哪个应用系统组件负责将传感器数据转换为数字信号?",opts:["A.数据处理组件","B.硬件接口组件","C.用户界面组件","D.网络通信组件"],ans:"B"},
+                {id:16,title:"在程序中,以下哪个应用系统组件负责管理设备的日志记录?",opts:["A.硬件接口组件","B.数据存储组件","C.用户界面组件","D.安全控制组件"],ans:"B"},
+                {id:17,title:"程序中,以下哪个应用系统组件负责实现设备的实时监控和控制?",opts:["A.数据处理组件","B.硬件接口组件","C.用户界面组件","D.安全控制组件"],ans:"A"},
+                {id:18,title:"下列不属于深度访谈法优点的是｡",opts:["A.便于对一些公开的问题进行调查｡","B.能自由地交换信息,取得一些意外的资料｡","C.将被访谈者的反应与自身相联系,便于评价所获得资料的可信度｡","D.能比小组访谈法更深入地发掘消费者内心的动机和态度｡"],ans:"A"},
+                {id:19,title:"下列不属于投射技术法的是｡",opts:["A.故事叙述法","B.文案调查法","C.句子和故事完成法","D.照片回归法"],ans:"B"},
+                {id:20,title:"下列不属于文案调查的特点是｡",opts:["A.文案调查可用于有关部门和企业进行经常性市场调查｡","B.文案调查可为实地调查创造条件","C.文案调查受时空限制｡","D.文案调查可以发现问题并为市场研究提供重要的参考依据｡"],ans:"C"},
+                {id:21,title:"调查问卷中使用的问句以哪种类型的问句为主?",opts:["A.封闭式问句","B.开放式问句","C.封闭与开放相结合的问句","D.尾部开放式问句"],ans:"A"},
+                {id:22,title:"在程序中,以下哪个应用系统组件负责处理设备的异常情况?",opts:["A.硬件接口组件","B.数据存储组件","C.用户界面组件","D.安全控制组件"],ans:"D"},
+                {id:23,title:"程序中,以下哪个应用系统组件负责实现设备与云端的数据同步?",opts:["A.数据处理组件","B.硬件接口组件","C.用户界面组件","D.网络通信组件"],ans:"D"},
+                {id:24,title:"若两个变量之间的相关系数=0.7 ,说明这两个变量的相关关系为",opts:["A.不相关","B.低度相关","C.中度相关","D.高度相关"],ans:"D"},
+                {id:25,title:"虽然书面调研报告没有固定的模式,但在长期的商务实践中,一般认为,一份完整的调研报告由以下几个部分构成,其中不包括｡",opts:["A.附录","B.正文","C.前言","D.目录"],ans:"D"},
+                {id:26,title:"下列哪项不属于调查报告写作的原则?｡",opts:["A.突出重点原则","B.资料与结论相统一原则","C.客观真实.实事求是原则","D.复杂性原则"],ans:"D"},
+                {id:27,title:"下列不属于口头报告的作用的是｡",opts:["A.口头报告传递调研结果的效率较低｡","B.提供讨论机会｡","C.对于决策者而言,口头报告可能是他们接触报告的唯一方式｡","D.口头报告可同时传递到多位人员,节省决策者的时间和精力｡"],ans:"D"},
+                {id:28,title:"在报告的写作过程中,下列错误的事项是",opts:["A.充分利用图.表来说明和显示资料｡","B.按照每一个问题的重要性来决定其篇幅的长短和强调的程度｡","C.要考虑读者的观点.阅历,尽量使报告适合于读者阅读｡","D.对所引用的数据与统计资料不需要在附录或文中注明出处｡"],ans:"D"},
+                {id:29,title:"在应用程序下载方法中,以下哪个文件格式通常用于在移动设备上安装应用程序?",opts:["A..exe","B..apk","C..dmg","D..msi"],ans:"B"},
+                {id:30,title:"在下载应用程序时,以下哪种方法可以直接从应用商店或官方网站下载?",opts:["A.通过邮件发送下载链接","B.扫描二维码下载","C.从第三方网站下载","D.通过FTP 下载"],ans:"A"},
+                {id:31,title:"在应用程序下载方法中,以下哪种下载方式适合使用于不同操作系统的设备?",opts:["A.应用商店下载","B.通过邮件发送下载链接","C.扫描二维码下载","D.从第三方网站下载"],ans:"D"},
+                {id:32,title:"下载应用程序时,以下哪种方式可以避免下载过程中的数据损坏或篡改?",opts:["A.从不同来源下载同一个文件","B.使用不同的下载工具进行下载","C.在下载过程中禁用防病毒软件","D.直接在浏览器中下载"],ans:"A"},
+                {id:33,title:"在应用程序下载方法中,以下哪个步骤通常包括在应用程序的下载流程中?",opts:["A.安装应用程序","B.选择应用程序的下载链接","C.配置应用程序的参数","D.输入用户注册信息"],ans:"A"},
+                {id:34,title:"奇多登陆中国时进行产品测试发现,乳酪味的烘烤食物不适合中国的消费者,这个测试是",opts:["A.观念测试","B.新产品测试","C.包装测评","D.口味预测"],ans:"D"},
+                {id:35,title:"最近小明热衷于在朋友圈打卡学英语,你觉得他这样是为了?这种提问法是投射法中的",opts:["A.词语联想","B.角色扮演法","C.填空实验","D.第三者角度"],ans:"D"},
+                {id:36,title:"对于顺序尺度,以下适用的统计指标是｡",opts:["A.方差","B.平均数","C.中位数","D.标准差"],ans:"C"},
+                {id:37,title:"有效测量的条件不包括:｡",opts:["A.互斥性","B.准确性","C.充分性","D.完备性"],ans:"C"},
+                {id:38,title:"“人们认为长虹牌彩电质量不错,您觉得怎样?”该题项在语句设计时存在的问题是｡",opts:["A.否定式问题","B.诱导性问题","C.断定性的问题","D.估计问题"],ans:"B"},
+                {id:39,title:"以下哪项不属于问卷调查的优点｡",opts:["A.可以针对具体的问题,快速､低成本地获得广泛的调查结果","B.问卷调查可以获得一些新的观点","C.问卷调查能够对调查结果进行定量的分析","D.问卷调查能够对调查结果进行可靠的分析"],ans:"B"},
+                {id:40,title:"以下属于非概率抽样的是｡",opts:["A.配额抽样","B.系统抽样","C.整群抽样","D.分层抽样"],ans:"A"},
+                {id:41,title:"市场调查首先要解决的问题是｡",opts:["A.确定调查方法","B.选定调查对象","C.明确调查目的","D.解决调查费用"],ans:"C"},
+                {id:42,title:"在卸载APP 软件时,以下哪个操作可以彻底删除应用程序及其数据?",opts:["A.直接删除应用程序","B.只卸载不删除应用程序数据","C.手动清除应用程序缓存文件","D.使用第三方卸载工具"],ans:"D"},
+                {id:43,title:"卸载APP 软件时,以下哪个操作可以释放设备存储空间?",opts:["A.只卸载不删除应用程序数据","B.手动清除应用程序缓存文件","C.重置设备出厂设置","D.直接删除应用程序"],ans:"D"},
+                {id:44,title:"卸载APP 软件时,以下哪个操作可以避免出现卸载异常问题?",opts:["A.在设置中卸载应用程序","B.直接删除应用程序","C.在应用商店中卸载应用程序","D.只卸载不删除应用程序数据"],ans:"A"},
+                {id:45,title:"卸载APP 软件时,以下哪个操作可以保证设备系统安全?",opts:["A.在设置中卸载应用程序","B.直接删除应用程序","C.使用第三方卸载工具","D.重置设备出厂设置"],ans:"A"},
+                {id:46,title:"预测的精确度取决于｡",opts:["A.预测方法的选择","B.预测的目的明确","C.预测的范围大","D.预测的资料详细"],ans:"D"},
+                {id:47,title:"市场调研是一个经过策划.组织的,包括调查策划.收集整理和分析资料.撰写调查报告等工作环节.步骤.活动的市场调研过程,这说明了市场调研的特征｡",opts:["A.目的性","B.非唯一性","C.社会性","D.系统性"],ans:"D"},
+                {id:48,title:"按连续变量分组,第一组- ,第二组-6,第三组6-7,第四组7 以上,则｡",opts:["A.- 在第一组","B.6 在第二组","C.6 在第三组","D.7 在第三组"],ans:"C"},
+                {id:49,title:"问卷一般控制在多长时间内回答完毕为宜｡",opts:["A.1 分钟","B.10 分钟","C.半小时","D.不用时间限制"],ans:"B"},
+                {id:50,title:"问卷设计中须尽量采用｡",opts:["A.一般性提问","B.含糊性提问","C.系统性提问","D.针对性提问"],ans:"D"},
+                {id:51,title:"在应用系统组件控制软件中,以下哪个操作可以检查是否有新版本可用?",opts:["A.手动检查更新","B.自动检查更新","C.下载更新","D.安装更新"],ans:"A"},
+                {id:52,title:"应用系统组件控制软件在线升级时,以下哪个操作可以确保升级成功?",opts:["A.只下载升级文件","B.只安装升级文件","C.先下载再安装升级文件","D.跳过下载升级文件"],ans:"C"},
+                {id:53,title:"应用系统组件控制软件在线升级时,以下哪个操作可以避免升级失败?",opts:["A.关闭其他正在运行的应用程序","B.不备份数据","C.忽略升级日志","D.跳过确认升级"],ans:"A"},
+                {id:54,title:"应用系统组件控制软件在线升级时,以下哪个操作可以避免下载升级失败?",opts:["A.在高速网络环境下下载升级","B.跳过检查升级版本","C.不清理应用程序缓存文件","D.跳过检查设备存储空间"],ans:"A"},
+                {id:55,title:"应用系统组件控制软件在线升级完成后,以下哪个操作可以避免出现问题?",opts:["A.重启设备","B.取消自动升级","C.关闭应用系统组件控制软件","D.卸载应用系统组件控制软件"],ans:"A"},
+                {id:56,title:"探询消费倾向.文化素养.道德规范等对企业的发展会有什么影响,属于｡",opts:["A.经济环境调研","B.政治法律环境调研","C.社会文化环境调研","D.科学技术环境调研"],ans:"C"},
+                {id:57,title:"市场调查设计的第五步是",opts:["A.确定收集资料的方法","B.明确调查问题,确定调查目标","C.确定所需的信息资料","D.确定测量程序和技术"],ans:"A"},
+                {id:58,title:"如果市场调查人员对所要解决的问题尚无足够的了解,不能有效推进调查项目的进展,就有必要开展",opts:["A.因果性调查","B.探测性调查","C.描述性调查","D.结论性调查"],ans:"B"},
+                {id:59,title:"指通过收集已有数据资料,并加以整理和分析的一种数据收集方法为｡",opts:["A.文案调研","B.定性调查","C.定量调查","D.实地调研"],ans:"A"},
+                {id:60,title:"问卷调查法的缺点体现在｡",opts:["A.调查区域易受限制","B.问卷有效率不易达到很高","C.调查者有顾虑和心理压力","D.统计难度大"],ans:"C"},
+                {id:61,title:"在安装应用系统软件时,以下哪个操作可以避免安装失败?",opts:["A.先备份数据","B.不检查升级日志","C.跳过升级确认","D.不关闭其他正在运行的应用程序"],ans:"D"},
+                {id:62,title:"产品规划流程三个主要输出件是:",opts:["A.公司愿景.$APPEALS.产品平台规划｡","B.产品技术规格.营销计划.项目任务书｡","C.产品包需求.竞争情报分析.环境分析｡","D.市场评估.业务计划.按优先级排序的投资决策｡"],ans:"D"},
+                {id:63,title:"安装应用系统软件完成后,以下哪个操作可以避免出现问题?",opts:["A.重启设备","B.卸载旧版本应用程序","C.取消自动更新","D.关闭设备防火墙"],ans:"A"},
+                {id:64,title:"如果应用系统软件安装成功,但无法正常运行,可能是什么原因?",opts:["A.计算机硬件不足","B.缺少必要的依赖文件","C.系统更新不完整","D.许可证无效"],ans:"B"},
+                {id:65,title:"在卸载应用系统软件时,用户应该注意什么?",opts:["A.保存软件设置和数据","B.卸载所有相关文件","C.确认软件已停止运行","D.删除所有快捷方式"],ans:"A"},
+                {id:66,title:"什么和原始资料相比,以下哪一项不是二手资料的优点｡",opts:["A.数据对解决问题不能完全适用","B.成本相对较低","C.资料比较容易找到","D.收集资料的时间相对较短"],ans:"A"},
+                {id:67,title:"以下哪一项不是企业内部资料｡",opts:["A.订货单","B.销售记录","C.部门工作总结","D.中央电视台新闻联播"],ans:"D"},
+                {id:68,title:"以下哪一种方法不是二手资料的收集方法｡",opts:["A.小组座谈法","B.核算法","C.筛选法","D.计算机网络检索"],ans:"A"},
+                {id:69,title:"以下哪一项不是入户访问的优点｡",opts:["A.调查费用高","B.问卷回答完整率高","C.调查结果较为准确","D.易于回访复核"],ans:"A"},
+                {id:70,title:"以下哪一项不是拦截访问的优点｡",opts:["A.效率高","B.费用低","C.访问过程易被中止","D.便于对访问员进行监控"],ans:"C"},
+                {id:71,title:"如果调测软件的安装文件损坏或者不完整,会出现以下哪种情况?",opts:["A.无法下载","B.无法解压缩","C.无法安装","D.无法启动"],ans:"C"},
+                {id:72,title:"在安装调测软件时,如果出现与其他软件的冲突,下面哪个选项可能会解决该问题?",opts:["A.卸载其他软件","B.禁用其他软件","C.更改调测软件的安装目录","D.更改其他软件的安装目录"],ans:"B"},
+                {id:73,title:"调测软件的安装过程中,需要注意以下哪些事项?",opts:["A.关闭杀毒软件","B.断开网络连接","C.保证电脑电量充足","D.全部都是"],ans:"D"},
+                {id:74,title:"在安装调测软件之前,需要进行以下哪些准备工作?",opts:["A.确定调测软件的版本和适用范围","B.备份重要数据","C.确定安装路径和目录","D.全部都是"],ans:"D"},
+                {id:75,title:"安装应用系统调测软件时,如果出现安装失败的情况,应该如何处理?",opts:["A.重新下载安装包,重新安装","B.检查操作系统是否兼容软件","C.检查硬件是否符合要求","D.以上都是"],ans:"D"},
+                {id:76,title:"相对于一手资料而言,二手资料,错误的是",opts:["A.有效信息含量不如一手资料","B.有效信息含量比一手资料更多","C.准确性不如一手资料","D.及时性不如一手资料"],ans:"B"},
+                {id:77,title:"如果要研究较为隐秘的问题,如个人隐私问题,或者对一些复杂产品的使用效果评价,适合的调查方法是",opts:["A.访谈调查","B.观察与实验","C.座谈会","D.深入访问"],ans:"D"},
+                {id:78,title:"与原始资料相比,二手资料的优势在于",opts:["A.含有更多的有效信息","B.易于取得,而且成本较低","C.可以直接使用而不必作任何处理","D.对企业解决当前的营销问题更有用"],ans:"B"},
+                {id:79,title:"普查工作可以｡",opts:["A.经常进行","B.只能组织一次","C.普遍进行","D.根据需要每隔一段时间进行一次"],ans:"D"},
+                {id:80,title:"一般说来,下述几种调查方式中,哪种对市场的调查更深入｡",opts:["A.探索性调查","B.描述性调查","C.因果性调查","D.以上都不正确"],ans:"A"},
+                {id:81,title:"在Linux 系统中,如果要查看软件包的详细信息,应该使用哪个命令?",opts:["A.apt-cache show","B.yum info","C.pacman -Si","D.All of the above"],ans:"D"},
+                {id:82,title:"在Linux 系统中,如果要删除不需要的依赖包,应该使用哪个命令?",opts:["A.apt-get autoremove","B.yum autoremove","C.pacman -Rs","D.All of the above"],ans:"D"},
+                {id:83,title:"在Linux 系统中,如果要卸载一个通过源码编译安装的软件包,应该使用哪个命令?",opts:["A.make uninstall","B.rm -rf","C.apt-get remove","D.None of the above"],ans:"A"},
+                {id:84,title:"在Linux 系统中,可以使用哪个命令来更新已安装软件的列表和版本信息?",opts:["A.update","B.upgrade","C.apt-get","D.rpm"],ans:"C"},
+                {id:85,title:"Linux 系统中的软件包管理器是什么?",opts:["A.apt-get","B.aptitude","C.yum","D.all of the above"],ans:"D"},
+                {id:86,title:"Linux 系统中的软件包管理器通常从哪些地方获取软件包?",opts:["A.官方软件源","B.第三方软件源","C.用户自定义软件源","D.以上都是"],ans:"D"},
+                {id:87,title:"在Linux 系统中,可以使用哪个命令来更新所有已安装软件的版本?",opts:["A.update","B.upgrade","C.apt-get","D.rpm"],ans:"B"},
+                {id:88,title:"Linux 系统中的软件包管理器通常会自动解决软件包之间的依赖关系,这是通过什么方式实现的?",opts:["A.预安装脚本","B.后安装脚本","C.自动化解决方案","D.手动指定依赖关系"],ans:"C"},
+                {id:89,title:"在Linux 系统中,可以使用哪个命令来搜索软件包?",opts:["A.search","B.find","C.locate","D.grep"],ans:"A"},
+                {id:90,title:"在Linux 系统中,可以使用哪个命令来安装指定软件包的最新版本?",opts:["A.install","B.upgrade","C.apt-get","D.rpm"],ans:"C"},
+                {id:91,title:"在Linux 系统中,可以使用哪个命令来卸载软件包?",opts:["A.remove","B.purge","C.erase","D.all of the above"],ans:"D"},
+                {id:92,title:"Linux 系统中的软件包管理器在更新软件包时通常会备份旧版本,这是为了什么?",opts:["A.防止用户误删重要文件","B.保证软件包升级的可逆性","C.确保用户可以自由选择软件包版本","D.增强软件包管理器的稳定性"],ans:"B"},
+                {id:93,title:"Linux 系统中的软件包管理器可以通过什么方式实现软件包的自动更新?",opts:["A.后台服务","B.定时任务","C.增量更新","D.自动提醒"],ans:"B"},
+                {id:94,title:"Android 系统的应用程序通常以哪种文件格式发布?",opts:["A.apk","B.exe","C.zip","D.dmg"],ans:"A"},
+                {id:95,title:"在Android 系统中,应用程序的安装通常需要获得哪些权限?",opts:["A.网络访问权限","B.GPS 定位权限","C.照相机访问权限","D.所有答案都正确"],ans:"D"},
+                {id:96,title:"下面哪个选项可以在Android 系统中安装应用程序?",opts:["A.GooglePlay 商店","B.应用程序官网","C.USB 驱动器","D.所有答案都正确"],ans:"D"},
+                {id:97,title:"Android 系统中,哪个设置选项可以允许安装未知来源的应用程序?",opts:["A.语言和输入","B.位置信息","C.安全性和隐私","D.无障碍"],ans:"C"},
+                {id:98,title:"在Android 系统中,应用程序可以被卸载的地方是?",opts:["A.主屏幕","B.设置","C.应用程序列表","D.所有答案都正确"],ans:"D"},
+                {id:99,title:"在Android 系统中,哪个设置选项可以查看已安装的应用程序列表?",opts:["A.语言和输入","B.位置信息","C.应用程序","D.账户和同步"],ans:"C"},
+                {id:100,title:"在Android 系统中,如何卸载应用程序?",opts:["A.在主屏幕上长按应用图标并选择“卸载”","B.进入设置,找到应用程序列表并选择应用程序,然后选择“卸载”","C.在GooglePlay 商店中找到应用程序并选择“卸载”","D.所有答案都正确"],ans:"D"},
+                {id:101,title:"在Android 系统中,如果应用程序安装失败,可能是因为哪些原因?",opts:["A.设备存储空间不足","B.应用程序已经安装但不能正常运行","C.下载的应用程序损坏或不完整","D.所有答案都正确"],ans:"D"},
+                {id:102,title:"在Android 系统中,如何更新应用程序?",opts:["A.应用程序会自动更新","B.在GooglePlay 商店中找到应用程序并选择“更新”","C.进入设置,找到应用程序列表并选择应用程序,然后选择“更新”","D.所有答案都正确"],ans:"B"},
+                {id:103,title:"在Android 系统中,如何禁用应用程序?",opts:["A.在主屏幕上长按应用图标并选择“禁用”","B.进入设置,找到应用程序列表并选择应用程序,然后选择“禁用”","C.在GooglePlay 商店中找到应用程序并选择“禁用”","D.所有答案都正确"],ans:"B"},
+                {id:104,title:"在Android 系统中,应用程序的更新通常需要获得哪些权限?",opts:["A.网络访问权限","B.GPS 定位权限","C.照相机访问权限","D.所有答案都正确"],ans:"A"},
+                {id:105,title:"在Android 系统中,哪个选项可以允许自动更新应用程序?",opts:["A.语言和输入","B.位置信息","C.应用程序","D.账户和同步"],ans:"C"},
+                {id:106,title:"卸载应用系统软件前,应该先做哪些准备工作?",opts:["A.关闭电脑上所有的程序","B.备份应用程序的重要数据","C.删除应用程序的配置文件","D.关闭应用程序的自动更新功能"],ans:"B"},
+                {id:107,title:"在卸载应用系统软件时,出现错误信息可能是哪些原因导致的?",opts:["A.应用程序本身存在问题","B.电脑系统不兼容该应用程序","C.应用程序正在运行中","D.磁盘空间不足"],ans:"C"},
+                {id:108,title:"卸载应用系统软件后,相关的快捷方式和桌面图标是否还会存在?",opts:["A.会存在","B.不会存在","C.可以选择是否保留","D.只有在卸载过程中选择删除快捷方式才会删除"],ans:"A"},
+                {id:109,title:"应用系统软件卸载方法中,下列哪个步骤不是必需的?",opts:["A.打开操作系统的应用程序管理工具","B.选择要卸载的应用程序","C.点击“卸载”按钮","D.等待卸载完成提示"],ans:"A"},
+                {id:110,title:"在应用系统软件卸载方法中,如果卸载过程中出现异常,通常应该怎么做?",opts:["A.直接关闭卸载窗口并重新运行卸载程序","B.重启计算机后重新运行卸载程序","C.检查卸载程序的运行环境并进行修复","D.采用强制卸载的方式卸载应用程序"],ans:"C"},
+                {id:111,title:"以下哪个操作系统是属于Windows 系列的?",opts:["A.macOS","B.Ubuntu","C.Windows10","D.CentOS"],ans:"C"},
+                {id:112,title:"以下哪个操作系统是属于Linux 系列的?",opts:["A.Windows8","B.Android","C.iOS","D.Fedora"],ans:"D"},
+                {id:113,title:"制定业务策略及计划主要考虑的风险因素包括:",opts:["A.市场风险.技术风险.财务风险;","B.项目管理风险.采购风险.供应链风险;","C.人力资源风险.竞争风险.政策风险;","D.营销风险.生产风险.决策风险;"],ans:"A"},
+                {id:114,title:"以下哪个操作系统是属于实时操作系统[RTOS]的?",opts:["A.Windows10","B.Linux","C.iOS","D.FreeRTOS"],ans:"D"},
+                {id:115,title:"以下哪个操作系统是属于网络操作系统NOS 的?",opts:["A.WindowsServer","B.macOS","C.Android","D.Fedora"],ans:"A"},
+                {id:116,title:"以下哪个操作系统是属于分时操作系统的?",opts:["A.Windows10","B.macOS","C.Ubuntu","D.Android"],ans:"C"},
+                {id:117,title:"以下哪个操作系统是属于实时交互操作系统[RTOS]的?",opts:["A.Windows8","B.iOS","C.Android","D.QNX"],ans:"D"},
+                {id:118,title:"以下哪个操作系统是属于嵌入式操作系统的?",opts:["A.Windows10","B.Ubuntu","C.AndroidThings","D.CentOS"],ans:"C"},
+                {id:119,title:"以下哪个操作系统是属于微内核操作系统的?",opts:["A.macOS","B.Android","C.Linux","D.Minix"],ans:"D"},
+                {id:120,title:"以下哪个操作系统是属于分布式操作系统的?",opts:["A.Windows10","B.macOS","C.Android","D.Amoeba"],ans:"D"},
+                {id:121,title:"Windows 操作系统的自动更新功能通常默认开启,用户可以在哪个菜单中手动关闭它?",opts:["A.开始菜单","B.控制面板","C.任务管理器","D.注册表编辑器"],ans:"B"},
+                {id:122,title:"在Windows 操作系统中,哪个命令可以用来检查并更新已安装的驱动程序?",opts:["A.SFC","B.CHKDSK","C.DISM","D.DeviceManager"],ans:"D"},
+                {id:123,title:"Windows 操作系统中,哪个工具可以用来检查并修复系统文件错误?",opts:["A.SystemRestore","B.DiskCleanup","C.CHKDSK","D.SFC"],ans:"D"},
+                {id:124,title:"Windows 操作系统中,哪个选项可以控制系统更新的频率?",opts:["A.控制面板中的“WindowsUpdate”选项","B.计划任务","C.注册表编辑器","D.任务管理器"],ans:"A"},
+                {id:125,title:"Windows 操作系统中,哪个选项可以手动检查更新?",opts:["A.控制面板中的“WindowsUpdate”选项","B.计划任务","C.注册表编辑器","D.任务管理器"],ans:"A"},
+                {id:126,title:"在Windows 操作系统中,哪个命令可以用来检查并修复文件系统错误?",opts:["A.SFC","B.CHKDSK","C.DISM","D.SystemFileChecker"],ans:"B"},
+                {id:127,title:"在Windows 操作系统中,哪个选项可以让用户选择是否安装推荐更新?",opts:["A.控制面板中的“WindowsUpdate”选项","B.计划任务","C.注册表编辑器","D.任务管理器"],ans:"A"},
+                {id:128,title:"Windows 操作系统中,哪个工具可以用来备份和还原系统?",opts:["A.SystemRestore","B.DiskCleanup","C.CHKDSK","D.SFC"],ans:"A"},
+                {id:129,title:"Windows 操作系统中,哪个命令可以用来卸载不需要的程序?",opts:["A.ProgramsandFeatures","B.DeviceManager","C.SystemConfiguration","D.Services"],ans:"A"},
+                {id:130,title:"在Windows 操作系统中,哪个工具可以用来恢复丢失的文件或文件夹?",opts:["A.SystemRestore","B.DiskCleanup","C.RecycleBin","D.WindowsBackup"],ans:"C"},
+                {id:131,title:"在Linux 系统中,使用哪个命令可以安装软件包?",opts:["A.apt-get","B.yum","C.pacman","D.All of the above"],ans:"D"},
+                {id:132,title:"在Linux 系统中,使用哪个命令可以搜索软件包?",opts:["A.apt-get","B.yum","C.pacman","D.All of the above"],ans:"D"},
+                {id:133,title:"在Linux 系统中,使用哪个命令可以卸载软件包?",opts:["A.apt-get remove","B.yum remove","C.pacman -R","D.All of the above"],ans:"D"},
+                {id:134,title:"在Linux 系统中,如果要安装一个tar.gz 格式的软件包,应该使用哪个命令?",opts:["A.tar xvf","B.gzip","C.make","D.None of the above"],ans:"D"},
+                {id:135,title:"在Linux 系统中,如果要安装一个rpm 格式的软件包,应该使用哪个命令?",opts:["A.rpm -i","B.dpkg -i","C.apt-get install","D.None of the above"],ans:"A"},
+                {id:136,title:"在Linux 系统中,如果要更新已安装的软件包,应该使用哪个命令?",opts:["A.apt-get update","B.yum update","C.pacman -Syu","D.All of the above"],ans:"D"},
+                {id:137,title:"在Linux 系统中,如果要列出已安装的软件包,应该使用哪个命令?",opts:["A.dpkg -l","B.rpm -qa","C.pacman -Q","D.All of the above"],ans:"D"},
+                {id:138,title:"在Android 系统中,如何禁用应用程序的自动更新?",opts:["A.在主屏幕上长按应用图标并选择“禁用自动更新”","B.进入设置,找到应用程序列表并选择应用程序,然后选择“禁用自动更新”","C.在GooglePlay 商店中找到应用程序并选择“禁用自动更新”","D.所有答案都正确"],ans:"B"},
+                {id:139,title:"在Android 系统中,如何手动更新应用程序?",opts:["A.应用程序会自动更新","B.在GooglePlay 商店中找到应用程序并选择“更新”","C.进入设置,找到应用程序列表并选择应用程序,然后选择“更新”","D.所有答案都正确"],ans:"B"},
+                {id:140,title:"在Android 系统中,如何查看应用程序的更新历史记录?",opts:["A.在主屏幕上长按应用图标并选择“更新历史记录”","B.进入设置,找到应用程序列表并选择应用程序,然后选择“更新历史记录”","C.在GooglePlay 商店中找到应用程序并选择“更新历史记录”","D.所有答案都正确"],ans:"C"},
+                {id:141,title:"在Android 系统中,如何恢复应用程序的旧版本?",opts:["A.在GooglePlay 商店中找到应用程序并选择“恢复旧版本”","B.进入设置,找到应用程序列表并选择应用程序,然后选择“恢复旧版本”","C.所有答案都不正确","D.恢复应用程序的旧版本通常不可行"],ans:"D"},
+                {id:142,title:"在Android 系统中,如果应用程序更新失败,可能是因为哪些原因?",opts:["A.设备存储空间不足","B.应用程序已经更新但不能正常运行","C.下载的应用程序损坏或不完整","D.所有答案都正确"],ans:"D"},
+                {id:143,title:"在Android 系统中,如何停止应用程序的更新?",opts:["A.在主屏幕上长按应用图标并选择“停止更新”","B.进入设置,找到应用程序列表并选择应用程序,然后选择“停止更新”","C.在GooglePlay 商店中找到应用程序并选择“停止更新”","D.所有答案都不正确"],ans:"C"},
+                {id:144,title:"在Android 系统中,如何让应用程序只在Wi-Fi 网络下更新?",opts:["A.进入设置,找到应用程序列表并选择应用程序,然后选择“只在Wi-Fi 下更新”","B.在GooglePlay 商店中找到应用程序并选择“只在Wi-Fi 下更新”","C.在主屏幕上长按应用图标并选择“只在Wi-Fi 下更新”","D.所有答案都不正确"],ans:"B"},
+                {id:145,title:"在Android 系统中,如何查看当前安装的应用程序是否需要更新?",opts:["A.在主屏幕上查找更新提示","B.进入设置,找到应用程序列表并选择应用程序,然后查看更新状态","C.在GooglePlay 商店中找到应用程序并查看更新状态","D.所有答案都不正确"],ans:"C"},
+                {id:146,title:"数据库的配置文件一般是以什么文件格式保存的?",opts:["A..docx","B..txt","C..xml","D..pdf"],ans:"C"},
+                {id:147,title:"数据库的配置文件通常包含哪些方面的配置信息?",opts:["A.数据库名称和版本号","B.数据库连接地址和端口号","C.用户名和密码","D.所有选项都正确"],ans:"D"},
+                {id:148,title:"在MySQL 中,可以通过哪个命令行工具来进行数据库的配置?",opts:["A.mysqladmin","B.mysqld","C.mysqlbackup","D.mysqlcheck"],ans:"A"},
+                {id:149,title:"在Oracle 数据库中,以下哪个命令可以用于配置数据库实例?",opts:["A.sqlplus","B.expdp","C.impdp","D.dbca"],ans:"D"},
+                {id:150,title:"在SQLServer 中,可以使用哪个工具来配置数据库?",opts:["A.SQLServerManagementStudio","B.SQLServerConfigurationManager","C.SQLServerDataTools","D.所有选项都正确"],ans:"D"},
+                {id:151,title:"在数据库配置中,以下哪个选项可以用于配置数据库的字符集?",opts:["A.charset","B.collation","C.encoding","D.locale"],ans:"B"},
+                {id:152,title:"在数据库配置中,以下哪个选项可以用于配置数据库的时区?",opts:["A.timezone","B.tzoffset","C.offset","D.hourdiff"],ans:"A"},
+                {id:153,title:"在MySQL 中,以下哪个选项可以用于配置连接池?",opts:["A.max_connections","B.pool_size","C.connection_limit","D.connection_pool"],ans:"A"},
+                {id:154,title:"在Oracle 数据库中,以下哪个选项可以用于配置自动备份?",opts:["A.RMAN","B.expdp","C.impdp","D.dbca"],ans:"A"},
+                {id:155,title:"在SQLServer 中,以下哪个选项可以用于配置数据库的备份和还原?",opts:["A.SQLServerManagementStudio","B.SQLServerConfigurationManager","C.SQLServerDataTools","D.SQLServerBackupandRestore"],ans:"D"},
+                {id:156,title:"在计算机网络中,DHCP 代表什么?",opts:["A.DynamicHostConfigurationProtocol","B.DataHostConfigurationProtocol","C.DirectHostConnectionProtocol","D.DigitalHostConfigurationProtocol"],ans:"A"},
+                {id:157,title:"下列哪种网络设备可以实现多个计算机共享一个公共IP 地址?",opts:["A.集线器","B.路由器","C.网桥","D.交换机"],ans:"B"},
+                {id:158,title:"下列哪种协议用于安全地将文件从客户端传输到服务器?",opts:["A.FTP","B.HTTP","C.SMTP","D.SSH"],ans:"D"},
+                {id:159,title:"下列哪个IP 地址保留作为私有地址?",opts:["A.10.0.0.0/8","B.172.16.0.0/12","C.192.168.0.0/16","D.所有选项都是私有地址"],ans:"D"},
+                {id:160,title:"下列哪种网络协议是用于在互联网上传输超文本文档的主要协议?",opts:["A.FTP","B.HTTP","C.SMTP","D.POP3"],ans:"B"},
+                {id:161,title:"下列哪种网络设备可以在不同的网络之间转发数据包?",opts:["A.集线器","B.路由器","C.网桥","D.交换机"],ans:"B"},
+                {id:162,title:"下列哪种协议用于在Internet 上发送电子邮件?",opts:["A.FTP","B.HTTP","C.SMTP","D.SSH"],ans:"C"},
+                {id:163,title:"下列哪种网络设备可以实现对网络流量的分割和控制?",opts:["A.集线器","B.路由器","C.网桥","D.交换机"],ans:"D"},
+                {id:164,title:"下列哪种协议用于在互联网上接收电子邮件?",opts:["A.FTP","B.HTTP","C.SMTP","D.POP3"],ans:"D"},
+                {id:165,title:"下列哪个IP 地址是广播地址?",opts:["A.192.168.1.255","B.192.168.1.254","C.192.168.1.1","D.192.168.1"],ans:"A"},
+                {id:166,title:"在Windows 系统中,可以通过哪个工具来配置环境变量?",opts:["A.控制面板","B.计算机管理","C.注册表编辑器","D.命令提示符"],ans:"A"},
+                {id:167,title:"在Linux 系统中,可以通过哪个文件来配置环境变量?",opts:["A./etc/profile","B./etc/environment","C.~/.bashrc","D.~/.bash_profile"],ans:"A"},
+                {id:168,title:"在MacOS 系统中,可以通过哪个文件来配置环境变量?",opts:["A./etc/profile","B./etc/environment","C.~/.bashrc","D.~/.bash_profile"],ans:"D"},
+                {id:169,title:"在Windows 系统中,新建的环境变量需要重启计算机才能生效吗?",opts:["A.是","B.否","C.不一定","D.都不行"],ans:"B"},
+                {id:170,title:"在Linux 系统中,新建的环境变量需要重启计算机才能生效吗?",opts:["A.是","B.否","C.不一定","D.都不行"],ans:"B"},
+                {id:171,title:"在MacOS 系统中,新建的环境变量需要重启计算机才能生效吗?",opts:["A.是","B.否","C.不一定","D.都不行"],ans:"B"},
+                {id:172,title:"在Windows 系统中,如何将一个目录添加到环境变量PATH 中?",opts:["A.在控制面板中进行设置","B.在注册表中进行设置","C.使用setx 命令","D.在环境变量对话框中进行设置"],ans:"C"},
+                {id:173,title:"在Linux 系统中,如何将一个目录添加到环境变量PATH 中?",opts:["A.修改/etc/environment 文件","B.修改~/.bashrc 文件","C.修改~/.bash_profile 文件","D.使用export 命令"],ans:"D"},
+                {id:174,title:"在MacOS 系统中,如何将一个目录添加到环境变量PATH 中?",opts:["A.修改/etc/environment 文件","B.修改~/.bashrc 文件","C.修改~/.bash_profile 文件","D.使用export 命令"],ans:"C"},
+                {id:175,title:"在Windows 系统中,如何查看当前所有的环境变量?",opts:["A.在控制面板中查看","B.使用set 命令","C.使用echo 命令","D.在注册表中查看"],ans:"B"},
+                {id:176,title:"关于市场需求,以下说法不正确的是",opts:["A.现实需求决定市场的现实规模","B.潜在需求不能转化为现实需求","C.购买力消费方向属于消费者的购买力","D.潜在需求决定着市场的未来增长情况"],ans:"B"},
+                {id:177,title:"消费者的购买力是影响市场需求的重要因素之一,下列不属于消费者的购买力的是",opts:["A.消费者收入","B.人口数量","C.购买力消费方向","D.流动购买力"],ans:"B"},
+                {id:178,title:"以下不属于消费者人口状况的是",opts:["A.家庭总数和家庭人口平均数","B.消费者的受教育程度","C.消费者的居住地址及交通环境","D.消费者的职业构成"],ans:"C"},
+                {id:179,title:"以下不属于在线问卷调查的特点的是",opts:["A.问卷形式更具个性化､针对性","B.有效避免了调研人员作弊､录入人员出错等人为偏差的出现","C.节省了调研人员的印刷､录入､复核､交通､联络等时间和费用","D.样本对象具有广泛性"],ans:"D"},
+                {id:180,title:"关于在线问卷调查法,以下说法不正确的是",opts:["A.可以让更多的中小企业也能使用调研","B.帮助更多的企业提高决策的科学性,减少风险","C.实现传统调查难以实现或难以控制的操作","D.所获信息有较强的准确性和真实性"],ans:"D"},
+                {id:181,title:"以下不属于在线问卷调查优点的是",opts:["A.快速","B.准确性高","C.高效","D.成本低"],ans:"B"},
+                {id:182,title:"在调查洗衣机销售情况时,通常对普通洗衣机的销售分析,得出结论,进而推断全自动洗衣机的销售变化规律及特点｡这采用了分析方法｡",opts:["A.对比分析","B.推理分析","C.归纳分析","D.科学归纳"],ans:"A"},
+                {id:183,title:"什么是现代市场调研分析中应用最广泛的一种方法｡",opts:["A.对比分析","B.推理分析","C.归纳分析","D.简单枚举"],ans:"C"},
+                {id:184,title:"以下不属于归纳分析的是",opts:["A.对比分析","B.完全归纳","C.科学归纳","D.简单枚举"],ans:"A"},
+                {id:185,title:"根据调查问题中的每个对象的某种特征属性,概括出该类问题的全部对象整体所拥有的本质属性｡这是什么分析方法｡",opts:["A.推理分析","B.完全归纳","C.对比分析","D.简单枚举"],ans:"B"},
+                {id:186,title:"丰田公司通过市场调查发现,各国生产的汽车油耗普遍较高,而石油属于不可再生资源,于是意识到:一旦发生能源危机,小排量､低油耗的汽车会畅销｡这种分析方法是",opts:["A.简单枚举","B.推理分析","C.对比分析","D.完全归纳"],ans:"B"},
+                {id:187,title:"什么法应用起来复杂,但很科学｡",opts:["A.归纳分析","B.科学归纳","C.简单枚举","D.对比分析"],ans:"B"},
+                {id:188,title:"以下指标不足以用来描述特定的一组数值的变化情况的是",opts:["A.频数分布","B.全距","C.众数","D.标准差"],ans:"C"},
+                {id:189,title:"在一定程度上反映典型的或一般性的回答的是",opts:["A.集中趋势指标","B.标准差","C.差异性指标","D.全距"],ans:"A"},
+                {id:190,title:"在对某地区进行市场调研时发现,该地区人口结构逐渐呈现老龄化趋势,这一调研是对哪方面环境的调研?",opts:["A.自然地理环境","B.政治环境","C.经济环境","D.社会文化环境"],ans:"D"},
+                {id:191,title:"市场调查首先要解决的问题是",opts:["A.确定调查方法","B.选定调查对象","C.明确调查目的","D.解决调查费用"],ans:"C"},
+                {id:192,title:"调研计划的基本内容不包括?",opts:["A.调研问题和目标的确认","B.调查问卷的设计","C.样本量的确定","D.调研可行性分析"],ans:"C"},
+                {id:193,title:"以下市场调研步骤的顺序哪一个是正确的｡",opts:["A.制定调研计划￫确定调查目标￫制定项目进度计划￫制定项目预算和人员配备￫实施调研计划￫陈述调研结果","B.确定调研目标￫制定调研计划￫制定项目进度计划￫制定项目预算和人员配备￫实施调研计划￫陈述调研结果","C.确定调研目标￫制定项目进度计划￫制定项目预算和人员配备￫制定调研计划￫实施调研计划￫陈述调研结果","D.制定调研计划￫确定调查目标￫制定项目预算和人员配备￫制定项目进度计划￫实施调研计划￫陈述调研结果"],ans:"B"},
+                {id:194,title:"下列不是一项市场调研应明确的主要问题｡",opts:["A.调研的重要性","B.调研的必要性","C.调研的目标","D.调研应当提供的信息"],ans:"A"},
+                {id:195,title:"市场调研的第二阶段要制定一个收集所需信息的最有效的调研计划,或称之为研究设计｡研究设计就是研究人员为取得所需资料采用的方法.程序.成本预算的计划书｡下列选项中不是研究计划书内容的是｡",opts:["A.确认研究目标","B.决定收集资料的方式","C.确认调研决策","D.决定收集资料的方法"],ans:"C"},
+                {id:196,title:"实施调研计划的正常步骤是｡",opts:["A.收集资料￫整理资料￫抽取样本￫分析调研资料","B.收集资料￫抽取样本￫整理资料￫分析调研资料","C.分析调研资料￫抽取样本￫收集资料￫整理资料","D.抽取样本￫收集资料￫整理资料￫分析调研资料"],ans:"D"},
+                {id:197,title:"市场统计分析包括｡",opts:["A.叙述统计.理论统计","B.叙述统计.推论统计","C.推论分析.理论分析","D.归纳演绎.案例分析"],ans:"B"},
+                {id:198,title:"是市场信息工作的范畴,是运用科学方法,有目的.系统地生成市场信息,分析所得结果.传达研究发现及其暗含信息,为市场预测与管理决策提供科学依据的客观过程｡",opts:["A.市场调研","B.市场预测","C.市场分析","D.管理决策"],ans:"A"},
+                {id:199,title:"调研“产品当中增加一些环保概念,销量是否会增加”,这属于什么调研?",opts:["A.探索性调研","B.趋势性调研","C.因果性调研","D.描述性调研"],ans:"C"},
+                {id:200,title:"要想了解某广告对产品销售量的影响,选择两个城市播放广告,一个是大城市,一个是小城市,观察两个城市广告播放后产品销量是否增长,从而判断广告是否对销量有影响,这样的调研结果可能受到什么影响?",opts:["A.历史效应","B.选择效应","C.之前测试效应","D.磨损效应"],ans:"B"},
+                {id:201,title:"二手资料的特点不包括",opts:["A.调查不受时空限制","B.获取资料灵活","C.比一手资料准确","D.收集相对容易"],ans:"C"},
+                {id:202,title:"二手资料的评估主要包括:准确性评估和",opts:["A.有效性评估","B.声誉评估","C.美誉度评估","D.价值性评估"],ans:"A"},
+                {id:203,title:"互联网调研法的缺点有",opts:["A.费用高","B.查询速度慢","C.传播受时空限制","D.信息需要筛选评价"],ans:"D"},
+                {id:204,title:"下面哪个不属于常见的爬虫",opts:["A.采用网页主题的爬虫","B.采用增量方式的爬虫","C.基于整个Web 页面的爬虫","D.采用减量方式的爬虫"],ans:"D"},
+                {id:205,title:"下列哪项不是外部资料的获得渠道",opts:["A.行业协会","B.专家意见","C.政府机构","D.新闻媒体"],ans:"B"},
+                {id:206,title:"通过收集已有数据资料,并加以整理和分析的一种数据收集方法为｡",opts:["A.实地调研","B.定量调查","C.定性调查","D.文案调研"],ans:"D"},
+                {id:207,title:"观察调研法的缺点是｡",opts:["A.受时空限制","B.适用性强","C.简便易行","D.直接可靠"],ans:"A"},
+                {id:208,title:"观察调研法的特征是｡",opts:["A.可重复查证","B.不能避免主观与偏见","C.可用科学工具","D.有系统.有组织的进行"],ans:"B"},
+                {id:209,title:"是事先制定好观察计划并严格按照规定的内容和程序实施的观察｡",opts:["A.结构式观察","B.直接观察","C.无结构式观察","D.参与观察"],ans:"A"},
+                {id:210,title:"关于小组访谈描述正确的是｡",opts:["A.不需要主持人","B.耗时久.费用高","C.一种定量研究的方法","D.用于快速需求评估"],ans:"D"}
+            ],
+            multi: [
+                {id:1,title:"以下属于分项评分量表的有｡",opts:["A.李克特量表","B.语义差别量表","C.等级顺序量表","D.连续评分量表"],ans:"AB"},
+                {id:2,title:"下列哪些是TIM 定时器的计数模式?",opts:["A.向上计数模式","B.向下计数模式","C.向上/向下计数模式","D.向下/向上计数模式"],ans:"ABC"},
+                {id:3,title:"在机械加工过程中,以下哪些措施可以降低切削温度?",opts:["A.增加切削深度","B.采用合适的切削速度","C.增加切削液的流量","D.降低切削速度"],ans:"BCD"},
+                {id:4,title:"在机械传动系统中,以下哪些措施可以降低传动误差?",opts:["A.提高加工精度","B.增加传动比","C.采用更精确的轴承","D.减小摩擦阻力"],ans:"ACD"},
+                {id:5,title:"多元统计分析的类型包括｡",opts:["A.判别分析","B.因子分析","C.聚类分析","D.主成分分析"],ans:"ABCD"},
+                {id:6,title:"类比预测法包括｡",opts:["A.产品类比法","B.地区类比法","C.行业类比法","D.国际类比法","E.连续比率法"],ans:"ABCDE"},
+                {id:7,title:"市场调研要遵循的原则有｡",opts:["A.准确性原则","B.时效性原则","C.经济性原则","D.系统性原则"],ans:"ABCD"},
+                {id:8,title:"市场信息的特征有｡",opts:["A.高度的复杂性","B.很强的时效性","C.广泛地社会性","D.一定的模糊度"],ans:"ABCD"},
+                {id:9,title:"以下哪些措施可以降低机械传动系统的噪声?",opts:["A.增加传动比","B.采用减震装置","C.提高加工精度","D.使用降噪材料"],ans:"BCD"},
+                {id:10,title:"应用系统软件更新后,应该进行哪些测试?",opts:["A.硬件连接测试","B.系统功能测试","C.性能测试","D.安全性测试"],ans:"BCD"},
+                {id:11,title:"应用系统软件的更新方式通常包括以下哪些方式?",opts:["A.手动下载更新包更新","B.自动在线更新","C.USB 离线更新","D.蓝牙更新"],ans:"ABC"},
+                {id:12,title:"在进行应用系统软件更新时,应该注意哪些事项?",opts:["A.确保设备电量充足","B.不要随意中断更新过程","C.确认更新包的完整性","D.确认更新包的版本号"],ans:"ABCD"},
+                {id:13,title:"在应用系统软件更新后,如果发现新版本存在问题,应该如何处理?",opts:["A.回滚到上一个版本","B.继续使用新版本,等待后续修复","C.查找解决方法并进行修复","D.放弃使用该软件"],ans:"AC"},
+                {id:14,title:"在进行应用系统软件更新时,如果需要联网下载更新包,应该注意哪些事项?",opts:["A.确认网络连接正常","B.确认网络下载速度","C.确认下载地址的正确性","D.确认网络费用是否充足"],ans:"AC"},
+                {id:15,title:"在进行应用系统软件更新时,如果需要使用USB 离线更新,应该注意哪些事项?",opts:["A.确认更新包存储位置","B.确认USB 存储设备的正确性","C.确认USB 接口是否损坏","D.确认USB 存储设备是否格式化"],ans:"AC"},
+                {id:16,title:"市场环境调研的主要内容包括:",opts:["A.宏观环境调研","B.需求市场调研","C.竞争环境调研","D.供应市场调研"],ans:"ABCD"},
+                {id:17,title:"消费者调研主要包括:",opts:["A.消费者购买意愿调研","B.消费者购买动机调研","C.消费者购买行为调研","D.消费者人口状况调研"],ans:"BCD"},
+                {id:18,title:"下列哪些是Zigbee 技术的应用之一?",opts:["A.智能家居","B.工业自动化","C.家庭娱乐","D.智能电网"],ans:"ABD"},
+                {id:19,title:"下列哪些是蓝牙技术的应用之一?",opts:["A.耳机音频传输","B.汽车导航系统","C.无线游戏手柄","D.机器人控制系统"],ans:"AC"},
+                {id:20,title:"在STM32F407 芯片中,下列哪些定时器可以输出PWM 信号?",opts:["A.TIM1","B.TIM2","C.TIM3","D.TIM4"],ans:"ABC"},
+                {id:21,title:"以下哪些方法可以用于探索性调研?",opts:["A.观察法调研","B.案例分析","C.问卷调研","D.知情者调研"],ans:"ABD"},
+                {id:22,title:"以下哪些特点是描述性调研的特点?",opts:["A.调研方式灵活","B.调研对象广泛","C.调查结果量化","D.调研目的明确"],ans:"CD"},
+                {id:23,title:"问卷设计的主要优点有哪些?",opts:["A.标准化","B.操作容易","C.便于揭示隐性的问题","D.便于分析子群差异"],ans:"ABCD"},
+                {id:24,title:"在TIM 定时器的PWM 模式下,占空比的计算方法是什么?",opts:["A.占空比 =CCRx / ARR","B.占空比 =CCRx /","C.占空比 =ARR / CCRx","D.占空比 =/ CCRx"],ans:"AB"},
+                {id:25,title:"下列哪些是TIM 定时器的输入捕获模式?",opts:["A.PWM 输入模式","B.TI1 输入模式","C.TI2 输入模式","D.脉冲计数模式"],ans:"BC"},
+                {id:26,title:"TIM 定时器在计数器溢出时会发生什么?",opts:["A.定时器会自动清零计数器","B.定时器会产生溢出中断","C.定时器会停止计数","D.定时器会重载计数器值"],ans:"AB"},
+                {id:27,title:"调查访问法的具体形式包括｡",opts:["A.网络访问","B.个人访问","C.邮寄问卷","D.电话访问"],ans:"ABCD"},
+                {id:28,title:"以下哪些情况会导致液压系统的压力过高?",opts:["A.油泵输出流量过大","B.油泵输出流量过小","C.油液中的温度过高","D.液压缸的负载突然减轻"],ans:"ACD"},
+                {id:29,title:"在工业生产中,以下哪些因素会影响设备的寿命?",opts:["A.工作温度","B.工作湿度","C.工作负荷","D.工作环境中的腐蚀物质"],ans:"BCD"},
+                {id:30,title:"调查时间的安排主要涉及以下三个方面,即",opts:["A.安排调查标准时间","B.安排调查时期","C.调查人员的身体状况","D.被调查单位的工作安排","E.调查时间安排还需考虑季节的因素"],ans:"ABE"},
+                {id:31,title:"市场调查收集资料的基本方法有｡",opts:["A.访问法","B.时间序列法","C.实验法","D.态度测量表法"],ans:"AC"},
+            ],
+            judge: [
+                {id:1,title:"判断题：市场调研的第一步是明确调查目的。",opts:["正确","错误"],ans:"A"},
+                {id:2,title:"判断题：所有多选题的答案都可以按任意顺序填写。",opts:["正确","错误"],ans:"B"},
+                {id:3,title:"判断题：在线答题系统可以保存用户的历史答题记录。",opts:["正确","错误"],ans:"A"},
+                {id:4,title:"判断题：判断题的选项通常为“正确”和“错误”。",opts:["正确","错误"],ans:"A"},
+                {id:5,title:"判断题：页面中没有加入 localStorage 时,刷新后仍然会保留答案。",opts:["正确","错误"],ans:"B"}
+            ]
+        };
+
+        const container = document.getElementById('container');
+        const typeTabs = document.querySelectorAll('.tab-item');
+        const doneCountEl = document.getElementById('doneCount');
+        const totalCountEl = document.getElementById('totalCount');
+        const rateEl = document.getElementById('rate');
+        const showAllBtn = document.getElementById('showAllAns');
+        const resetBtn = document.getElementById('resetAll');
+
+        let currentType = 'single';
+        const answerState = { single: {}, multi: {}, judge: {} };
+        const STORAGE_KEY = 'siplib-answer-state';
+
+        function loadAnswerState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                const saved = JSON.parse(raw);
+                if (saved.single && typeof saved.single === 'object') answerState.single = saved.single;
+                if (saved.multi && typeof saved.multi === 'object') answerState.multi = saved.multi;
+                if (saved.judge && typeof saved.judge === 'object') answerState.judge = saved.judge;
+            } catch (e) {
+                console.warn('loadAnswerState failed', e);
+            }
+        }
+
+        function saveAnswerState() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(answerState));
+            } catch (e) {
+                console.warn('saveAnswerState failed', e);
+            }
+        }
+
+        loadAnswerState();
+
+        function getQuestionById(type, id) {
+            const list = questionData[type] || [];
+            return list.find(item => String(item.id) === String(id));
+        }
+
+        function restoreSelections(type) {
+            const list = questionData[type] || [];
+            list.forEach(item => {
+                const answer = answerState[type][item.id];
+                if (!answer) return;
+                const opts = container.querySelectorAll(`.opt-item[data-id="${item.id}"]`);
+                if (type === 'multi') {
+                    opts.forEach(el => {
+                        el.classList.toggle('opt-right', answer.includes(el.dataset.key));
+                        el.classList.toggle('opt-wrong', false);
+                    });
+                    showAnswerTip(type, item.id, `已选：${answer || '无'}`, false);
+                } else {
+                    const isCorrect = answer === item.ans;
+                    opts.forEach(el => {
+                        el.classList.remove('opt-right', 'opt-wrong');
+                        if (el.dataset.key === item.ans) {
+                            el.classList.add('opt-right');
+                        }
+                        if (el.dataset.key === answer && el.dataset.key !== item.ans) {
+                            el.classList.add('opt-wrong');
+                        }
+                    });
+                    if (answer) {
+                        showAnswerTip(type, item.id, `标准答案：${item.ans}`, isCorrect);
+                    }
+                }
+            });
+        }
+
+        function updateStats() {
+            const list = questionData[currentType] || [];
+            let done = 0;
+            let correct = 0;
+
+            list.forEach(item => {
+                const answer = answerState[currentType][item.id];
+                if (!answer) return;
+                done += 1;
+                if (currentType === 'multi') {
+                    const selected = answer.split('').sort().join('');
+                    const right = item.ans.split('').sort().join('');
+                    if (selected === right) correct += 1;
+                } else {
+                    if (answer === item.ans) correct += 1;
+                }
+            });
+
+            doneCountEl.textContent = done;
+            totalCountEl.textContent = list.length;
+            rateEl.textContent = list.length ? `${Math.round((correct / list.length) * 100)}%` : '0%';
+        }
+
+        function showAnswerTip(type, id, text, isCorrect) {
+            const tip = document.getElementById(`tip-${type}-${id}`);
+            if (!tip) return;
+            tip.textContent = text;
+            tip.classList.remove('answer-correct', 'answer-wrong');
+            tip.classList.add('answer-tip', isCorrect ? 'answer-correct' : 'answer-wrong');
+            tip.style.display = 'block';
+        }
+
+        function renderQuestions(type) {
+            currentType = type;
+            const list = questionData[type] || [];
+            if (!list.length) {
+                container.innerHTML = `
+                    <div class="question-wrap">
+                        <div class="q-title">当前题型暂无题目。</div>
+                    </div>`;
+                typeTabs.forEach(tab => {
+                    tab.classList.toggle('tab-active', tab.dataset.type === type);
+                });
+                updateStats();
+                return;
+            }
+
+            container.innerHTML = list.map((item, index) => {
+                const optionsHtml = item.opts.map((text, idx) => {
+                    const key = String.fromCharCode(65 + idx);
+                    return `
+                        <div class="opt-item" data-id="${item.id}" data-key="${key}">
+                            <span class="opt-label">${key}.</span>
+                            <span>${text}</span>
+                        </div>`;
+                }).join('');
+
+                return `
+                    <div class="question-wrap">
+                        <div class="q-title"><span class="q-index">${index + 1}.</span>${item.title}</div>
+                        <div class="options">${optionsHtml}</div>
+                        <div class="answer-tip" id="tip-${type}-${item.id}"></div>
+                    </div>`;
+            }).join('');
+
+            restoreSelections(type);
+            typeTabs.forEach(tab => {
+                tab.classList.toggle('tab-active', tab.dataset.type === type);
+            });
+
+            updateStats();
+        }
+
+        container.addEventListener('click', event => {
+            const opt = event.target.closest('.opt-item');
+            if (!opt) return;
+            const qid = opt.dataset.id;
+            const key = opt.dataset.key;
+            const question = getQuestionById(currentType, qid);
+            if (!question) return;
+
+            if (currentType === 'multi') {
+                const current = answerState.multi[qid] || '';
+                const next = current.includes(key) ? current.replace(key, '') : (current + key).split('').sort().join('');
+                if (next) {
+                    answerState.multi[qid] = next;
+                } else {
+                    delete answerState.multi[qid];
+                }
+
+                const opts = container.querySelectorAll(`.opt-item[data-id="${qid}"]`);
+                opts.forEach(el => {
+                    const selected = answerState.multi[qid] && answerState.multi[qid].includes(el.dataset.key);
+                    el.classList.toggle('opt-right', selected);
+                    el.classList.toggle('opt-wrong', false);
+                });
+
+                showAnswerTip(currentType, qid, `已选：${answerState.multi[qid] || '无'}`, false);
+                updateStats();
+                saveAnswerState();
+                return;
+            }
+
+            answerState[currentType][qid] = key;
+            const opts = container.querySelectorAll(`.opt-item[data-id="${qid}"]`);
+            const isCorrect = key === question.ans;
+            opts.forEach(el => {
+                el.classList.remove('opt-right', 'opt-wrong');
+                if (el.dataset.key === question.ans) {
+                    el.classList.add('opt-right');
+                } else if (el.dataset.key === key) {
+                    el.classList.add(isCorrect ? 'opt-right' : 'opt-wrong');
+                }
+            });
+
+            showAnswerTip(currentType, qid, `标准答案：${question.ans}`, isCorrect);
+            updateStats();
+            saveAnswerState();
+        });
+
+        typeTabs.forEach(tab => {
+            tab.addEventListener('click', () => renderQuestions(tab.dataset.type));
+        });
+
+        showAllBtn.addEventListener('click', () => {
+            (questionData[currentType] || []).forEach(item => {
+                const opts = container.querySelectorAll(`.opt-item[data-id="${item.id}"]`);
+                opts.forEach(el => {
+                    el.classList.toggle('opt-right', el.dataset.key === item.ans);
+                    el.classList.toggle('opt-wrong', false);
+                });
+                showAnswerTip(currentType, item.id, `标准答案：${item.ans}`, true);
+            });
+        });
+
+        resetBtn.addEventListener('click', () => {
+            answerState.single = {};
+            answerState.multi = {};
+            answerState.judge = {};
+            localStorage.removeItem(STORAGE_KEY);
+            renderQuestions(currentType);
+        });
+
+        renderQuestions(currentType);
+    </script>
+</body>
+</html>
